@@ -1,0 +1,34 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <div class="login-logo">Wrapity</div>
+
+    <h1 class="login-title">Share your music taste.</h1>
+    <p class="login-subtitle">Sign in to save, review, and discover music</p>
+
+    <form class="login-form" id="form" (submit)="onSubmit(); $event.preventDefault()">
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" [formField]="loginForm.email" />
+        @for (err of loginForm.email().errors(); track err.kind) {
+          <p class="form-error">{{ err.message }}</p>
+        }
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" [formField]="loginForm.password" />
+        @for (err of loginForm.password().errors(); track err.kind) {
+          <p class="form-error">{{ err.message }}</p>
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <p class="form-error">{{ errorMessage() }}</p>
+      }
+
+      <button class="btn-primary" type="submit">Sign in</button>
+    </form>
+
+    <p class="login-footer">Don't have an account? <a routerLink="/auth/register">Sign up</a></p>
+  </div>
+</div>

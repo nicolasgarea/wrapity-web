@@ -1,0 +1,147 @@
+@use '../../../../styles/variables' as *;
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 100vw;
+  min-height: 100vh;
+  padding: 1rem;
+  margin: 0 auto;
+  text-transform: uppercase;
+
+  @media (min-width: 786px) {
+    .login-wrapper {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      height: 80vh;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.5rem 2rem 2rem 2rem;
+      background-color: black;
+      box-shadow: 0 1px 4px rgba(200, 200, 200, 0.3);
+      transition: all 0.3s ease;
+      &:hover {
+        box-shadow: 0 1px 8px rgba(200, 200, 200, 0.3);
+      }
+    }
+    .login-logo {
+      font-size: 3rem;
+    }
+  }
+}
+
+.login-wrapper {
+  padding: 4rem 1rem;
+  width: 100%;
+  border-radius: $radius;
+}
+
+.login-logo {
+  font-family: $font-heading;
+  font-weight: 300;
+  font-size: 2.5rem;
+  letter-spacing: 0.3em;
+  color: $primary;
+  margin-bottom: 1.5rem;
+}
+
+.login-title {
+  font-family: $font-heading;
+  font-size: 1.2em;
+  font-weight: 100;
+  letter-spacing: 0.25em;
+  color: rgb(245, 245, 245);
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  font-size: 0.78rem;
+  color: $text-muted;
+  letter-spacing: 0.18em;
+  margin: 1.5rem 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-family: $font-heading;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid $text-muted;
+  margin-bottom: 1rem;
+  font-size: 0.655rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.form-input {
+  background: $bg-input;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  padding: 0.875rem 1rem;
+  color: $text;
+  font-family: $font-body;
+  font-size: 0.938rem;
+  outline: none;
+  width: 100%;
+
+  &:focus {
+    border-color: $primary;
+  }
+}
+
+.form-error {
+  color: $secondary;
+  font-size: 0.75rem;
+}
+
+.btn-primary {
+  margin-top: 1rem;
+  background: rgb(252, 243, 0);
+  color: rgb(10, 10, 10);
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  font-family: $font-heading;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  &:hover {
+    transform: translateY(-1px);
+    background: rgb(247, 247, 134);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 0.813rem;
+  color: $text-muted;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  a {
+    color: $primary;
+    text-decoration: none;
+  }
+}

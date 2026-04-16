@@ -5,6 +5,7 @@ import { UserRegister } from '../../core/models/userRegister';
 import { Observable } from 'rxjs';
 import { UserResponse } from '../../core/models/userResponse';
 import { UserLogin } from '../../core/models/userLogin';
+import { Token } from '../models/token';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class AuthService {
     return this.http.post<UserResponse>(`${this.API_URL}/auth/register`, data);
   }
 
-  login(data: UserLogin): Observable<UserLogin> {
-    return this.http.post<UserLogin>(`${this.API_URL}/auth/login`, data);
+  login(data: UserLogin): Observable<Token> {
+    return this.http.post<Token>(`${this.API_URL}/auth/login`, data);
   }
 }

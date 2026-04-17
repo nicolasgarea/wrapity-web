@@ -9,13 +9,9 @@
  */
 
 
-export interface ReviewResponse { 
-    id: number;
-    user_id: number;
-    album_id: string;
+export interface ReviewCreate { 
+    album_id: number;
     rating: number;
-    content: string;
-    created_at: string;
-    updated_at: string;
+    content?: string | null;
 }
 

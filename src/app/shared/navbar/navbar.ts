@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { House, LucideAngularModule, Search, CirclePlus, Heart, Activity } from 'lucide-angular';
 import { UserService } from '../../core/services/user.service';
-import { UserResponse } from '../../core/models/userResponse';
+import { UserResponse } from '../../core/models/model/userResponse';
 
 @Component({
   selector: 'app-navbar',

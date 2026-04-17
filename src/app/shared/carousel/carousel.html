@@ -1,0 +1,19 @@
+<section class="carousel-section">
+  @if (title) {
+    <h2>{{ title }}</h2>
+  }
+
+  <div class="carousel-container">
+    <button (click)="scroll(-1)" class="btn-nav prev" aria-label="Previous">
+      <span class="arrow">&#10094;</span>
+    </button>
+
+    <div class="carousel-viewport" #viewport>
+      <ng-content></ng-content>
+    </div>
+
+    <button (click)="scroll(1)" class="btn-nav next" aria-label="Next">
+      <span class="arrow">&#10095;</span>
+    </button>
+  </div>
+</section>

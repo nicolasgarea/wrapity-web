@@ -1,8 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import { UserLogin } from '../../../core/models/userLogin';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router } from '@angular/router';
+import { UserLogin } from '../../../core/models/model/userLogin';
 
 @Component({
   selector: 'app-login',

@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { UserRegister } from '../../core/models/userRegister';
 import { Observable } from 'rxjs';
-import { UserResponse } from '../../core/models/userResponse';
-import { UserLogin } from '../../core/models/userLogin';
-import { Token } from '../models/token';
+import { UserRegister } from '../models/model/userRegister';
+import { UserResponse } from '../models/model/userResponse';
+import { Token } from '../models/model/token';
+import { UserLogin } from '../models/model/userLogin';
 
 @Injectable({
   providedIn: 'root',

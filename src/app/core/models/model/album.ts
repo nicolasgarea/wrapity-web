@@ -13,7 +13,7 @@ import { Artist } from './artist';
 export interface Album { 
     id: number;
     title: string;
-    cover: string;
+    cover?: string | null;
     artist: Artist;
 }
 

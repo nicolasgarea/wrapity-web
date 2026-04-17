@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Album } from '../../../../core/models/album';
+import { Album } from '../../../../core/models/model/album';
 
 @Component({
   selector: 'app-trending-card',

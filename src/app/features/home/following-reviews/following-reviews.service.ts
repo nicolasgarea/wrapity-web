@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Album } from '../../../core/models/model/album';
+import { ReviewResponse } from '../../../core/models/model/reviewResponse';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TrendingAlbumsService {
+export class FollowingReviewsService {
   private http = inject(HttpClient);
   private API_URL = environment.apiUrl;
 
-  getTrendingAlbums(): Observable<Album[]> {
-    return this.http.get<Album[]>(`${this.API_URL}/albums/trending`);
+  getFollowingReviews(): Observable<ReviewResponse[]> {
+    return this.http.get<ReviewResponse[]>(`${this.API_URL}/reviews/response`);
   }
 }

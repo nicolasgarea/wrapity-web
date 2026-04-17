@@ -34,6 +34,30 @@ nav {
     align-items: center;
   }
 
+  .nav-avatar {
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid $border;
+
+    &--initials {
+      background: $surface;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: $font-heading;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: $text;
+    }
+
+    &:hover,
+    .active & {
+      border-color: $primary;
+    }
+  }
+
   a {
     display: flex;
     flex-direction: column;
@@ -59,7 +83,7 @@ nav {
     &.active {
       color: rgb(245, 245, 245);
       lucide-icon {
-        color: $primary;
+        color: $accent;
         transform: translateY(-1px);
       }
     }

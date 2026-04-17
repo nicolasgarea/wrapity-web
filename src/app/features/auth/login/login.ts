@@ -33,7 +33,7 @@ export class Login {
       this.authService.login(this.loginModel()).subscribe({
         next: (token) => {
           localStorage.setItem('access_token', token.access_token);
-          this.router.navigate(['/']);
+          this.router.navigate(['/home']);
         },
         error: () => {
           this.errorMessage.set('Invalid email or password');

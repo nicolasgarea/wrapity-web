@@ -1,0 +1,19 @@
+<section class="trending-section">
+  <h2>Trending Albums</h2>
+
+  <div class="carousel-container">
+    <button (click)="scroll(-1)" class="btn-nav prev" aria-label="Previous">
+      <span class="arrow">&#10094;</span>
+    </button>
+
+    <div class="carousel-viewport" #carousel>
+      @for (album of trendingAlbums(); track album.id) {
+        <app-trending-card [album]="album"></app-trending-card>
+      }
+    </div>
+
+    <button (click)="scroll(1)" class="btn-nav next" aria-label="Next">
+      <span class="arrow">&#10095;</span>
+    </button>
+  </div>
+</section>

@@ -12,13 +12,16 @@
     <a>
       <lucide-icon [name]="PlusIcon"></lucide-icon>
     </a>
-    <a>
-      <lucide-icon [name]="InfoIcon"></lucide-icon>
+    <a routerLink="/activity" routerLinkActive="active">
+      <lucide-icon [name]="ActivityIcon"></lucide-icon>
       <span class="label">Activity</span>
     </a>
-    <a>
-      <lucide-icon [name]="PersonIcon"></lucide-icon>
-      <span class="label">Profile</span>
+    <a routerLink="/profile" routerLinkActive="active">
+      @if (user()?.avatar_url) {
+        <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />
+      } @else {
+        <div class="nav-avatar nav-avatar--initials">{{ getInitials() }}</div>
+      }
     </a>
   </div>
 </nav>

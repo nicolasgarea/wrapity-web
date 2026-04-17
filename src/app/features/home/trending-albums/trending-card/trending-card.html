@@ -1,0 +1,8 @@
+<div class="card-container">
+  <img [src]="album().cover" [alt]="album().title" />
+  <div class="card-tag"><span class="tag-icon">✦</span> Trending</div>
+  <div class="info">
+    <h3 class="card-title">{{ album().title }}</h3>
+    <p class="card-artist">{{ album().artist.name }}</p>
+  </div>
+</div>

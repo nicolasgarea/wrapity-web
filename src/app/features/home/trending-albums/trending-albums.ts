@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { TrendingAlbumsService } from './trending-albums.service';
 import { TrendingCard } from './trending-card/trending-card';
 import { Carousel } from '../../../shared/carousel/carousel';
+import { AlbumService } from '../../../core/services/album.service';
 
 @Component({
   selector: 'app-trending-albums',
@@ -11,7 +11,7 @@ import { Carousel } from '../../../shared/carousel/carousel';
   styleUrl: './trending-albums.scss',
 })
 export class TrendingAlbums {
-  private trendingAlbumsService = inject(TrendingAlbumsService);
+  private albumService = inject(AlbumService);
 
-  trendingAlbums = toSignal(this.trendingAlbumsService.getTrendingAlbums());
+  trendingAlbums = toSignal(this.albumService.getTrending());
 }

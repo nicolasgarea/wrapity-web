@@ -1,0 +1,415 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $bg-base;
+  color: $text;
+}
+
+.detail {
+  padding-bottom: 3rem;
+}
+
+.back-btn {
+  position: absolute;
+  top: 5rem;
+  left: 1rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: $text;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateX(-5px);
+  }
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem 1.5rem 1.5rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: -40px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) saturate(1.2);
+  opacity: 0.55;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(12, 12, 14, 0.4) 0%,
+    rgba(12, 12, 14, 0.7) 50%,
+    $bg-base 100%
+  );
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.cover-wrap {
+  flex: 0 0 130px;
+  aspect-ratio: 1 / 1;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  &--placeholder {
+    background: $surface;
+  }
+}
+
+.meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-bottom: 0.25rem;
+}
+
+.artist {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: $text;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.stats {
+  display: flex;
+  align-items: stretch;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid $border;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  position: relative;
+
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: $border;
+  }
+
+  &--rating .stat-value {
+    color: $star;
+  }
+}
+
+.stat-value {
+  font-family: $font-heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $text;
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: $font-heading;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem 1.75rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.btn-primary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: $primary;
+  color: #000;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  height: 48px;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgb(247, 247, 134);
+  }
+}
+
+.btn-icon {
+  flex: 0 0 auto;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid $border;
+  border-radius: 12px;
+  color: $text;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: $secondary;
+    color: $secondary;
+  }
+}
+
+.reviews {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.section-title {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0 0 1rem;
+  padding: 0 0 0.75rem 0.5rem;
+  border-bottom: 1px solid $border;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.empty-text {
+  font-size: 0.875rem;
+  color: $text-muted;
+  margin: 0;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.review {
+  display: flex;
+  gap: 0.875rem;
+  padding: 1rem;
+  border-bottom: 1px solid $border;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.review-avatar {
+  flex: 0 0 36px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $surface-2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: $text-muted;
+  border: 1px solid $border;
+}
+
+.review-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.review-user {
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: $text;
+}
+
+.review-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: $font-heading;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $star;
+}
+
+.review-content {
+  font-family: $font-body;
+  font-size: 0.9rem;
+  color: $text;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (min-width: 786px) {
+  .back-btn {
+    top: 6.5rem;
+    left: 2rem;
+  }
+
+  .hero {
+    padding: 5rem 2.5rem 2.5rem;
+  }
+
+  .hero-bg {
+    inset: -60px;
+    filter: blur(60px) saturate(1.3);
+    opacity: 0.5;
+  }
+
+  .hero-content {
+    gap: 2.5rem;
+  }
+
+  .cover-wrap {
+    flex: 0 0 240px;
+    border-radius: $radius;
+  }
+
+  .meta {
+    padding-bottom: 1rem;
+  }
+
+  .artist {
+    font-size: 0.85rem;
+  }
+
+  .title {
+    font-size: 3.5rem;
+    line-height: 1.05;
+  }
+
+  .stats {
+    padding: 2rem 2.5rem;
+    justify-content: flex-start;
+    gap: 4rem;
+  }
+
+  .stat {
+    flex: 0 0 auto;
+    align-items: flex-start;
+
+    &:not(:last-child)::after {
+      display: none;
+    }
+  }
+
+  .stat-value {
+    font-size: 2.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  .actions {
+    padding: 1rem 2.5rem;
+    justify-content: flex-start;
+    gap: 1rem;
+  }
+
+  .btn-primary {
+    flex: 0 0 auto;
+    padding: 1rem 2.5rem;
+    font-size: 0.75rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+}

@@ -23,6 +23,11 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
+      {
+        path: 'albums/:id',
+        loadComponent: () =>
+          import('./features/albums/album-detail/album-detail').then((m) => m.AlbumDetail),
+      },
     ],
   },
   {

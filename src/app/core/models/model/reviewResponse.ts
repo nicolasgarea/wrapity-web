@@ -7,15 +7,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserPublicResponse } from './userPublicResponse';
 
 
 export interface ReviewResponse { 
     id: number;
-    user_id: number;
     album_id: number;
     rating: number;
     content?: string | null;
     created_at: string;
     updated_at: string;
+    user: UserPublicResponse;
 }
 

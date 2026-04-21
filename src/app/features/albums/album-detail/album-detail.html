@@ -1,0 +1,98 @@
+@let a = album();
+@let r = reviews();
+
+<div class="detail">
+  <button class="back-btn" (click)="goBack()" aria-label="Go back">
+    <lucide-icon [img]="ArrowLeft"></lucide-icon>
+  </button>
+
+  @if (a) {
+    <section class="hero">
+      @if (a.cover) {
+        <div class="hero-bg" [style.background-image]="'url(' + a.cover + ')'"></div>
+      }
+      <div class="hero-overlay"></div>
+
+      <div class="hero-content">
+        <div class="cover-wrap">
+          @if (a.cover) {
+            <img [src]="a.cover" [alt]="a.title" class="cover" />
+          } @else {
+            <div class="cover cover--placeholder"></div>
+          }
+        </div>
+
+        <div class="meta">
+          <p class="artist">{{ a.artist.name }}</p>
+          <h1 class="title">{{ a.title }}</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat stat--rating">
+        <span class="stat-value">
+          @if (averageRating()) {
+            {{ averageRating() | number: '1.1-1' }}
+          } @else {
+            -
+          }
+        </span>
+        <span class="stat-label">Rating</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ reviewCount() }}</span>
+        <span class="stat-label">Reviews</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ favoriteCount() }}</span>
+        <span class="stat-label">Favorites</span>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button class="btn-primary" (click)="writeReview()">
+        <span>Write your review</span>
+      </button>
+      <button class="btn-icon" (click)="toggleFavorite()">
+        <lucide-icon [img]="Heart"></lucide-icon>
+      </button>
+    </section>
+
+    <section class="reviews">
+      <h2 class="section-title">Reviews</h2>
+
+      @if (r.length === 0) {
+        <div class="empty">
+          <p class="empty-text">No reviews yet</p>
+        </div>
+      } @else {
+        <ul class="review-list">
+          @for (review of r; track review.id) {
+            <li class="review">
+              <div class="review-avatar">
+                @if (review.user.avatar_url) {
+                  <img [src]="review.user.avatar_url" [alt]="review.user.username" />
+                } @else {
+                  {{ review.user.username.charAt(0).toUpperCase() }}
+                }
+              </div>
+              <div class="review-body">
+                <div class="review-header">
+                  <span class="review-user">{{ review.user.username }}</span>
+                  <span class="review-rating">
+                    <lucide-icon [img]="Star" size="12"></lucide-icon>
+                    {{ review.rating | number: '1.1-1' }}
+                  </span>
+                </div>
+                @if (review.content) {
+                  <p class="review-content">{{ review.content }}</p>
+                }
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  }
+</div>

@@ -41,7 +41,24 @@ export class AlbumDetail {
 
   reviewCount = computed(() => this.reviews().length);
 
-  favoriteCount = computed(() => 0); // TODO
+  favoriteCount = computed(() => this.album()?.favorite_count ?? 0);
+
+  ratingDistribution = computed(() => {
+    const list = this.reviews();
+    console.log('REVIEWS:', list);
+    const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+    for (const r of list) counts[r.rating] = (counts[r.rating] ?? 0) + 1;
+    const total = list.length;
+    const result = [5, 4, 3, 2, 1].map((rating) => {
+      const count = counts[rating] ?? 0;
+      return {
+        rating,
+        count,
+        percentage: total > 0 ? (count / total) * 100 : 0,
+      };
+    });
+    return result;
+  });
 
   goBack() {
     this.location.back();
@@ -49,9 +66,5 @@ export class AlbumDetail {
 
   writeReview() {
     console.log('TODO: open review form');
-  }
-
-  toggleFavorite() {
-    console.log('TODO: favorite logic');
   }
 }

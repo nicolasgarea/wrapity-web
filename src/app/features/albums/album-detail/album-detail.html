@@ -1,12 +1,11 @@
-@let a = album();
-@let r = reviews();
-
 <div class="detail">
   <button class="back-btn" (click)="goBack()" aria-label="Go back">
     <lucide-icon [img]="ArrowLeft"></lucide-icon>
   </button>
 
-  @if (a) {
+  @if (album(); as a) {
+    @let r = reviews();
+
     <section class="hero">
       @if (a.cover) {
         <div class="hero-bg" [style.background-image]="'url(' + a.cover + ')'"></div>
@@ -23,40 +22,49 @@
         </div>
 
         <div class="meta">
-          <p class="artist">{{ a.artist.name }}</p>
           <h1 class="title">{{ a.title }}</h1>
+          <p class="artist">{{ a.artist.name }}</p>
+
+          <div class="actions">
+            <button class="btn-primary" (click)="writeReview()">
+              <span>✦ Review</span>
+            </button>
+          </div>
+          <div class="stats">
+            <div class="rating-summary">
+              <div class="rating-big">
+                @if (averageRating()) {
+                  {{ averageRating() | number: '1.1-1' }}
+                } @else {
+                  -
+                }
+              </div>
+              <div class="rating-stars">
+                @for (i of [1, 2, 3, 4, 5]; track i) {
+                  <lucide-icon
+                    [img]="Star"
+                    size="16"
+                    [class.rating-stars__filled]="i <= (averageRating() ?? 0)"
+                  ></lucide-icon>
+                }
+              </div>
+              <div class="rating-count">{{ reviewCount() }} reviews</div>
+            </div>
+
+            <div class="rating-distribution">
+              @for (row of ratingDistribution(); track row.rating) {
+                <div class="dist-row">
+                  <span class="dist-label">{{ row.rating }}★</span>
+                  <div class="dist-bar">
+                    <div class="dist-bar-fill" [style.width.%]="row.percentage"></div>
+                  </div>
+                  <span class="dist-count">{{ row.count }}</span>
+                </div>
+              }
+            </div>
+          </div>
         </div>
       </div>
-    </section>
-
-    <section class="stats">
-      <div class="stat stat--rating">
-        <span class="stat-value">
-          @if (averageRating()) {
-            {{ averageRating() | number: '1.1-1' }}
-          } @else {
-            -
-          }
-        </span>
-        <span class="stat-label">Rating</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">{{ reviewCount() }}</span>
-        <span class="stat-label">Reviews</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">{{ favoriteCount() }}</span>
-        <span class="stat-label">Favorites</span>
-      </div>
-    </section>
-
-    <section class="actions">
-      <button class="btn-primary" (click)="writeReview()">
-        <span>Write your review</span>
-      </button>
-      <button class="btn-icon" (click)="toggleFavorite()">
-        <lucide-icon [img]="Heart"></lucide-icon>
-      </button>
     </section>
 
     <section class="reviews">

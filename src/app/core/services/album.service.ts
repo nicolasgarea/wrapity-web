@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Album } from '../models/model/album';
+import { AlbumDetail } from '../models/model/albumDetail';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class AlbumService {
     return this.http.get<Album[]>(`${this.API_URL}/trending`);
   }
 
-  getById(id: number): Observable<Album> {
+  getById(id: number): Observable<AlbumDetail> {
     return this.http.get<Album>(`${this.API_URL}/${id}`);
   }
 

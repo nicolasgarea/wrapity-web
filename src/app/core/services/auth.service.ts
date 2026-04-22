@@ -21,4 +21,8 @@ export class AuthService {
   login(data: UserLogin): Observable<Token> {
     return this.http.post<Token>(`${this.API_URL}/auth/login`, data);
   }
+
+  getMe(): Observable<UserResponse> {
+    return this.http.get<UserResponse>(`${this.API_URL}/users/me`);
+  }
 }

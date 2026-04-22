@@ -1,34 +1,38 @@
 @use '../../../styles/variables' as *;
 
-:host {
-  display: block;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: #050505;
-  padding: 1.2rem 1.5rem;
-  border-bottom: 1px solid $text-muted;
-  color: $primary;
+.header-container {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background-color: black;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-  backdrop-filter: blur(8px);
-
-  @media (min-width: 786px) {
+  @media (min-width: 768px) {
     display: none;
   }
 }
 
-.header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .logo {
-  font-family: $font-heading;
-  font-weight: 300;
-  font-size: 1.2rem;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  margin: 0;
-  color: $primary;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  line-height: 1;
+
+  app-logo {
+    width: 26px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  &__text {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.04em;
+    color: $text;
+    line-height: 1;
+  }
 }

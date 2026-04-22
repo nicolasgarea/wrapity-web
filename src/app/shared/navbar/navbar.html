@@ -1,21 +1,30 @@
 <nav>
-  <a routerLink="/" class="nav-logo">WRAPITY</a>
+  <a routerLink="/" class="nav-logo" aria-label="Wrapity">
+    <app-logo variant="icon"></app-logo>
+    <span class="nav-logo__text">wrapity</span>
+  </a>
   <div class="nav-items">
-    <a>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-mobile-only"
+    >
       <lucide-icon [name]="HouseIcon"></lucide-icon>
-      <span class="label">Home</span>
     </a>
-    <a>
+
+    <a routerLink="/search" routerLinkActive="active">
       <lucide-icon [name]="SearchIcon"></lucide-icon>
-      <span class="label">Search</span>
     </a>
-    <a>
+
+    <a routerLink="/create" routerLinkActive="active" class="nav-create">
       <lucide-icon [name]="PlusIcon"></lucide-icon>
     </a>
+
     <a routerLink="/activity" routerLinkActive="active">
       <lucide-icon [name]="ActivityIcon"></lucide-icon>
-      <span class="label">Activity</span>
     </a>
+
     <a routerLink="/profile" routerLinkActive="active">
       @if (user()?.avatar_url) {
         <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />

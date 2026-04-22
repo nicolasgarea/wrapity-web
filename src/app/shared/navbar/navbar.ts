@@ -3,10 +3,11 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { House, LucideAngularModule, Search, CirclePlus, Heart, Activity } from 'lucide-angular';
 import { UserService } from '../../core/services/user.service';
 import { UserResponse } from '../../core/models/model/userResponse';
+import { Logo } from '../logo/logo';
 
 @Component({
   selector: 'app-navbar',
-  imports: [LucideAngularModule, RouterLink, RouterLinkActive],
+  imports: [LucideAngularModule, RouterLink, RouterLinkActive, Logo],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })

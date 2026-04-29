@@ -12,6 +12,6 @@ export class FollowingReviewsService {
   private API_URL = environment.apiUrl;
 
   getFollowingReviews(): Observable<ReviewResponse[]> {
-    return this.http.get<ReviewResponse[]>(`${this.API_URL}/reviews/response`);
+    return this.http.get<ReviewResponse[]>(`${this.API_URL}/reviews/following`);
   }
 }

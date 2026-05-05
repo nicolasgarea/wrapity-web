@@ -8,7 +8,7 @@
 }
 
 .detail {
-  padding-bottom: 3rem;
+  padding-bottom: 4rem;
 }
 
 lucide-icon {
@@ -31,14 +31,19 @@ lucide-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
   color: $text;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
 
   &:hover {
-    transform: translateX(-5px);
+    transform: translateX(-3px);
+    background: rgba(0, 0, 0, 0.55);
   }
 }
 
@@ -48,7 +53,7 @@ lucide-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.5rem 2rem;
+  padding: 4rem 1.25rem 2rem;
 }
 
 .hero-bg {
@@ -109,64 +114,36 @@ lucide-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
+}
+
+.artist {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0;
 }
 
 .title {
   font-family: $font-heading;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 700;
   line-height: 1.15;
   color: $text;
   margin: 0;
 }
 
-.artist {
-  font-family: $font-heading;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.25em;
-  color: $text-muted;
-  margin: 0;
-}
-
-.actions {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-
-.btn-primary {
-  width: 100%;
-  max-width: 280px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $primary;
-  color: #000;
-  border: none;
-  border-radius: 999px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  transition: background 0.3s ease;
-
-  &:hover {
-    background: rgb(247, 247, 134);
-  }
-}
-
 .stats {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 1rem;
   width: 100%;
-  max-width: 560px;
   margin-top: 1rem;
-  padding: 1.5rem 1.25rem;
+  padding: 1.25rem 1rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 20px;
@@ -177,13 +154,17 @@ lucide-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
+  justify-content: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  min-width: 90px;
+  padding-right: 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .rating-big {
   font-family: $font-heading;
-  font-size: 2.5rem;
+  font-size: 2.25rem;
   font-weight: 700;
   color: $star;
   line-height: 1;
@@ -194,6 +175,10 @@ lucide-icon {
   gap: 0.15rem;
   color: $text-muted;
   opacity: 0.35;
+
+  &--lg {
+    gap: 0.2rem;
+  }
 }
 
 .rating-stars__filled {
@@ -203,25 +188,27 @@ lucide-icon {
 
 .rating-count {
   font-family: $font-body;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: $text-muted;
+  text-align: center;
+  letter-spacing: 0.05em;
 }
 
 .rating-distribution {
-  max-width: none;
   flex: 1 1 auto;
   min-width: 0;
-  gap: 0.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
 }
 
 .dist-row {
   display: grid;
-  grid-template-columns: 28px 1fr 28px;
+  grid-template-columns: 24px 1fr 22px;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.8rem;
+  gap: 0.5rem;
+  font-size: 0.75rem;
   color: $text-muted;
 }
 
@@ -230,13 +217,15 @@ lucide-icon {
   font-weight: 700;
   color: $text;
   text-align: right;
+  font-size: 0.75rem;
 }
 
 .dist-bar {
-  height: 8px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   overflow: hidden;
+  min-width: 0;
 }
 
 .dist-bar-fill {
@@ -249,12 +238,14 @@ lucide-icon {
 .dist-count {
   font-variant-numeric: tabular-nums;
   text-align: left;
+  font-size: 0.75rem;
 }
 
+.my-review,
 .reviews {
   max-width: 900px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.5rem 1.25rem;
 }
 
 .section-title {
@@ -267,6 +258,309 @@ lucide-icon {
   margin: 0 0 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid $border;
+}
+
+.my-review-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.my-review-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.my-review-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.my-review-card__score {
+  font-family: $font-heading;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: $star;
+  line-height: 1;
+}
+
+.my-review-card__content {
+  font-family: $font-body;
+  font-size: 0.95rem;
+  color: $text;
+  line-height: 1.55;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.my-review-card__empty {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  color: $text-muted;
+  font-style: italic;
+  margin: 0;
+}
+
+.my-review-card__foot {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid $border;
+  padding-top: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.rate-box {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rate-box__hint {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0;
+  text-align: center;
+
+  strong {
+    color: $star;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+}
+
+.rate-stars {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.rate-star {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.rate-star__bg,
+.rate-star__fg {
+  width: 100%;
+  height: 100%;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.rate-star__bg {
+  color: $text-muted;
+  opacity: 0.3;
+}
+
+.rate-star__fill {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  width: 0;
+  transition: width 0.12s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none;
+}
+
+.rate-star__fg {
+  color: $star;
+  fill: $star;
+  flex-shrink: 0;
+}
+
+.rate-box__text-wrap {
+  width: 100%;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.4s ease,
+    opacity 0.3s ease,
+    margin 0.3s ease;
+  position: relative;
+
+  &--open {
+    max-height: 260px;
+    opacity: 1;
+    margin-top: 0.25rem;
+  }
+}
+
+.rate-box__textarea {
+  width: 100%;
+  background: $bg-input;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  padding: 0.875rem 1rem;
+  color: $text;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  resize: vertical;
+  outline: none;
+  min-height: 100px;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.rate-box__counter {
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.75rem;
+  font-family: $font-body;
+  font-size: 0.7rem;
+  color: $text-muted;
+  background: rgba(34, 34, 34, 0.85);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.rate-box__actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  flex: 1;
+  min-width: 140px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $primary;
+  color: #000;
+  border: none;
+  border-radius: 200px;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: rgb(247, 247, 134);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  flex: 0 0 auto;
+  min-width: 110px;
+  height: 46px;
+  padding: 0 1.25rem;
+  background: transparent;
+  color: $text;
+  border: 1px solid $border;
+  border-radius: 200px;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+  &:hover {
+    border-color: $text-muted;
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid $border;
+  color: $text;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+.btn-link-danger {
+  background: transparent;
+  border: none;
+  color: $secondary;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .empty {
@@ -285,7 +579,7 @@ lucide-icon {
 .review {
   display: flex;
   gap: 0.875rem;
-  padding: 1rem;
+  padding: 1rem 0;
   border-bottom: 1px solid $border;
 
   &:last-child {
@@ -354,6 +648,7 @@ lucide-icon {
   color: $text;
   line-height: 1.55;
   margin: 0;
+  white-space: pre-wrap;
 }
 
 @media (min-width: 786px) {
@@ -380,7 +675,7 @@ lucide-icon {
   }
 
   .cover-wrap {
-    width: 340px;
+    width: 320px;
     flex-shrink: 0;
     border-radius: $radius;
   }
@@ -392,53 +687,89 @@ lucide-icon {
     min-width: 0;
   }
 
+  .artist {
+    font-size: 0.85rem;
+  }
+
   .title {
     font-size: 3rem;
     line-height: 1.05;
-    text-align: left;
-  }
-
-  .artist {
-    font-size: 0.9rem;
   }
 
   .stats {
     gap: 2rem;
     padding: 1.5rem 2rem;
-    max-width: 650px;
     margin-top: 0.5rem;
+  }
+
+  .rating-summary {
+    min-width: 120px;
+    padding-right: 2rem;
+    gap: 0.5rem;
   }
 
   .rating-big {
     font-size: 3rem;
   }
 
+  .rating-count {
+    font-size: 0.75rem;
+  }
+
   .rating-distribution {
-    gap: 0.6rem;
+    gap: 0.55rem;
+  }
+
+  .dist-row {
+    grid-template-columns: 32px 1fr 32px;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .dist-label,
+  .dist-count {
+    font-size: 0.8rem;
   }
 
   .dist-bar {
-    height: 10px;
+    height: 8px;
   }
 
-  .actions {
-    justify-content: flex-start;
-    margin-top: 0.5rem;
-  }
-
-  .btn-primary {
-    width: auto;
-    max-width: none;
-    padding: 0 4rem;
-    font-size: 1rem;
-  }
-
+  .my-review,
   .reviews {
-    padding: 1.5rem 4rem;
+    padding: 2rem 4rem;
   }
 
   .section-title {
     font-size: 0.75rem;
     margin-bottom: 1.5rem;
+  }
+
+  .rate-box {
+    padding: 2rem;
+    gap: 1.25rem;
+  }
+
+  .rate-stars {
+    gap: 0.6rem;
+  }
+
+  .rate-star {
+    width: 48px;
+    height: 48px;
+  }
+
+  .rate-box__actions {
+    justify-content: flex-end;
+  }
+
+  .btn-primary {
+    flex: 0 0 auto;
+    min-width: 200px;
+    padding: 0 2.5rem;
+  }
+
+  .my-review-card {
+    padding: 1.5rem 2rem;
   }
 }

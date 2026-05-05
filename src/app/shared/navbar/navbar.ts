@@ -1,7 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { House, LucideAngularModule, Search, CirclePlus, Heart, Activity } from 'lucide-angular';
+import { House, LucideAngularModule, Search, CirclePlus, Heart, Activity, LogOut } from 'lucide-angular';
 import { UserService } from '../../core/services/user.service';
+import { AuthService } from '../../core/services/auth.service';
 import { UserResponse } from '../../core/models/model/userResponse';
 import { Logo } from '../logo/logo';
 
@@ -13,12 +14,14 @@ import { Logo } from '../logo/logo';
 })
 export class Navbar implements OnInit {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
 
   readonly HouseIcon = House;
   readonly SearchIcon = Search;
   readonly PlusIcon = CirclePlus;
   readonly HeartIcon = Heart;
   readonly ActivityIcon = Activity;
+  readonly LogOutIcon = LogOut;
 
   user = signal<UserResponse | null>(null);
 
@@ -33,5 +36,9 @@ export class Navbar implements OnInit {
     const username = this.user()?.username;
     if (!username) return '?';
     return username.charAt(0).toUpperCase();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

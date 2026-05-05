@@ -32,5 +32,9 @@
         <div class="nav-avatar nav-avatar--initials">{{ getInitials() }}</div>
       }
     </a>
+
+    <button class="nav-logout" (click)="logout()" aria-label="Log out">
+      <lucide-icon [img]="LogOutIcon"></lucide-icon>
+    </button>
   </div>
 </nav>

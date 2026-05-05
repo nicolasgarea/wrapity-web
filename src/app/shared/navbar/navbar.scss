@@ -75,13 +75,17 @@ nav {
     }
   }
 
-  .nav-items a {
+  .nav-items a,
+  .nav-logout {
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: inherit;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 0;
 
     lucide-icon {
       color: $text-muted;
@@ -97,6 +101,11 @@ nav {
       color: $primary;
       transform: translateY(-1px);
     }
+  }
+
+  .nav-logout:hover lucide-icon {
+    color: $secondary;
+    transform: translateY(-1px);
   }
 
   @media (min-width: 768px) {

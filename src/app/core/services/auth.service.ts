@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { UserRegister } from '../models/model/userRegister';
@@ -12,6 +13,7 @@ import { UserLogin } from '../models/model/userLogin';
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   private API_URL = environment.apiUrl;
 
   register(data: UserRegister): Observable<UserResponse> {
@@ -24,5 +26,10 @@ export class AuthService {
 
   getMe(): Observable<UserResponse> {
     return this.http.get<UserResponse>(`${this.API_URL}/users/me`);
+  }
+
+  logout(): void {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['/auth/login']);
   }
 }

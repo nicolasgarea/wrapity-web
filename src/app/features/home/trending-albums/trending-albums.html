@@ -1,5 +1,5 @@
 <app-carousel title="Trending Albums">
-  @for (album of trendingAlbums(); track album.id) {
-    <app-trending-card [album]="album" />
+  @for (album of trendingAlbums(); track album.id; let i = $index) {
+    <app-trending-card [album]="album" [rank]="i + 1" />
   }
 </app-carousel>

@@ -1,4 +1,14 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  ElementRef,
+  inject,
+  input,
+  OnDestroy,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +24,7 @@ import { AuthService } from '../../../core/services/auth.service';
   templateUrl: './album-detail.html',
   styleUrl: './album-detail.scss',
 })
-export class AlbumDetail {
+export class AlbumDetail implements OnDestroy {
   id = input.required<string>();
 
   private albumService = inject(AlbumService);
@@ -25,6 +35,7 @@ export class AlbumDetail {
   readonly ArrowLeft = ArrowLeft;
   readonly Star = Star;
   readonly stars = [1, 2, 3, 4, 5];
+  readonly PAGE_SIZE = 10;
 
   album = toSignal(
     toObservable(this.id).pipe(switchMap((id) => this.albumService.getById(Number(id)))),
@@ -33,19 +44,16 @@ export class AlbumDetail {
   private reviewsList = signal<any[]>([]);
   reviews = this.reviewsList.asReadonly();
 
-  private currentUser = toSignal(this.auth.getMe());
+  private myReviewSignal = signal<any | null>(null);
+  myReview = this.myReviewSignal.asReadonly();
 
-  myReview = computed(() => {
-    const uid = this.currentUser()?.id;
-    if (!uid) return null;
-    return this.reviews().find((r) => r.user?.id === uid) ?? null;
-  });
+  loadingMore = signal(false);
+  hasMore = signal(true);
+  private offset = 0;
+  private inFlight = false;
+  private observer?: IntersectionObserver;
 
-  otherReviews = computed(() => {
-    const uid = this.currentUser()?.id;
-    if (!uid) return this.reviews();
-    return this.reviews().filter((r) => r.user?.id !== uid);
-  });
+  sentinel = viewChild<ElementRef<HTMLDivElement>>('sentinel');
 
   averageRating = computed(() => {
     const list = this.reviews();
@@ -58,20 +66,16 @@ export class AlbumDetail {
 
   ratingDistribution = computed(() => {
     const list = this.reviews();
-    const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-    for (const r of list) {
-      const k = Math.round(r.rating);
-      counts[k] = (counts[k] ?? 0) + 1;
-    }
-    const total = list.length;
-    return [5, 4, 3, 2, 1].map((rating) => {
-      const count = counts[rating] ?? 0;
-      return {
-        rating,
-        count,
-        percentage: total > 0 ? (count / total) * 100 : 0,
-      };
-    });
+    const counts = [1, 2, 3, 4, 5].map(
+      (rating) => list.filter((r) => Math.round(r.rating) === rating).length,
+    );
+    const max = Math.max(...counts, 1);
+
+    return [5, 4, 3, 2, 1].map((rating) => ({
+      rating,
+      count: counts[rating - 1],
+      percentage: (counts[rating - 1] / max) * 100,
+    }));
   });
 
   isEditing = signal(false);
@@ -79,18 +83,76 @@ export class AlbumDetail {
   hoverRating = signal<number | null>(null);
   draftContent = signal('');
   isSubmitting = signal(false);
+  showComment = signal(false);
 
   constructor() {
-    toObservable(this.id)
-      .pipe(switchMap((id) => this.reviewService.getByAlbum(Number(id))))
-      .subscribe((list) => {
-        this.reviewsList.set(list ?? []);
-        const mine = this.myReview();
-        if (mine) {
-          this.draftRating.set(mine.rating);
-          this.draftContent.set(mine.content ?? '');
+    toObservable(this.id).subscribe((id) => {
+      this.reviewsList.set([]);
+      this.myReviewSignal.set(null);
+      this.offset = 0;
+      this.hasMore.set(true);
+      this.inFlight = false;
+      this.draftRating.set(0);
+      this.draftContent.set('');
+      this.showComment.set(false);
+      this.isEditing.set(false);
+
+      this.loadPage(Number(id));
+      this.loadMyReview(Number(id));
+    });
+
+    effect(() => {
+      const el = this.sentinel()?.nativeElement;
+      if (el && !this.observer) this.attachObserver(el);
+    });
+  }
+
+  ngOnDestroy() {
+    this.observer?.disconnect();
+  }
+
+  private loadMyReview(albumId: number) {
+    this.reviewService.getMyReviews().subscribe({
+      next: (all) => {
+        const found = all.find((r) => Number(r.album_id) === albumId) ?? null;
+        this.myReviewSignal.set(found);
+        if (found) {
+          this.draftRating.set(found.rating);
+          this.draftContent.set(found.content ?? '');
         }
-      });
+      },
+    });
+  }
+
+  private attachObserver(el: HTMLElement) {
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) this.loadPage(Number(this.id()));
+      },
+      { root: null, rootMargin: '0px 0px 100px 0px', threshold: 0 },
+    );
+    this.observer.observe(el);
+  }
+
+  private loadPage(albumId: number) {
+    if (this.inFlight || !this.hasMore()) return;
+    this.inFlight = true;
+    this.loadingMore.set(true);
+
+    this.reviewService.getByAlbum(albumId, this.PAGE_SIZE, this.offset).subscribe({
+      next: (list) => {
+        const newItems = list ?? [];
+        this.reviewsList.update((curr) => [...curr, ...newItems]);
+        this.offset += newItems.length;
+        if (newItems.length < this.PAGE_SIZE) this.hasMore.set(false);
+        this.loadingMore.set(false);
+        this.inFlight = false;
+      },
+      error: () => {
+        this.loadingMore.set(false);
+        this.inFlight = false;
+      },
+    });
   }
 
   getStarFillPercent(i: number): number {
@@ -113,11 +175,16 @@ export class AlbumDetail {
     this.hoverRating.set(null);
   }
 
+  toggleComment() {
+    this.showComment.update((v) => !v);
+  }
+
   startEdit() {
     const mine = this.myReview();
     if (!mine) return;
     this.draftRating.set(mine.rating);
     this.draftContent.set(mine.content ?? '');
+    this.showComment.set(!!mine.content);
     this.isEditing.set(true);
   }
 
@@ -130,6 +197,7 @@ export class AlbumDetail {
       this.draftRating.set(0);
       this.draftContent.set('');
     }
+    this.showComment.set(false);
     this.isEditing.set(false);
   }
 
@@ -149,6 +217,8 @@ export class AlbumDetail {
 
     op$.subscribe({
       next: (saved) => {
+        this.myReviewSignal.set(saved);
+
         const list = this.reviews();
         const idx = list.findIndex((r) => r.id === saved.id);
         if (idx >= 0) {
@@ -158,6 +228,8 @@ export class AlbumDetail {
         } else {
           this.reviewsList.set([saved, ...list]);
         }
+
+        this.showComment.set(false);
         this.isEditing.set(false);
         this.isSubmitting.set(false);
       },
@@ -171,9 +243,11 @@ export class AlbumDetail {
     if (!confirm('Are you sure you want to delete your review?')) return;
 
     this.reviewService.delete(mine.id).subscribe(() => {
+      this.myReviewSignal.set(null);
       this.reviewsList.set(this.reviews().filter((r) => r.id !== mine.id));
       this.draftRating.set(0);
       this.draftContent.set('');
+      this.showComment.set(false);
       this.isEditing.set(false);
     });
   }

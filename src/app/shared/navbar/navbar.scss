@@ -129,13 +129,3 @@ nav {
     }
   }
 }
-
-body {
-  margin: 0;
-  padding-bottom: 70px;
-
-  @media (min-width: 768px) {
-    padding-bottom: 0;
-    padding-top: 85px;
-  }
-}

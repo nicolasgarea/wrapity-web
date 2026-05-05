@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TrendingAlbums } from './trending-albums/trending-albums';
-import { FollowingReviews } from './following-reviews/following-reviews';
+import { FollowingFeed } from './following-feed/following-feed';
 
 @Component({
   selector: 'app-home',
-  imports: [TrendingAlbums, FollowingReviews],
+  imports: [TrendingAlbums, FollowingFeed],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

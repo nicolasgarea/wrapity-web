@@ -37,12 +37,8 @@ lucide-icon {
   color: $text;
   cursor: pointer;
   backdrop-filter: blur(8px);
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease;
 
   &:hover {
-    transform: translateX(-3px);
     background: rgba(0, 0, 0, 0.55);
   }
 }
@@ -85,17 +81,18 @@ lucide-icon {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   width: 100%;
-  max-width: 600px;
+  max-width: 1200px;
 }
 
 .cover-wrap {
-  width: 220px;
+  width: 200px;
   aspect-ratio: 1 / 1;
   border-radius: $radius-sm;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
 }
 
 .cover {
@@ -103,10 +100,10 @@ lucide-icon {
   height: 100%;
   object-fit: cover;
   display: block;
+}
 
-  &--placeholder {
-    background: $surface;
-  }
+.cover-placeholder {
+  background: $surface;
 }
 
 .meta {
@@ -129,7 +126,7 @@ lucide-icon {
 
 .title {
   font-family: $font-heading;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.15;
   color: $text;
@@ -138,15 +135,13 @@ lucide-icon {
 
 .stats {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
   gap: 1rem;
   width: 100%;
-  margin-top: 1rem;
-  padding: 1.25rem 1rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 20px;
+  border-radius: 16px;
   backdrop-filter: blur(10px);
 }
 
@@ -155,35 +150,39 @@ lucide-icon {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.3rem;
   flex: 0 0 auto;
-  min-width: 90px;
+  min-width: 80px;
   padding-right: 1rem;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .rating-big {
   font-family: $font-heading;
-  font-size: 2.25rem;
+  font-size: 2rem;
   font-weight: 700;
   color: $star;
   line-height: 1;
 }
 
-.rating-stars {
+.rating-stars-row {
   display: inline-flex;
   gap: 0.15rem;
-  color: $text-muted;
-  opacity: 0.35;
+  color: $star;
 
-  &--lg {
+  ::ng-deep svg {
+    fill: transparent;
+  }
+
+  &.lg {
     gap: 0.2rem;
   }
 }
 
-.rating-stars__filled {
-  color: $star;
-  opacity: 1;
+.rating-stars-row .filled {
+  ::ng-deep svg {
+    fill: $star;
+  }
 }
 
 .rating-count {
@@ -191,7 +190,6 @@ lucide-icon {
   font-size: 0.7rem;
   color: $text-muted;
   text-align: center;
-  letter-spacing: 0.05em;
 }
 
 .rating-distribution {
@@ -200,7 +198,7 @@ lucide-icon {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .dist-row {
@@ -217,7 +215,6 @@ lucide-icon {
   font-weight: 700;
   color: $text;
   text-align: right;
-  font-size: 0.75rem;
 }
 
 .dist-bar {
@@ -232,18 +229,16 @@ lucide-icon {
   height: 100%;
   background: $star;
   border-radius: 999px;
-  transition: width 0.6s ease;
 }
 
 .dist-count {
   font-variant-numeric: tabular-nums;
   text-align: left;
-  font-size: 0.75rem;
 }
 
-.my-review,
+.rate-section,
 .reviews {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 1.5rem 1.25rem;
 }
@@ -260,97 +255,21 @@ lucide-icon {
   border-bottom: 1px solid $border;
 }
 
-.my-review-card {
+.rate-box {
   background: $surface;
   border: 1px solid $border;
   border-radius: $radius;
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
-}
-
-.my-review-card__head {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.my-review-card__rating {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.my-review-card__score {
-  font-family: $font-heading;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: $star;
-  line-height: 1;
-}
-
-.my-review-card__content {
-  font-family: $font-body;
-  font-size: 0.95rem;
-  color: $text;
-  line-height: 1.55;
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-.my-review-card__empty {
-  font-family: $font-body;
-  font-size: 0.85rem;
-  color: $text-muted;
-  font-style: italic;
-  margin: 0;
-}
-
-.my-review-card__foot {
-  display: flex;
-  justify-content: flex-end;
-  border-top: 1px solid $border;
-  padding-top: 0.75rem;
-  margin-top: 0.25rem;
-}
-
-.rate-box {
-  background: $surface;
-  border: 1px solid $border;
-  border-radius: $radius;
-  padding: 1.5rem 1.25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.rate-box__hint {
-  font-family: $font-heading;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: $text-muted;
-  margin: 0;
-  text-align: center;
-
-  strong {
-    color: $star;
-    font-weight: 700;
-    letter-spacing: 0;
-  }
 }
 
 .rate-stars {
   display: flex;
   gap: 0.4rem;
-  padding: 0.5rem 0;
-  cursor: pointer;
   user-select: none;
-  touch-action: pan-y;
 }
 
 .rate-star {
@@ -364,15 +283,10 @@ lucide-icon {
   border: none;
   padding: 0;
   cursor: pointer;
-  transition: transform 0.15s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
-.rate-star__bg,
-.rate-star__fg {
+.rate-star-bg,
+.rate-star-fg {
   width: 100%;
   height: 100%;
 
@@ -382,60 +296,85 @@ lucide-icon {
   }
 }
 
-.rate-star__bg {
+.rate-star-bg {
   color: $text-muted;
   opacity: 0.3;
+
+  ::ng-deep svg {
+    fill: transparent;
+  }
 }
 
-.rate-star__fill {
+.rate-star-fill {
   position: absolute;
   inset: 0;
   overflow: hidden;
   width: 0;
-  transition: width 0.12s ease;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   pointer-events: none;
 }
 
-.rate-star__fg {
+.rate-star-fg {
   color: $star;
-  fill: $star;
   flex-shrink: 0;
-}
 
-.rate-box__text-wrap {
-  width: 100%;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition:
-    max-height 0.4s ease,
-    opacity 0.3s ease,
-    margin 0.3s ease;
-  position: relative;
-
-  &--open {
-    max-height: 260px;
-    opacity: 1;
-    margin-top: 0.25rem;
+  ::ng-deep svg {
+    fill: $star;
   }
 }
 
-.rate-box__textarea {
+.rate-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  align-items: center;
+}
+
+.btn-comment {
+  background: transparent;
+  border: 1px dashed $border;
+  color: $text-muted;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary;
+    border-style: solid;
+    color: $primary;
+  }
+
+  &.active {
+    border-color: $primary;
+    border-style: solid;
+    color: $primary;
+  }
+}
+
+.rate-actions {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.rate-textarea {
   width: 100%;
   background: $bg-input;
   border: 1.5px solid $border;
   border-radius: $radius-sm;
-  padding: 0.875rem 1rem;
+  padding: 0.75rem;
   color: $text;
   font-family: $font-body;
-  font-size: 0.95rem;
-  resize: vertical;
+  font-size: 0.9rem;
+  resize: none;
   outline: none;
-  min-height: 100px;
-  transition: border-color 0.2s ease;
 
   &:focus {
     border-color: $primary;
@@ -446,34 +385,50 @@ lucide-icon {
   }
 }
 
-.rate-box__counter {
-  position: absolute;
-  bottom: 0.6rem;
-  right: 0.75rem;
-  font-family: $font-body;
-  font-size: 0.7rem;
-  color: $text-muted;
-  background: rgba(34, 34, 34, 0.85);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  pointer-events: none;
+.my-review-card {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.rate-box__actions {
+.my-review-head {
   display: flex;
+  align-items: center;
   gap: 0.75rem;
-  width: 100%;
-  margin-top: 0.5rem;
   flex-wrap: wrap;
+}
+
+.my-review-score {
+  font-family: $font-heading;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: $star;
+  line-height: 1;
+}
+
+.my-review-content {
+  font-family: $font-body;
+  font-size: 0.95rem;
+  color: $text;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.my-review-empty {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  color: $text-muted;
+  font-style: italic;
+  margin: 0;
 }
 
 .btn-primary {
   flex: 1;
-  min-width: 140px;
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 44px;
   background: $primary;
   color: #000;
   border: none;
@@ -484,13 +439,9 @@ lucide-icon {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
-  transition:
-    background 0.3s ease,
-    transform 0.2s ease;
 
   &:hover:not(:disabled) {
     background: rgb(247, 247, 134);
-    transform: translateY(-1px);
   }
 
   &:disabled {
@@ -501,8 +452,7 @@ lucide-icon {
 
 .btn-secondary {
   flex: 0 0 auto;
-  min-width: 110px;
-  height: 46px;
+  height: 44px;
   padding: 0 1.25rem;
   background: transparent;
   color: $text;
@@ -514,17 +464,14 @@ lucide-icon {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
 
   &:hover {
     border-color: $text-muted;
-    background: rgba(255, 255, 255, 0.03);
   }
 }
 
 .btn-ghost {
+  margin-left: auto;
   background: transparent;
   border: 1px solid $border;
   color: $text;
@@ -536,7 +483,6 @@ lucide-icon {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: border-color 0.2s ease;
 
   &:hover {
     border-color: $primary;
@@ -545,18 +491,18 @@ lucide-icon {
 }
 
 .btn-link-danger {
+  align-self: flex-end;
   background: transparent;
   border: none;
   color: $secondary;
   font-family: $font-heading;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0;
   opacity: 0.8;
-  transition: opacity 0.2s ease;
 
   &:hover {
     opacity: 1;
@@ -651,6 +597,37 @@ lucide-icon {
   white-space: pre-wrap;
 }
 
+.caught-up {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem 0 0.5rem;
+  width: 100%;
+}
+
+.caught-up-line {
+  flex: 1 1 0;
+  min-width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, $border 50%, transparent 100%);
+}
+
+.caught-up-text {
+  font-family: $font-heading;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $text-muted;
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+.sentinel {
+  height: 1px;
+}
+
 @media (min-width: 786px) {
   .back-btn {
     top: 6.5rem;
@@ -658,7 +635,7 @@ lucide-icon {
   }
 
   .hero {
-    padding: 5rem 3rem 4rem;
+    padding: 5rem 2rem 3rem;
   }
 
   .hero-bg {
@@ -670,13 +647,11 @@ lucide-icon {
     flex-direction: row;
     align-items: center;
     text-align: left;
-    gap: 3rem;
-    max-width: 1100px;
+    gap: 2.5rem;
   }
 
   .cover-wrap {
-    width: 320px;
-    flex-shrink: 0;
+    width: 280px;
     border-radius: $radius;
   }
 
@@ -692,84 +667,72 @@ lucide-icon {
   }
 
   .title {
-    font-size: 3rem;
+    font-size: 2.6rem;
     line-height: 1.05;
   }
 
   .stats {
-    gap: 2rem;
-    padding: 1.5rem 2rem;
-    margin-top: 0.5rem;
+    padding: 1.25rem 1.5rem;
+    gap: 1.5rem;
   }
 
   .rating-summary {
-    min-width: 120px;
-    padding-right: 2rem;
-    gap: 0.5rem;
+    min-width: 110px;
+    padding-right: 1.5rem;
   }
 
   .rating-big {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
-  .rating-count {
-    font-size: 0.75rem;
-  }
-
-  .rating-distribution {
-    gap: 0.55rem;
-  }
-
-  .dist-row {
-    grid-template-columns: 32px 1fr 32px;
-    gap: 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  .dist-label,
-  .dist-count {
-    font-size: 0.8rem;
-  }
-
-  .dist-bar {
-    height: 8px;
-  }
-
-  .my-review,
+  .rate-section,
   .reviews {
-    padding: 2rem 4rem;
+    padding: 2rem;
   }
 
   .section-title {
     font-size: 0.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .rate-box {
-    padding: 2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1rem 1.5rem;
     gap: 1.25rem;
   }
 
   .rate-stars {
-    gap: 0.6rem;
+    gap: 0.3rem;
   }
 
   .rate-star {
-    width: 48px;
-    height: 48px;
+    width: 34px;
+    height: 34px;
   }
 
-  .rate-box__actions {
-    justify-content: flex-end;
+  .rate-controls {
+    flex: 1;
+    flex-direction: row;
+    justify-content: space-between;
+    width: auto;
+  }
+
+  .rate-actions {
+    width: auto;
   }
 
   .btn-primary {
     flex: 0 0 auto;
-    min-width: 200px;
-    padding: 0 2.5rem;
+    padding: 0 2rem;
+  }
+
+  .rate-textarea {
+    flex: 1 0 100%;
   }
 
   .my-review-card {
-    padding: 1.5rem 2rem;
+    padding: 1.5rem;
   }
 }

@@ -1,0 +1,80 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.feed {
+  padding: 0;
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 1rem;
+  color: $text-muted;
+}
+
+.empty-title {
+  font-family: $font-heading;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text;
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.empty-hint {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.feed-loading {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1.5rem;
+  overflow: hidden;
+}
+
+.skeleton {
+  flex: 0 0 72%;
+  height: 300px;
+  background: $surface;
+  border-radius: $radius;
+}
+
+.sentinel {
+  flex: 0 0 1px;
+  width: 1px;
+  height: 1px;
+}
+
+.more-loading {
+  flex: 0 0 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.more-loading .dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: $primary;
+  opacity: 0.6;
+
+  &:nth-child(2) {
+    opacity: 0.5;
+  }
+  &:nth-child(3) {
+    opacity: 0.4;
+  }
+}
+
+@media (min-width: 768px) {
+  .skeleton {
+    flex: 0 0 360px;
+    height: 410px;
+  }
+}

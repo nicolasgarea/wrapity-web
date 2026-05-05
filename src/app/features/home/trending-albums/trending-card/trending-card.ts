@@ -10,4 +10,5 @@ import { RouterLink } from '@angular/router';
 })
 export class TrendingCard {
   album = input.required<Album>();
+  rank = input<number>();
 }

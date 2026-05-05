@@ -1,12 +1,20 @@
 @use '../../../styles/variables' as *;
 
 .carousel-section {
-  padding: 1rem 0;
-  overflow: hidden;
+  padding: 1.25rem 0.5rem;
+  overflow: visible;
 }
 
 .carousel-section h2 {
-  display: none;
+  display: block;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $text-muted;
+  padding: 0 1.5rem 0.75rem;
+  margin: 0;
 }
 
 .carousel-container {
@@ -16,13 +24,14 @@
 
 .carousel-viewport {
   display: flex;
+  align-items: start;
   gap: 1rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 0 1.5rem;
+  padding: 0 3rem;
 
   &::-webkit-scrollbar {
     display: none;
@@ -34,15 +43,19 @@
 }
 
 @media (min-width: 768px) {
+  .carousel-section {
+    padding: 1.5rem 0;
+  }
+
   .carousel-section h2 {
-    display: block;
-    font-family: $font-heading;
     font-size: 0.85rem;
-    font-weight: 700;
+    padding: 0 2rem 1rem;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: $text-muted;
-    padding: 1rem 1.5rem;
+  }
+
+  .carousel-viewport {
+    padding: 0 2rem;
+    gap: 1.25rem;
   }
 
   .btn-nav {

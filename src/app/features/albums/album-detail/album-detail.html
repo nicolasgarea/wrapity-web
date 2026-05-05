@@ -18,7 +18,7 @@
           @if (a.cover) {
             <img [src]="a.cover" [alt]="a.title" class="cover" />
           } @else {
-            <div class="cover cover--placeholder"></div>
+            <div class="cover cover-placeholder"></div>
           }
         </div>
 
@@ -35,12 +35,12 @@
                   -
                 }
               </div>
-              <div class="rating-stars">
+              <div class="rating-stars-row">
                 @for (i of [1, 2, 3, 4, 5]; track i) {
                   <lucide-icon
                     [img]="Star"
                     size="14"
-                    [class.rating-stars__filled]="i <= (averageRating() ?? 0)"
+                    [class.filled]="i <= (averageRating() ?? 0)"
                   ></lucide-icon>
                 }
               </div>
@@ -63,7 +63,7 @@
       </div>
     </section>
 
-    <section class="my-review">
+    <section class="rate-section">
       <h2 class="section-title">
         @if (mine && !isEditing()) {
           Your review
@@ -73,43 +73,27 @@
       </h2>
 
       @if (mine && !isEditing()) {
-        <article class="my-review-card">
-          <div class="my-review-card__head">
-            <div class="my-review-card__rating">
-              <span class="my-review-card__score">{{ mine.rating | number: '1.1-1' }}</span>
-              <div class="rating-stars rating-stars--lg">
-                @for (i of [1, 2, 3, 4, 5]; track i) {
-                  <lucide-icon
-                    [img]="Star"
-                    size="18"
-                    [class.rating-stars__filled]="i <= mine.rating"
-                  ></lucide-icon>
-                }
-              </div>
+        <div class="my-review-card">
+          <div class="my-review-head">
+            <span class="my-review-score">{{ mine.rating | number: '1.1-1' }}</span>
+            <div class="rating-stars-row lg">
+              @for (i of [1, 2, 3, 4, 5]; track i) {
+                <lucide-icon [img]="Star" size="18" [class.filled]="i <= mine.rating"></lucide-icon>
+              }
             </div>
             <button class="btn-ghost" (click)="startEdit()">Edit</button>
           </div>
 
           @if (mine.content) {
-            <p class="my-review-card__content">{{ mine.content }}</p>
+            <p class="my-review-content">{{ mine.content }}</p>
           } @else {
-            <p class="my-review-card__empty">No comment.</p>
+            <p class="my-review-empty">No comment</p>
           }
 
-          <div class="my-review-card__foot">
-            <button class="btn-link-danger" (click)="deleteReview()">Delete review</button>
-          </div>
-        </article>
+          <button class="btn-link-danger" (click)="deleteReview()">Delete review</button>
+        </div>
       } @else {
         <div class="rate-box">
-          <p class="rate-box__hint">
-            @if (draftRating() > 0) {
-              Your rating: <strong>{{ draftRating() | number: '1.1-1' }}</strong> / 5
-            } @else {
-              Tap a star to rate
-            }
-          </p>
-
           <div class="rate-stars" (mouseleave)="onStarsLeave()">
             @for (i of stars; track i) {
               <button
@@ -119,33 +103,47 @@
                 (mouseenter)="onStarHover(i)"
                 [attr.aria-label]="i + ' stars'"
               >
-                <lucide-icon [img]="Star" class="rate-star__bg"></lucide-icon>
-                <div class="rate-star__fill" [style.width.%]="getStarFillPercent(i)">
-                  <lucide-icon [img]="Star" class="rate-star__fg"></lucide-icon>
+                <lucide-icon [img]="Star" class="rate-star-bg"></lucide-icon>
+                <div class="rate-star-fill" [style.width.%]="getStarFillPercent(i)">
+                  <lucide-icon [img]="Star" class="rate-star-fg"></lucide-icon>
                 </div>
               </button>
             }
           </div>
 
-          <div class="rate-box__text-wrap" [class.rate-box__text-wrap--open]="draftRating() > 0">
-            <textarea
-              class="rate-box__textarea"
-              [(ngModel)]="draftContent"
-              placeholder="Share your thoughts about this album (optional)…"
-              rows="4"
-              maxlength="1000"
-            ></textarea>
-            <div class="rate-box__counter">{{ draftContent().length }} / 1000</div>
+          <div class="rate-controls">
+            <button
+              type="button"
+              class="btn-comment"
+              [class.active]="showComment()"
+              (click)="toggleComment()"
+            >
+              {{ showComment() ? '− Hide comment' : '+ Add comment' }}
+            </button>
+
+            <div class="rate-actions">
+              @if (mine && isEditing()) {
+                <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
+              }
+              <button
+                class="btn-primary"
+                [disabled]="draftRating() === 0 || isSubmitting()"
+                (click)="submitReview()"
+              >
+                {{ mine ? 'Save' : 'Rate' }}
+              </button>
+            </div>
           </div>
 
-          <div class="rate-box__actions">
-            @if (mine && isEditing()) {
-              <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
-            }
-            <button class="btn-primary" [disabled]="draftRating() === 0" (click)="submitReview()">
-              {{ mine ? 'Save changes' : 'Post review' }}
-            </button>
-          </div>
+          @if (showComment()) {
+            <textarea
+              class="rate-textarea"
+              [(ngModel)]="draftContent"
+              placeholder="Share your thoughts about this album…"
+              rows="3"
+              maxlength="1000"
+            ></textarea>
+          }
         </div>
       }
     </section>
@@ -153,9 +151,9 @@
     <section class="reviews">
       <h2 class="section-title">Reviews</h2>
 
-      @if (r.length === 0) {
+      @if (r.length === 0 && !loadingMore()) {
         <div class="empty">
-          <p class="empty-text">No reviews yet</p>
+          <p>No reviews yet</p>
         </div>
       } @else {
         <ul class="review-list">
@@ -171,10 +169,15 @@
               <div class="review-body">
                 <div class="review-header">
                   <span class="review-user">{{ review.user.username }}</span>
-                  <span class="review-rating">
-                    <lucide-icon [img]="Star" size="12"></lucide-icon>
-                    {{ review.rating | number: '1.1-1' }}
-                  </span>
+                  <div class="rating-stars-row">
+                    @for (i of [1, 2, 3, 4, 5]; track i) {
+                      <lucide-icon
+                        [img]="Star"
+                        size="14"
+                        [class.filled]="i <= review.rating"
+                      ></lucide-icon>
+                    }
+                  </div>
                 </div>
                 @if (review.content) {
                   <p class="review-content">{{ review.content }}</p>
@@ -183,6 +186,16 @@
             </li>
           }
         </ul>
+
+        @if (!hasMore() && r.length > 0) {
+          <div class="caught-up">
+            <span class="caught-up-line"></span>
+            <span class="caught-up-text">You're all caught up</span>
+            <span class="caught-up-line"></span>
+          </div>
+        }
+
+        <div #sentinel class="sentinel"></div>
       }
     </section>
   }

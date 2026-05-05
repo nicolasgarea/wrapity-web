@@ -38,7 +38,7 @@
 
 .skeleton {
   flex: 0 0 72%;
-  height: 300px;
+  height: 280px;
   background: $surface;
   border-radius: $radius;
 }
@@ -74,7 +74,7 @@
 
 @media (min-width: 768px) {
   .skeleton {
-    flex: 0 0 360px;
-    height: 410px;
+    flex: 0 0 300px;
+    height: 360px;
   }
 }

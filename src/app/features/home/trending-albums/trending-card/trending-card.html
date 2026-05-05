@@ -1,16 +1,10 @@
 <a [routerLink]="['/albums', album().id]" class="card">
-  @if (rank()) {
-    <span class="rank">#{{ rank() }}</span>
+  @if (album().cover) {
+    <img class="cover" [src]="album().cover" [alt]="album().title" />
+  } @else {
+    <div class="cover cover-placeholder"></div>
   }
-
-  <div class="cover">
-    @if (album().cover) {
-      <img [src]="album().cover" [alt]="album().title" />
-    } @else {
-      <div class="cover-placeholder"></div>
-    }
-  </div>
-
+  <div class="overlay"></div>
   <div class="info">
     <h3 class="title">{{ album().title }}</h3>
     <p class="artist">{{ album().artist.name }}</p>

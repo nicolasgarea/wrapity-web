@@ -578,16 +578,6 @@ lucide-icon {
   color: $text;
 }
 
-.review-rating {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  font-family: $font-heading;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: $star;
-}
-
 .review-content {
   font-family: $font-body;
   font-size: 0.9rem;

@@ -12,4 +12,9 @@ body {
   background: $bg-base;
   color: $text;
   min-height: 100vh;
+  padding-bottom: 70px;
+
+  @media (min-width: 768px) {
+    padding-bottom: 0;
+  }
 }

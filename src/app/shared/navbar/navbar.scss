@@ -1,139 +1,238 @@
 @use '../../../styles/variables' as *;
 
 nav {
+  z-index: 1000;
   display: flex;
+  align-items: center;
   background-color: black;
   color: $text-muted;
-  z-index: 1000;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 70px;
-  justify-content: space-around;
-  align-items: center;
-  border-top: 1px solid rgba(200, 200, 200, 0.1);
+  height: 64px;
+  border-top: 1px solid $border;
   padding: 0 1rem;
 
-  .nav-logo {
+  .nav-logo,
+  .nav-links,
+  .nav-actions {
     display: none;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    line-height: 1;
-    transition: opacity 0.3s ease;
-
-    app-logo {
-      width: 32px;
-      height: 32px;
-      flex-shrink: 0;
-    }
-
-    &__text {
-      font-family: $font-heading;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: -0.04em;
-      color: $text;
-      line-height: 1;
-    }
-
-    &:hover {
-      opacity: 0.85;
-    }
   }
 
-  .nav-items {
+  .nav-mobile {
     display: flex;
     width: 100%;
     justify-content: space-around;
     align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+
+      lucide-icon {
+        color: $text-muted;
+        width: 24px;
+        height: 24px;
+        transition: color 0.2s ease, transform 0.2s ease;
+      }
+
+      &:hover lucide-icon,
+      &.active lucide-icon {
+        color: $primary;
+        transform: translateY(-1px);
+      }
+    }
   }
 
   .nav-avatar {
-    width: 37px;
-    height: 37px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid $border;
-    transition: border-color 0.3s ease;
+    border: 1.5px solid $border;
+    transition: border-color 0.2s ease;
 
-    &--initials {
+    &-initials {
       background: $surface;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: $font-heading;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: $text;
     }
-
-    &:hover,
-    .active & {
-      border-color: $primary;
-    }
   }
 
-  .nav-items a,
-  .nav-logout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    background: transparent;
-    border: none;
-    padding: 0;
-
-    lucide-icon {
-      color: $text-muted;
-      width: 24px;
-      height: 24px;
-      transition:
-        color 0.3s ease,
-        transform 0.3s ease;
-    }
-
-    &:hover lucide-icon,
-    &.active lucide-icon {
-      color: $primary;
-      transform: translateY(-1px);
-    }
-  }
-
-  .nav-logout:hover lucide-icon {
-    color: $secondary;
-    transform: translateY(-1px);
+  .active .nav-avatar {
+    border-color: $primary;
   }
 
   @media (min-width: 768px) {
     position: sticky;
     top: 0;
     bottom: auto;
-    height: 85px;
-    padding: 0 4rem;
-    justify-content: space-between;
+    height: 60px;
+    padding: 0 3rem;
     border-top: none;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
+    border-bottom: 1px solid $border;
+    background: rgba(12, 12, 14, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    justify-content: space-between;
 
-    .nav-logo {
-      display: flex;
-    }
-
-    .nav-mobile-only {
+    .nav-mobile {
       display: none;
     }
 
-    .nav-items {
-      width: auto;
-      justify-content: flex-end;
-      gap: 2.5rem;
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      flex-shrink: 0;
 
-      lucide-icon {
+      app-logo {
         width: 22px;
         height: 22px;
+        flex-shrink: 0;
+      }
+
+      .nav-logo-text {
+        font-family: $font-heading;
+        font-size: 1rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: $text;
+        line-height: 1;
+      }
+
+      &:hover .nav-logo-text {
+        color: $primary;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+
+      a {
+        font-family: $font-heading;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $text-muted;
+        text-decoration: none;
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        transition: color 0.15s ease, background 0.15s ease;
+        letter-spacing: 0.01em;
+
+        &:hover {
+          color: $text;
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        &.active {
+          color: $primary;
+        }
+      }
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .nav-profile {
+      position: relative;
+    }
+
+    .nav-avatar-btn {
+      display: flex;
+      align-items: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+
+      .nav-avatar {
+        width: 32px;
+        height: 32px;
+        transition: border-color 0.15s ease;
+      }
+
+      &:hover .nav-avatar {
+        border-color: $primary;
+      }
+    }
+
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 0.75rem);
+      right: 0;
+      background: $surface;
+      border: 1px solid $border;
+      border-radius: $radius-sm;
+      padding: 0.4rem;
+      min-width: 160px;
+      z-index: 100;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .dropdown-username {
+      display: block;
+      font-family: $font-heading;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: $text-muted;
+      padding: 0.4rem 0.6rem 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dropdown-divider {
+      border: none;
+      border-top: 1px solid $border;
+      margin: 0.25rem 0;
+    }
+
+    .dropdown-item {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      padding: 0.5rem 0.6rem;
+      font-family: $font-heading;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: $text;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .dropdown-item-danger {
+      color: $secondary;
+
+      &:hover {
+        background: rgba(255, 77, 109, 0.08);
       }
     }
   }

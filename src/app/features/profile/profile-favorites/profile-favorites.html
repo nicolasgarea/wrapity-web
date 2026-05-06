@@ -1,0 +1,14 @@
+<section class="favorites">
+  <h2 class="title">Favorites</h2>
+  <div class="grid">
+    @for (slot of slots(); track $index) {
+      @if (slot && slot.album) {
+        <a class="item" [routerLink]="['/albums', slot.album.id]">
+          <img [src]="slot.album.cover" [alt]="slot.album.title" />
+        </a>
+      } @else {
+        <div class="item empty"></div>
+      }
+    }
+  </div>
+</section>

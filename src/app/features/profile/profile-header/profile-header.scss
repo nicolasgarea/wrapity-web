@@ -1,0 +1,204 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+}
+
+.avatar {
+  flex-shrink: 0;
+
+  img,
+  .avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .avatar-placeholder {
+    background: $surface;
+    border: 1px solid $border;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $font-heading;
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.username {
+  font-family: $font-heading;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: $text;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.bio {
+  font-family: $font-body;
+  font-size: 0.9rem;
+  color: $text-muted;
+  line-height: 1.55;
+  margin: 0;
+  max-width: 520px;
+}
+
+.stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+
+  &:not(button) {
+    cursor: default;
+  }
+
+  &:hover:is(button) .value {
+    color: $primary;
+  }
+
+  .value {
+    font-family: $font-heading;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text;
+    line-height: 1;
+    transition: color 0.15s ease;
+  }
+
+  .label {
+    font-family: $font-heading;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: $text-muted;
+  }
+}
+
+.actions {
+  margin-top: 0.5rem;
+}
+
+.action {
+  height: 40px;
+  padding: 0 1.5rem;
+  background: $primary;
+  color: #000;
+  border: none;
+  border-radius: 200px;
+  font-family: $font-heading;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover:not(:disabled) {
+    background: rgb(247, 247, 134);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.following {
+    background: transparent;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover:not(:disabled) {
+      background: transparent;
+      border-color: $secondary;
+      color: $secondary;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    gap: 2.5rem;
+  }
+
+  .avatar {
+    img,
+    .avatar-placeholder {
+      width: 160px;
+      height: 160px;
+    }
+
+    .avatar-placeholder {
+      font-size: 3.5rem;
+    }
+  }
+
+  .info {
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .username {
+    font-size: 2.2rem;
+  }
+
+  .bio {
+    font-size: 0.95rem;
+  }
+
+  .stats {
+    align-self: flex-start;
+    padding: 1.25rem 1.75rem;
+    gap: 2rem;
+  }
+
+  .stat .value {
+    font-size: 1.4rem;
+  }
+}

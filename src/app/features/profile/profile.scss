@@ -1,0 +1,31 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $bg-base;
+  color: $text;
+}
+
+.profile {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.state {
+  padding: 4rem 1rem;
+  text-align: center;
+  color: $text-muted;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .profile {
+    padding: 3rem 2rem 4rem;
+    gap: 3rem;
+  }
+}

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -35,5 +35,10 @@ export class UserService {
 
   unfollow(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/users/${userId}/follow`);
+  }
+
+  search(query: string): Observable<UserPublicResponse[]> {
+    const params = new HttpParams().set('q', query);
+    return this.http.get<UserPublicResponse[]>(`${this.API_URL}/users/search`, { params });
   }
 }

@@ -17,6 +17,7 @@ import { switchMap } from 'rxjs';
 import { AlbumService } from '../../../core/services/album.service';
 import { ReviewService } from '../../../core/services/review.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
 
 @Component({
   selector: 'app-album-detail',
@@ -41,10 +42,10 @@ export class AlbumDetail implements OnDestroy {
     toObservable(this.id).pipe(switchMap((id) => this.albumService.getById(Number(id)))),
   );
 
-  private reviewsList = signal<any[]>([]);
+  private reviewsList = signal<ReviewFeedItemResponse[]>([]);
   reviews = this.reviewsList.asReadonly();
 
-  private myReviewSignal = signal<any | null>(null);
+  private myReviewSignal = signal<ReviewFeedItemResponse | null>(null);
   myReview = this.myReviewSignal.asReadonly();
 
   loadingMore = signal(false);
@@ -114,7 +115,7 @@ export class AlbumDetail implements OnDestroy {
   private loadMyReview(albumId: number) {
     this.reviewService.getMyReviews().subscribe({
       next: (all) => {
-        const found = all.find((r) => Number(r.album_id) === albumId) ?? null;
+        const found = all.find((r) => r.album.id === albumId) ?? null;
         this.myReviewSignal.set(found);
         if (found) {
           this.draftRating.set(found.rating);
@@ -216,25 +217,24 @@ export class AlbumDetail implements OnDestroy {
       : this.reviewService.create({ ...payload, album_id: Number(this.id()) });
 
     op$.subscribe({
-      next: (saved) => {
-        this.myReviewSignal.set(saved);
-
-        const list = this.reviews();
-        const idx = list.findIndex((r) => r.id === saved.id);
-        if (idx >= 0) {
-          const next = [...list];
-          next[idx] = saved;
-          this.reviewsList.set(next);
-        } else {
-          this.reviewsList.set([saved, ...list]);
-        }
-
+      next: () => {
+        this.reloadAfterSubmit();
         this.showComment.set(false);
         this.isEditing.set(false);
         this.isSubmitting.set(false);
       },
       error: () => this.isSubmitting.set(false),
     });
+  }
+
+  private reloadAfterSubmit() {
+    const albumId = Number(this.id());
+    this.loadMyReview(albumId);
+    this.reviewsList.set([]);
+    this.offset = 0;
+    this.hasMore.set(true);
+    this.inFlight = false;
+    this.loadPage(albumId);
   }
 
   deleteReview() {

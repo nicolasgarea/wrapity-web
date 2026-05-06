@@ -1,0 +1,41 @@
+<section class="reviews">
+  <div class="head">
+    <h2 class="title">Recent reviews</h2>
+    @if (reviews().length > 0) {
+      <a class="all" [routerLink]="['/users', username(), 'reviews']">All →</a>
+    }
+  </div>
+
+  @if (loading()) {
+    <div class="state">Loading…</div>
+  } @else if (reviews().length === 0) {
+    <div class="state">No reviews yet</div>
+  } @else {
+    <ul class="list">
+      @for (item of reviews(); track item.id) {
+        <li>
+          <a class="row" [routerLink]="['/albums', item.album.id]">
+            <div class="cover">
+              @if (item.album.cover) {
+                <img [src]="item.album.cover" [alt]="item.album.title" />
+              }
+            </div>
+
+            <div class="info">
+              <span class="album-title">{{ item.album.title }}</span>
+              <span class="album-artist">{{ item.album.artist.name }}</span>
+            </div>
+
+            <div class="rating">
+              @for (i of [1, 2, 3, 4, 5]; track i) {
+                <lucide-icon [img]="Star" size="12" [class.filled]="i <= item.rating"></lucide-icon>
+              }
+            </div>
+
+            <span class="date">{{ formatDate(item.created_at) }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</section>

@@ -1,0 +1,73 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.favorites {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid $border;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.item {
+  aspect-ratio: 1 / 1;
+  display: block;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: $surface;
+  border: 1px solid $border;
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &:hover:not(.empty) {
+    transform: translateY(-2px);
+    border-color: $primary;
+  }
+
+  &.empty {
+    background: $surface;
+    border: 1px dashed $border;
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 0.75rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .item {
+    border-radius: $radius;
+  }
+}

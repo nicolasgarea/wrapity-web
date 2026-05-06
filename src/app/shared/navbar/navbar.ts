@@ -1,9 +1,7 @@
-import { Component, ElementRef, HostListener, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { House, LucideAngularModule, Search, CirclePlus, Activity } from 'lucide-angular';
-import { UserService } from '../../core/services/user.service';
 import { AuthService } from '../../core/services/auth.service';
-import { UserResponse } from '../../core/models/model/userResponse';
 import { Logo } from '../logo/logo';
 
 @Component({
@@ -12,8 +10,7 @@ import { Logo } from '../logo/logo';
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
 })
-export class Navbar implements OnInit {
-  private userService = inject(UserService);
+export class Navbar {
   private authService = inject(AuthService);
   private el = inject(ElementRef);
 
@@ -22,15 +19,8 @@ export class Navbar implements OnInit {
   readonly PlusIcon = CirclePlus;
   readonly ActivityIcon = Activity;
 
-  user = signal<UserResponse | null>(null);
+  user = this.authService.currentUser;
   menuOpen = signal(false);
-
-  ngOnInit(): void {
-    this.userService.getMe().subscribe({
-      next: (user) => this.user.set(user),
-      error: () => this.user.set(null),
-    });
-  }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
@@ -40,7 +30,7 @@ export class Navbar implements OnInit {
   }
 
   toggleMenu(): void {
-    this.menuOpen.update(v => !v);
+    this.menuOpen.update((v) => !v);
   }
 
   getInitials(): string {

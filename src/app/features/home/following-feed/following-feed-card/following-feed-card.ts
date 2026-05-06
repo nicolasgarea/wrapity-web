@@ -12,7 +12,7 @@ export class FollowingFeedCard {
   item = input.required<ReviewFeedItemResponse>();
 
   albumClick = output<number>();
-  userClick = output<number>();
+  userClick = output<string>();
 
   readonly Star = Star;
 
@@ -38,6 +38,6 @@ export class FollowingFeedCard {
 
   onUser(event: Event) {
     event.stopPropagation();
-    this.userClick.emit(this.item().author.id);
+    this.userClick.emit(this.item().author.username);
   }
 }

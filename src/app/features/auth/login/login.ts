@@ -12,7 +12,6 @@ import { UserLogin } from '../../../core/models/model/userLogin';
 })
 export class Login {
   private authService = inject(AuthService);
-
   private router = inject(Router);
 
   loginModel = signal<UserLogin>({
@@ -33,7 +32,12 @@ export class Login {
       this.authService.login(this.loginModel()).subscribe({
         next: (token) => {
           localStorage.setItem('access_token', token.access_token);
-          this.router.navigate(['/home']);
+          this.authService.getMe().subscribe({
+            next: () => this.router.navigate(['/home']),
+            error: () => {
+              this.errorMessage.set('Could not load user');
+            },
+          });
         },
         error: () => {
           this.errorMessage.set('Invalid email or password');

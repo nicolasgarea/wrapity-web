@@ -1,0 +1,68 @@
+<div class="page">
+  <div class="search-box">
+    <lucide-icon class="icon" [img]="SearchIcon" size="20"></lucide-icon>
+    <input
+      type="text"
+      class="input"
+      placeholder="Search albums or users…"
+      [ngModel]="query()"
+      (ngModelChange)="query.set($event)"
+      autofocus
+    />
+  </div>
+
+  <div class="tabs">
+    <button
+      type="button"
+      class="tab"
+      [class.active]="tab() === 'albums'"
+      (click)="setTab('albums')"
+    >
+      Albums
+    </button>
+    <button type="button" class="tab" [class.active]="tab() === 'users'" (click)="setTab('users')">
+      Users
+    </button>
+  </div>
+
+  @if (query().trim().length < 2) {
+    <div class="state">Type at least 2 characters to search</div>
+  } @else if (empty()) {
+    <div class="state">No results</div>
+  } @else if (tab() === 'albums') {
+    <ul class="results">
+      @for (album of albums(); track album.id) {
+        <li>
+          <a class="album-row" [routerLink]="['/albums', album.id]">
+            <div class="cover">
+              @if (album.cover) {
+                <img [src]="album.cover" [alt]="album.title" />
+              }
+            </div>
+            <div class="info">
+              <span class="album-title">{{ album.title }}</span>
+              <span class="album-artist">{{ album.artist.name }}</span>
+            </div>
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <ul class="results">
+      @for (user of users(); track user.id) {
+        <li>
+          <a class="user-row" [routerLink]="['/users', user.username]">
+            <div class="avatar">
+              @if (user.avatar_url) {
+                <img [src]="user.avatar_url" [alt]="user.username" />
+              } @else {
+                {{ user.username.charAt(0).toUpperCase() }}
+              }
+            </div>
+            <span class="username">{{ user.username }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  }
+</div>

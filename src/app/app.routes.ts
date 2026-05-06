@@ -53,6 +53,10 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/profile/edit-favorites/edit-favorites').then((m) => m.EditFavorites),
       },
+      {
+        path: 'search',
+        loadComponent: () => import('./features/search/search').then((m) => m.Search),
+      },
     ],
   },
   {

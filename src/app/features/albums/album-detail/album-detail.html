@@ -160,15 +160,15 @@
           @for (review of r; track review.id) {
             <li class="review">
               <div class="review-avatar">
-                @if (review.user.avatar_url) {
-                  <img [src]="review.user.avatar_url" [alt]="review.user.username" />
+                @if (review.author.avatar_url) {
+                  <img [src]="review.author.avatar_url" [alt]="review.author.username" />
                 } @else {
-                  {{ review.user.username.charAt(0).toUpperCase() }}
+                  {{ review.author.username.charAt(0).toUpperCase() }}
                 }
               </div>
               <div class="review-body">
                 <div class="review-header">
-                  <span class="review-user">{{ review.user.username }}</span>
+                  <span class="review-user">{{ review.author.username }}</span>
                   <div class="rating-stars-row">
                     @for (i of [1, 2, 3, 4, 5]; track i) {
                       <lucide-icon

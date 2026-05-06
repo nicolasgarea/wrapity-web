@@ -10,10 +10,11 @@ import { UserProfileResponse } from '../../core/models/model/userProfileResponse
 import { FavoriteResponse } from '../../core/models/model/favoriteResponse';
 import { ProfileHeader } from './profile-header/profile-header';
 import { ProfileFavorites } from './profile-favorites/profile-favorites';
+import { ProfileReviews } from './profile-reviews/profile-reviews';
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeader, ProfileFavorites],
+  imports: [ProfileHeader, ProfileFavorites, ProfileReviews],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

@@ -188,6 +188,10 @@
   gap: 0.4rem;
 }
 
+.search-section:not(:focus-within) .results {
+  display: none;
+}
+
 .result {
   width: 100%;
   display: flex;

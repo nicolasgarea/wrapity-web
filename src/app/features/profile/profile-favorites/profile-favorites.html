@@ -1,5 +1,10 @@
 <section class="favorites">
-  <h2 class="title">Favorites</h2>
+  <div class="head">
+    <h2 class="title">Favorites</h2>
+    @if (isMe()) {
+      <a class="edit" [routerLink]="['/profile/edit-favorites']">Edit</a>
+    }
+  </div>
   <div class="grid">
     @for (slot of slots(); track $index) {
       @if (slot && slot.album) {

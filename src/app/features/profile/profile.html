@@ -3,6 +3,6 @@
 } @else if (user(); as u) {
   <div class="profile">
     <app-profile-header [user]="u" [isMe]="isMe()" (toggleFollow)="onToggleFollow()" />
-    <app-profile-favorites [favorites]="favorites()" />
+    <app-profile-favorites [favorites]="favorites()" [isMe]="isMe()" />
   </div>
 }

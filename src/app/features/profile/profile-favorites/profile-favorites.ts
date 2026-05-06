@@ -11,6 +11,7 @@ import { FavoriteResponse } from '../../../core/models/model/favoriteResponse';
 })
 export class ProfileFavorites {
   favorites = input.required<FavoriteResponse[]>();
+  isMe = input(false);
 
   slots = computed(() => {
     const items = this.favorites().slice(0, 4);

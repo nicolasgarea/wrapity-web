@@ -1,0 +1,65 @@
+<div class="page">
+  <header class="head">
+    <a class="back" [routerLink]="['/profile']">
+      <lucide-icon [img]="ArrowLeft" size="20"></lucide-icon>
+    </a>
+    <h1 class="title">Edit favorites</h1>
+  </header>
+
+  <section class="slots-section">
+    <h2 class="section-label">Your 4 favorites</h2>
+    <div class="slots">
+      @for (slot of selected(); track $index) {
+        <div class="slot" [class.empty]="!slot">
+          @if (slot) {
+            <img class="slot-cover" [src]="slot.cover" [alt]="slot.title" />
+            <button class="slot-remove" type="button" (click)="remove($index)">
+              <lucide-icon [img]="X" size="14"></lucide-icon>
+            </button>
+            <div class="slot-info">
+              <span class="slot-title">{{ slot.title }}</span>
+              <span class="slot-artist">{{ slot.artist.name }}</span>
+            </div>
+          } @else {
+            <span class="slot-position">{{ $index + 1 }}</span>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="search-section">
+    <h2 class="section-label">Search albums</h2>
+    <div class="search-box">
+      <lucide-icon class="search-icon" [img]="Search" size="18"></lucide-icon>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Type an album or artist…"
+        [ngModel]="query()"
+        (ngModelChange)="query.set($event)"
+      />
+    </div>
+
+    <ul class="results">
+      @for (album of results(); track album.id) {
+        <li>
+          <button class="result" type="button" (click)="pick(album)">
+            <img class="result-cover" [src]="album.cover" [alt]="album.title" />
+            <div class="result-info">
+              <span class="result-title">{{ album.title }}</span>
+              <span class="result-artist">{{ album.artist.name }}</span>
+            </div>
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <footer class="actions">
+    <a class="btn-secondary" [routerLink]="['/profile']">Cancel</a>
+    <button class="btn-primary" type="button" [disabled]="saving() || !canSave()" (click)="save()">
+      {{ saving() ? 'Saving…' : 'Save' }}
+    </button>
+  </footer>
+</div>

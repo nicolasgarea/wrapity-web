@@ -113,8 +113,8 @@ export class FollowingFeed implements OnDestroy {
     this.router.navigate(['/albums', albumId]);
   }
 
-  goToUser(userId: number) {
-    this.router.navigate(['/users', userId]);
+  goToUser(username: string) {
+    this.router.navigate(['/users', username]);
   }
 
   formatDate(iso: string): string {

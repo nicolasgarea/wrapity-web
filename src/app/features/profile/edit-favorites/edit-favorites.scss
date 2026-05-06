@@ -1,0 +1,302 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background-color: $bg-base;
+  color: $text;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid $border;
+  border-radius: 50%;
+  color: $text;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.section-label {
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $border;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.slot {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: $surface;
+  border: 1px solid $border;
+
+  &.empty {
+    border-style: dashed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.slot-position {
+  font-family: $font-heading;
+  font-size: 2rem;
+  font-weight: 700;
+  color: $border;
+}
+
+.slot-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slot-remove {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: $text;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+
+  &:hover {
+    background: $secondary;
+  }
+}
+
+.slot-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.6rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+  display: flex;
+  flex-direction: column;
+}
+
+.slot-title {
+  font-family: $font-heading;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.slot-artist {
+  font-family: $font-body;
+  font-size: 0.7rem;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: $text-muted;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  background: $bg-input;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  padding: 0.85rem 1rem 0.85rem 2.75rem;
+  color: $text;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  outline: none;
+
+  &:focus {
+    border-color: $primary;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+.results {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.result {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+
+  &:hover {
+    border-color: $primary;
+  }
+}
+
+.result-cover {
+  width: 48px;
+  height: 48px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: $surface-2;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.result-title {
+  font-family: $font-heading;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.result-artist {
+  font-family: $font-body;
+  font-size: 0.8rem;
+  color: $text-muted;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  flex: 1;
+  height: 44px;
+  background: $primary;
+  color: #000;
+  border: none;
+  border-radius: 200px;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: rgb(247, 247, 134);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.btn-secondary {
+  flex: 0 0 auto;
+  height: 44px;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: $text;
+  border: 1px solid $border;
+  border-radius: 200px;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    border-color: $text-muted;
+  }
+}
+
+@media (min-width: 768px) {
+  .slots {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .title {
+    font-size: 1.75rem;
+  }
+}

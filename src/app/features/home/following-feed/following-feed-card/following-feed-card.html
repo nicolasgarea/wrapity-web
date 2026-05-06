@@ -1,42 +1,40 @@
 <article class="card" (click)="onAlbum($event)">
-  <div class="top">
-    <div class="cover">
-      @if (item().album.cover) {
-        <img [src]="item().album.cover" [alt]="item().album.title" />
-      } @else {
-        <div class="cover-placeholder"></div>
-      }
-    </div>
+  <div class="cover">
+    @if (item().album.cover) {
+      <img [src]="item().album.cover" [alt]="item().album.title" />
+    } @else {
+      <div class="cover-placeholder"></div>
+    }
+  </div>
 
+  <div class="body">
     <div class="album">
       <span class="album-title">{{ item().album.title }}</span>
       <span class="album-artist">{{ item().album.artist.name }}</span>
     </div>
-  </div>
 
-  <div class="rating">
-    @for (i of [1, 2, 3, 4, 5]; track i) {
-      <lucide-icon [img]="Star" size="22" [class.filled]="i <= item().rating"></lucide-icon>
-    }
-  </div>
+    <div class="rating">
+      @for (i of [1, 2, 3, 4, 5]; track i) {
+        <lucide-icon [img]="Star" size="16" [class.filled]="i <= item().rating"></lucide-icon>
+      }
+    </div>
 
-  <div class="content-slot">
     @if (item().content) {
       <p class="content">{{ item().content }}</p>
     }
-  </div>
 
-  <footer class="meta">
-    <button class="author" (click)="onUser($event)">
-      <div class="avatar">
-        @if (item().author.avatar_url) {
-          <img [src]="item().author.avatar_url" [alt]="item().author.username" />
-        } @else {
-          {{ item().author.username.charAt(0).toUpperCase() }}
-        }
-      </div>
-      <span class="username">{{ item().author.username }}</span>
-    </button>
-    <span class="date">{{ formatDate(item().created_at) }}</span>
-  </footer>
+    <footer class="meta">
+      <button class="author" (click)="onUser($event)">
+        <div class="avatar">
+          @if (item().author.avatar_url) {
+            <img [src]="item().author.avatar_url" [alt]="item().author.username" />
+          } @else {
+            {{ item().author.username.charAt(0).toUpperCase() }}
+          }
+        </div>
+        <span class="username">{{ item().author.username }}</span>
+      </button>
+      <span class="date">{{ formatDate(item().created_at) }}</span>
+    </footer>
+  </div>
 </article>

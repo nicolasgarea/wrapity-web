@@ -48,6 +48,11 @@ export const routes: Routes = [
         path: 'users/:username',
         loadComponent: () => import('./features/profile/profile').then((m) => m.Profile),
       },
+      {
+        path: 'profile/edit-favorites',
+        loadComponent: () =>
+          import('./features/profile/edit-favorites/edit-favorites').then((m) => m.EditFavorites),
+      },
     ],
   },
   {

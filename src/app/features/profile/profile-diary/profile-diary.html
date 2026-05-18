@@ -1,0 +1,53 @@
+@if (loading()) {
+  <div class="skeleton-list">
+    @for (i of [1,2,3,4,5]; track i) {
+      <div class="skeleton-entry"></div>
+    }
+  </div>
+} @else if (months().length === 0) {
+  <div class="empty">No reviews yet</div>
+} @else {
+  @for (month of months(); track month.label) {
+    <div class="month-block">
+      <h3 class="month-label">{{ month.label }}</h3>
+      <ul class="entries">
+        @for (entry of month.entries; track entry.review.id) {
+          <li>
+            <a class="entry" [routerLink]="['/albums', entry.review.album.id]">
+              <span class="day">{{ entry.day }}</span>
+
+              <div class="cover">
+                @if (entry.review.album.cover) {
+                  <img [src]="entry.review.album.cover" [alt]="entry.review.album.title" />
+                }
+              </div>
+
+              <div class="entry-info">
+                <div class="entry-top">
+                  <span class="entry-title">{{ entry.review.album.title }}</span>
+                  <div class="entry-stars">
+                    @for (filled of stars(entry.review.rating); track $index) {
+                      <span class="star" [class.filled]="filled">★</span>
+                    }
+                  </div>
+                </div>
+                <span class="entry-artist">{{ entry.review.album.artist.name }}</span>
+                @if (entry.review.content) {
+                  <span class="entry-content">{{ entry.review.content }}</span>
+                }
+              </div>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  @if (hasMore()) {
+    <div class="more">
+      <button class="load-more" type="button" [disabled]="loadingMore()" (click)="loadMore()">
+        {{ loadingMore() ? 'Loading…' : 'Load more' }}
+      </button>
+    </div>
+  }
+}

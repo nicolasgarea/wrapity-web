@@ -50,6 +50,18 @@ export const routes: Routes = [
         loadComponent: () => import('./features/profile/profile').then((m) => m.Profile),
       },
       {
+        path: 'users/:username/followers',
+        data: { type: 'followers' },
+        loadComponent: () =>
+          import('./features/user-connections/user-connections').then((m) => m.UserConnections),
+      },
+      {
+        path: 'users/:username/following',
+        data: { type: 'following' },
+        loadComponent: () =>
+          import('./features/user-connections/user-connections').then((m) => m.UserConnections),
+      },
+      {
         path: 'profile/edit-favorites',
         canActivate: [authGuard],
         loadComponent: () =>

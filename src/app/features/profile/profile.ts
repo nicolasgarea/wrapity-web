@@ -1,20 +1,22 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { switchMap, map, forkJoin, of, catchError } from 'rxjs';
-import { signal } from '@angular/core';
+import { switchMap, map, of, catchError } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { FavoriteService } from '../../core/services/favorite.service';
 import { AuthService } from '../../core/services/auth.service';
 import { UserProfileResponse } from '../../core/models/model/userProfileResponse';
-import { FavoriteResponse } from '../../core/models/model/favoriteResponse';
+import { FavoriteWithAlbumResponse } from '../../core/models/model/favoriteWithAlbumResponse';
 import { ProfileHeader } from './profile-header/profile-header';
 import { ProfileFavorites } from './profile-favorites/profile-favorites';
 import { ProfileReviews } from './profile-reviews/profile-reviews';
+import { ProfileDiary } from './profile-diary/profile-diary';
+
+type Section = 'reviews' | 'diary';
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeader, ProfileFavorites, ProfileReviews],
+  imports: [ProfileHeader, ProfileFavorites, ProfileReviews, ProfileDiary],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -51,7 +53,7 @@ export class Profile {
   user = computed<UserProfileResponse | null>(
     () => this.userOverride() ?? this.data()?.user ?? null,
   );
-  favorites = computed<FavoriteResponse[]>(() => this.data()?.favorites ?? []);
+  favorites = computed<FavoriteWithAlbumResponse[]>(() => this.data()?.favorites ?? []);
   loading = computed(() => this.username() !== '' && this.data() === null);
 
   isMe = computed(() => {
@@ -59,6 +61,8 @@ export class Profile {
     const u = this.user();
     return !!me && !!u && me.username === u.username;
   });
+
+  section = signal<Section>('reviews');
 
   onToggleFollow(): void {
     if (!this.auth.currentUser()) {
@@ -76,9 +80,6 @@ export class Profile {
     });
 
     const req$ = wasFollowing ? this.userService.unfollow(u.id) : this.userService.follow(u.id);
-
-    req$.subscribe({
-      error: () => this.userOverride.set(u),
-    });
+    req$.subscribe({ error: () => this.userOverride.set(u) });
   }
 }

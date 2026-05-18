@@ -12,6 +12,7 @@
 export interface UserPublicResponse { 
     id: number;
     username: string;
+    bio?: string | null;
     avatar_url?: string | null;
 }
 

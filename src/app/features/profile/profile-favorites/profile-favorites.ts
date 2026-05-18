@@ -1,20 +1,28 @@
 import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FavoriteResponse } from '../../../core/models/model/favoriteResponse';
+import { FavoriteWithAlbumResponse } from '../../../core/models/model/favoriteWithAlbumResponse';
+import { AlbumGrid, AlbumGridItem } from '../../../shared/album-grid/album-grid';
 
 @Component({
   selector: 'app-profile-favorites',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, AlbumGrid],
   templateUrl: './profile-favorites.html',
   styleUrl: './profile-favorites.scss',
 })
 export class ProfileFavorites {
-  favorites = input.required<FavoriteResponse[]>();
+  favorites = input.required<FavoriteWithAlbumResponse[]>();
   isMe = input(false);
 
-  slots = computed(() => {
-    const items = this.favorites().slice(0, 4);
-    return [...items, ...Array(4 - items.length).fill(null)];
+  isEmpty = computed(() => this.favorites().length === 0);
+
+  items = computed<AlbumGridItem[]>(() => {
+    const filled = this.favorites().slice(0, 4).map((f) => ({
+      albumId: f.album.id,
+      cover: f.album.cover,
+      title: f.album.title,
+    }));
+    const empties = Array(4 - filled.length).fill({ empty: true });
+    return [...filled, ...empties];
   });
 }

@@ -1,9 +1,32 @@
 @if (loading()) {
-  <div class="state">Loading…</div>
+  <div class="loading-state">Loading…</div>
 } @else if (user(); as u) {
-  <div class="profile">
+  <div class="page">
+
     <app-profile-header [user]="u" [isMe]="isMe()" (toggleFollow)="onToggleFollow()" />
+
+    <div class="divider"></div>
+
     <app-profile-favorites [favorites]="favorites()" [isMe]="isMe()" />
-    <app-profile-reviews [userId]="u.id" [username]="u.username" />
+
+    <div class="divider"></div>
+
+    <nav class="tabs">
+      <button class="tab" [class.active]="section() === 'reviews'" (click)="section.set('reviews')">
+        Reviews
+      </button>
+      <button class="tab" [class.active]="section() === 'diary'" (click)="section.set('diary')">
+        Diary
+      </button>
+    </nav>
+
+    <div class="tab-body">
+      @if (section() === 'reviews') {
+        <app-profile-reviews [userId]="u.id" />
+      } @else {
+        <app-profile-diary [userId]="u.id" />
+      }
+    </div>
+
   </div>
 }

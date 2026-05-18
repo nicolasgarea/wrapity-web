@@ -1,11 +1,9 @@
-<header class="header">
+<div class="header">
   <div class="avatar">
     @if (user().avatar_url) {
       <img [src]="user().avatar_url" [alt]="user().username" />
     } @else {
-      <div class="avatar-placeholder">
-        {{ user().username.charAt(0).toUpperCase() }}
-      </div>
+      <span class="avatar-initial">{{ user().username.charAt(0).toUpperCase() }}</span>
     }
   </div>
 
@@ -16,34 +14,32 @@
       <p class="bio">{{ user().bio }}</p>
     }
 
-    <div class="stats">
-      <div class="stat">
-        <span class="value">{{ user().reviews_count }}</span>
-        <span class="label">Reviews</span>
-      </div>
-      <button class="stat" type="button">
-        <span class="value">{{ user().followers_count }}</span>
-        <span class="label">Followers</span>
-      </button>
-      <button class="stat" type="button">
-        <span class="value">{{ user().following_count }}</span>
-        <span class="label">Following</span>
-      </button>
-    </div>
+    <p class="stats">
+      <span class="stat-num">{{ user().reviews_count }}</span>
+      <span class="stat-word">reviews</span>
+      <span class="dot">·</span>
+      <a class="stat-link" [routerLink]="['/users', user().username, 'followers']">
+        <span class="stat-num">{{ user().followers_count }}</span>
+        <span class="stat-word">followers</span>
+      </a>
+      <span class="dot">·</span>
+      <a class="stat-link" [routerLink]="['/users', user().username, 'following']">
+        <span class="stat-num">{{ user().following_count }}</span>
+        <span class="stat-word">following</span>
+      </a>
+    </p>
 
-    <div class="actions">
-      @if (isMe()) {
-        <button class="action" type="button" disabled>Edit profile</button>
-      } @else if (user().is_following !== null) {
-        <button
-          class="action"
-          [class.following]="user().is_following"
-          type="button"
-          (click)="toggleFollow.emit()"
-        >
-          {{ user().is_following ? 'Following' : 'Follow' }}
-        </button>
-      }
-    </div>
+    @if (isMe()) {
+      <button class="btn btn--ghost" type="button" disabled>Edit profile</button>
+    } @else if (user().is_following !== null) {
+      <button
+        class="btn"
+        [class.btn--following]="user().is_following"
+        type="button"
+        (click)="toggleFollow.emit()"
+      >
+        {{ user().is_following ? 'Following' : 'Follow' }}
+      </button>
+    }
   </div>
-</header>
+</div>

@@ -1,37 +1,53 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ReviewService } from '../../../core/services/review.service';
 import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
-import { AlbumGrid, AlbumGridItem } from '../../../shared/album-grid/album-grid';
+
+interface DiaryEntry {
+  day: number;
+  review: ReviewFeedItemResponse;
+}
+
+interface DiaryMonth {
+  label: string;
+  entries: DiaryEntry[];
+}
 
 @Component({
-  selector: 'app-profile-reviews',
+  selector: 'app-profile-diary',
   standalone: true,
-  imports: [AlbumGrid],
-  templateUrl: './profile-reviews.html',
-  styleUrl: './profile-reviews.scss',
+  imports: [RouterLink],
+  templateUrl: './profile-diary.html',
+  styleUrl: './profile-diary.scss',
 })
-export class ProfileReviews {
+export class ProfileDiary {
   userId = input.required<number>();
 
   private reviewService = inject(ReviewService);
 
-  readonly PAGE_SIZE = 12;
+  readonly PAGE_SIZE = 20;
 
   private reviews = signal<ReviewFeedItemResponse[]>([]);
   loading = signal(false);
   loadingMore = signal(false);
   hasMore = signal(false);
-
   private offset = 0;
 
-  items = computed<AlbumGridItem[]>(() =>
-    this.reviews().map((r) => ({
-      albumId: r.album.id,
-      cover: r.album.cover,
-      title: r.album.title,
-      rating: r.rating,
-    })),
-  );
+  months = computed<DiaryMonth[]>(() => {
+    const map = new Map<string, DiaryMonth>();
+    for (const r of this.reviews()) {
+      const d = new Date(r.created_at);
+      const key = `${d.getFullYear()}-${d.getMonth()}`;
+      const label = d
+        .toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+        .toUpperCase();
+      if (!map.has(key)) map.set(key, { label, entries: [] });
+      map.get(key)!.entries.push({ day: d.getDate(), review: r });
+    }
+    return Array.from(map.values());
+  });
+
+  stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < n);
 
   constructor() {
     effect(() => {

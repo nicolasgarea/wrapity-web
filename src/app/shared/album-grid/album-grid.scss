@@ -1,0 +1,71 @@
+@use '../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+.cell {
+  position: relative;
+  aspect-ratio: 1;
+  display: block;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  background: $surface;
+  border: 1px solid $border;
+  text-decoration: none;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &:not(.empty):hover {
+    transform: translateY(-2px);
+    border-color: $primary;
+  }
+
+  &.empty {
+    border: 1px dashed $border;
+    cursor: default;
+  }
+}
+
+.rating {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.75);
+  color: $star;
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.4rem;
+  border-top-left-radius: 4px;
+  line-height: 1;
+}
+
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 1rem;
+  }
+
+  .cell {
+    border-radius: $radius;
+  }
+}

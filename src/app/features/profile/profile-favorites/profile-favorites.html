@@ -1,19 +1,17 @@
 <section class="favorites">
   <div class="head">
-    <h2 class="title">Favorites</h2>
+    <h2 class="title">Favorite Albums</h2>
     @if (isMe()) {
       <a class="edit" [routerLink]="['/profile/edit-favorites']">Edit</a>
     }
   </div>
-  <div class="grid">
-    @for (slot of slots(); track $index) {
-      @if (slot && slot.album) {
-        <a class="item" [routerLink]="['/albums', slot.album.id]">
-          <img [src]="slot.album.cover" [alt]="slot.album.title" />
-        </a>
-      } @else {
-        <div class="item empty"></div>
-      }
-    }
-  </div>
+
+  @if (isEmpty() && isMe()) {
+    <div class="empty">
+      <p>You haven't picked your favorites yet.</p>
+      <a class="empty-cta" [routerLink]="['/profile/edit-favorites']">Choose favorites →</a>
+    </div>
+  } @else {
+    <app-album-grid [items]="items()" />
+  }
 </section>

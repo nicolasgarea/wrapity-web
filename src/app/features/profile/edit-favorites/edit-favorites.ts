@@ -40,8 +40,6 @@ export class EditFavorites {
     { initialValue: [] as Album[] },
   );
 
-  canSave = computed(() => this.selected().some((s) => s !== null));
-
   constructor() {
     const me = this.auth.currentUser();
     if (!me) {

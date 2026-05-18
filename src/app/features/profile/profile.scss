@@ -7,25 +7,62 @@
   color: $text;
 }
 
-.profile {
-  max-width: 1200px;
+.page {
+  max-width: 720px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 1.75rem 1.25rem 6rem;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
-.state {
+.loading-state {
   padding: 4rem 1rem;
   text-align: center;
   color: $text-muted;
   font-size: 0.875rem;
 }
 
+.divider {
+  height: 1px;
+  background: $border;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid $border;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.75rem 1.1rem;
+  font-family: $font-heading;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover { color: $text; }
+
+  &.active {
+    color: $primary;
+    border-bottom-color: $primary;
+  }
+}
+
+.tab-body {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (min-width: 768px) {
-  .profile {
-    padding: 3rem 2rem 4rem;
-    gap: 3rem;
+  .page {
+    padding: 2.5rem 2rem 6rem;
   }
 }

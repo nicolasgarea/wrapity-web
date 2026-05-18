@@ -58,7 +58,7 @@
 
   <footer class="actions">
     <a class="btn-secondary" [routerLink]="['/profile']">Cancel</a>
-    <button class="btn-primary" type="button" [disabled]="saving() || !canSave()" (click)="save()">
+    <button class="btn-primary" type="button" [disabled]="saving()" (click)="save()">
       {{ saving() ? 'Saving…' : 'Save' }}
     </button>
   </footer>

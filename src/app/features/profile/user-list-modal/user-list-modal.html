@@ -1,0 +1,40 @@
+<div class="backdrop" (click)="close.emit()"></div>
+
+<div class="sheet" role="dialog" [attr.aria-label]="title()">
+  <div class="handle"></div>
+
+  <div class="header">
+    <h2 class="title">{{ title() }}</h2>
+    <button class="close-btn" type="button" (click)="close.emit()" aria-label="Close">✕</button>
+  </div>
+
+  <div class="body">
+    @if (loading()) {
+      <div class="state">Loading…</div>
+    } @else if (users().length === 0) {
+      <div class="state">Nobody here yet</div>
+    } @else {
+      <ul class="list">
+        @for (user of users(); track user.id) {
+          <li>
+            <a class="row" [routerLink]="['/users', user.username]" (click)="close.emit()">
+              <div class="avatar">
+                @if (user.avatar_url) {
+                  <img [src]="user.avatar_url" [alt]="user.username" />
+                } @else {
+                  {{ user.username.charAt(0).toUpperCase() }}
+                }
+              </div>
+              <div class="info">
+                <span class="username">{{ user.username }}</span>
+                @if (user.bio) {
+                  <span class="bio">{{ user.bio }}</span>
+                }
+              </div>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>

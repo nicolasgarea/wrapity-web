@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, required, submit } from '@angular/forms/signals';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
 import { UserLogin } from '../../../core/models/model/userLogin';
 
 @Component({
@@ -13,6 +14,7 @@ import { UserLogin } from '../../../core/models/model/userLogin';
 export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private location = inject(Location);
 
   loginModel = signal<UserLogin>({
     email: '',
@@ -33,7 +35,13 @@ export class Login {
         next: (token) => {
           localStorage.setItem('access_token', token.access_token);
           this.authService.getMe().subscribe({
-            next: () => this.router.navigate(['/home']),
+            next: () => {
+              if (window.history.length > 1) {
+                this.location.back();
+              } else {
+                this.router.navigate(['/home']);
+              }
+            },
             error: () => {
               this.errorMessage.set('Could not load user');
             },

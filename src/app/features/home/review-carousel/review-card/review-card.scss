@@ -1,0 +1,209 @@
+@use '../../../../../styles/variables' as *;
+
+:host {
+  display: block;
+  flex: 0 0 68%;
+  max-width: 68%;
+  scroll-snap-align: start;
+  box-sizing: border-box;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: rgba(252, 243, 0, 0.25);
+  }
+
+  &:hover .cover img {
+    transform: scale(1.04);
+  }
+}
+
+.cover {
+  flex: 0 0 160px;
+  background: $surface-2;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+}
+
+.cover-placeholder {
+  width: 100%;
+  height: 100%;
+  background: $surface-2;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.65rem 0.75rem;
+  gap: 0.3rem;
+  min-height: 0;
+}
+
+.album {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.album-title {
+  font-family: $font-heading;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.album-artist {
+  font-family: $font-heading;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rating {
+  display: flex;
+  gap: 0.15rem;
+  color: $star;
+
+  ::ng-deep svg {
+    fill: transparent;
+  }
+
+  .filled ::ng-deep svg {
+    fill: $star;
+  }
+}
+
+.content {
+  font-family: $font-body;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: $text;
+  margin: 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  gap: 0.5rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  min-width: 0;
+
+  &:hover .username {
+    color: $primary;
+  }
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: $surface-2;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-heading;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: $text-muted;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.username {
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: $text-muted;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.15s ease;
+}
+
+.date {
+  font-family: $font-body;
+  font-size: 0.62rem;
+  color: $text-muted;
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  :host {
+    flex: 0 0 240px;
+    max-width: 240px;
+  }
+
+  .card {
+    height: 360px;
+  }
+
+  .cover {
+    flex: 0 0 210px;
+  }
+
+  .body {
+    padding: 0.75rem 0.85rem;
+    gap: 0.35rem;
+  }
+
+  .album-title {
+    font-size: 0.88rem;
+  }
+
+  .content {
+    font-size: 0.78rem;
+    -webkit-line-clamp: 3;
+  }
+}

@@ -33,8 +33,9 @@ export class AuthService {
   }
 
   logout(): void {
+    const currentUrl = this.router.url;
     localStorage.removeItem('access_token');
     this.currentUser.set(null);
-    this.router.navigate(['/auth/login']);
+    this.router.navigateByUrl(currentUrl);
   }
 }

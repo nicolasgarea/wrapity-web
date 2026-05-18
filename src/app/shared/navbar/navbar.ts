@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { House, LucideAngularModule, Search, CirclePlus, Activity } from 'lucide-angular';
+import { House, LucideAngularModule, Search, CirclePlus, Activity, User } from 'lucide-angular';
 import { AuthService } from '../../core/services/auth.service';
 import { Logo } from '../logo/logo';
 
@@ -18,6 +18,7 @@ export class Navbar {
   readonly SearchIcon = Search;
   readonly PlusIcon = CirclePlus;
   readonly ActivityIcon = Activity;
+  readonly UserIcon = User;
 
   user = this.authService.currentUser;
   menuOpen = signal(false);

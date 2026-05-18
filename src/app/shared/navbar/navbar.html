@@ -11,24 +11,28 @@
   </div>
 
   <div class="nav-actions">
-    <div class="nav-profile">
-      <button class="nav-avatar-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
-        @if (user()?.avatar_url) {
-          <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />
-        } @else {
-          <div class="nav-avatar nav-avatar-initials">{{ getInitials() }}</div>
-        }
-      </button>
+    @if (user()) {
+      <div class="nav-profile">
+        <button class="nav-avatar-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
+          @if (user()?.avatar_url) {
+            <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />
+          } @else {
+            <div class="nav-avatar nav-avatar-initials">{{ getInitials() }}</div>
+          }
+        </button>
 
-      @if (menuOpen()) {
-        <div class="nav-dropdown">
-          <span class="dropdown-username">{{ user()?.username }}</span>
-          <hr class="dropdown-divider" />
-          <a routerLink="/profile" class="dropdown-item" (click)="menuOpen.set(false)">Profile</a>
-          <button class="dropdown-item dropdown-item-danger" (click)="logout()">Log out</button>
-        </div>
-      }
-    </div>
+        @if (menuOpen()) {
+          <div class="nav-dropdown">
+            <span class="dropdown-username">{{ user()?.username }}</span>
+            <hr class="dropdown-divider" />
+            <a routerLink="/profile" class="dropdown-item" (click)="menuOpen.set(false)">Profile</a>
+            <button class="dropdown-item dropdown-item-danger" (click)="logout()">Log out</button>
+          </div>
+        }
+      </div>
+    } @else {
+      <a routerLink="/auth/login" class="nav-login">Log in</a>
+    }
   </div>
 
   <div class="nav-mobile">
@@ -44,12 +48,18 @@
     <a routerLink="/activity" routerLinkActive="active">
       <lucide-icon [img]="ActivityIcon"></lucide-icon>
     </a>
-    <a routerLink="/profile" routerLinkActive="active">
-      @if (user()?.avatar_url) {
-        <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />
-      } @else {
-        <div class="nav-avatar nav-avatar-initials">{{ getInitials() }}</div>
-      }
-    </a>
+    @if (user()) {
+      <a routerLink="/profile" routerLinkActive="active">
+        @if (user()?.avatar_url) {
+          <img class="nav-avatar" [src]="user()!.avatar_url" [alt]="user()!.username" />
+        } @else {
+          <div class="nav-avatar nav-avatar-initials">{{ getInitials() }}</div>
+        }
+      </a>
+    } @else {
+      <a routerLink="/auth/login" routerLinkActive="active">
+        <lucide-icon [img]="UserIcon"></lucide-icon>
+      </a>
+    }
   </div>
 </nav>

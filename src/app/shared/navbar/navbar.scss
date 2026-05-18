@@ -153,6 +153,24 @@ nav {
       flex-shrink: 0;
     }
 
+    .nav-login {
+      font-family: $font-heading;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: $text;
+      background: transparent;
+      text-decoration: none;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      border: 1px solid $border;
+      transition: color 0.15s ease, border-color 0.15s ease;
+
+      &:hover {
+        color: $primary;
+        border-color: $primary;
+      }
+    }
+
     .nav-profile {
       position: relative;
     }

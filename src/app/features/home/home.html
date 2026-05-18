@@ -1,4 +1,6 @@
 <div class="home">
   <app-trending-albums />
-  <app-following-feed />
+  @if (user()) {
+    <app-following-feed />
+  }
 </div>

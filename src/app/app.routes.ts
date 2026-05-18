@@ -7,6 +7,7 @@ import { Home } from './features/home/home';
 import { Layout } from './layout/layout';
 import { authGuard } from './core/guards/auth-guard';
 import { publicGuard } from './core/guards/public-guard';
+import { optionalAuthGuard } from './core/guards/optional-auth-guard';
 import { AuthService } from './core/services/auth.service';
 
 export const routes: Routes = [
@@ -22,7 +23,7 @@ export const routes: Routes = [
   {
     path: '',
     component: Layout,
-    canActivate: [authGuard],
+    canActivate: [optionalAuthGuard],
     children: [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
@@ -50,6 +51,7 @@ export const routes: Routes = [
       },
       {
         path: 'profile/edit-favorites',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/profile/edit-favorites/edit-favorites').then((m) => m.EditFavorites),
       },

@@ -1,0 +1,76 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  overflow: hidden;
+}
+
+.skeleton {
+  flex: 0 0 68%;
+  height: 300px;
+  background: $surface;
+  border-radius: $radius;
+  border: 1px solid $border;
+}
+
+.empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: $text-muted;
+}
+
+.empty-title {
+  font-family: $font-heading;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text;
+  margin: 0 0 0.4rem;
+}
+
+.empty-hint {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.sentinel {
+  flex: 0 0 1px;
+  width: 1px;
+  height: 1px;
+}
+
+.more-loading {
+  flex: 0 0 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $primary;
+
+  &:nth-child(1) { opacity: 0.6; }
+  &:nth-child(2) { opacity: 0.4; }
+  &:nth-child(3) { opacity: 0.25; }
+}
+
+@media (min-width: 768px) {
+  .skeleton {
+    flex: 0 0 240px;
+    height: 360px;
+  }
+
+  .skeleton-row {
+    padding: 1.5rem 2rem;
+  }
+}

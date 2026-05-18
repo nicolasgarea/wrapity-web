@@ -41,6 +41,11 @@ export class ReviewService {
     return this.http.delete<void>(`${this.API_URL}/${reviewId}`);
   }
 
+  getRecent(limit: number, offset: number): Observable<ReviewFeedItemResponse[]> {
+    const params = new HttpParams().set('limit', limit).set('offset', offset);
+    return this.http.get<ReviewFeedItemResponse[]>(`${this.API_URL}/recent`, { params });
+  }
+
   getFollowingFeed(limit: number, offset: number): Observable<ReviewFeedResponse> {
     const params = new HttpParams().set('limit', limit).set('offset', offset);
     return this.http.get<ReviewFeedResponse>(`${this.API_URL}/following`, { params });

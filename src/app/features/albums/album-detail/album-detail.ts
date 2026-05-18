@@ -12,6 +12,7 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LucideAngularModule, ArrowLeft, Star } from 'lucide-angular';
 import { switchMap } from 'rxjs';
 import { AlbumService } from '../../../core/services/album.service';
@@ -32,6 +33,7 @@ export class AlbumDetail implements OnDestroy {
   private reviewService = inject(ReviewService);
   private auth = inject(AuthService);
   private location = inject(Location);
+  private router = inject(Router);
 
   readonly ArrowLeft = ArrowLeft;
   readonly Star = Star;
@@ -99,7 +101,7 @@ export class AlbumDetail implements OnDestroy {
       this.isEditing.set(false);
 
       this.loadPage(Number(id));
-      this.loadMyReview(Number(id));
+      if (this.auth.currentUser()) this.loadMyReview(Number(id));
     });
 
     effect(() => {
@@ -203,6 +205,10 @@ export class AlbumDetail implements OnDestroy {
   }
 
   submitReview() {
+    if (!this.auth.currentUser()) {
+      this.router.navigate(['/auth/login']);
+      return;
+    }
     if (this.draftRating() === 0 || this.isSubmitting()) return;
     this.isSubmitting.set(true);
 

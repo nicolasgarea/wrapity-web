@@ -1,5 +1,5 @@
 import { Component, computed, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, map, forkJoin, of, catchError } from 'rxjs';
 import { signal } from '@angular/core';
@@ -20,6 +20,7 @@ import { ProfileReviews } from './profile-reviews/profile-reviews';
 })
 export class Profile {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private userService = inject(UserService);
   private favoriteService = inject(FavoriteService);
   private auth = inject(AuthService);
@@ -60,6 +61,10 @@ export class Profile {
   });
 
   onToggleFollow(): void {
+    if (!this.auth.currentUser()) {
+      this.router.navigate(['/auth/login']);
+      return;
+    }
     const u = this.user();
     if (!u || u.is_following === null) return;
 

@@ -1,12 +1,11 @@
 import { Component, computed, input, output } from '@angular/core';
-import { LucideAngularModule, Star, Heart, UserPlus } from 'lucide-angular';
+import { LucideAngularModule, Star } from 'lucide-angular';
 import { ActivityFeedItemResponse } from '../../../core/models/model/activityFeedItemResponse';
-import { LikeButton } from '../../../shared/like-button/like-button';
 
 @Component({
   selector: 'app-activity-card',
   standalone: true,
-  imports: [LucideAngularModule, LikeButton],
+  imports: [LucideAngularModule],
   templateUrl: './activity-card.html',
   styleUrl: './activity-card.scss',
 })
@@ -17,8 +16,6 @@ export class ActivityCard {
   userClick = output<string>();
 
   readonly Star = Star;
-  readonly Heart = Heart;
-  readonly UserPlus = UserPlus;
 
   readonly verb = computed(() => {
     switch (this.item().type) {

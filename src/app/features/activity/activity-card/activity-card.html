@@ -17,59 +17,23 @@
       } @else if (item().review) {
         <button class="album-name" (click)="onAlbum()">{{ item().review!.album.title }}</button>
       }
-
-      <span class="date">· {{ formatDate(item().created_at) }}</span>
+      <span class="date">{{ formatDate(item().created_at) }}</span>
     </p>
 
     @if (item().review; as review) {
-      <div class="review-ref">
-        <button class="cover" (click)="onAlbum()" aria-label="View album">
-          @if (review.album.cover) {
-            <img [src]="review.album.cover" [alt]="review.album.title" />
-          } @else {
-            <div class="cover-placeholder"></div>
-          }
-        </button>
-
-        <div class="review-body">
-          <div class="album-meta">
-            <span class="album-title">{{ review.album.title }}</span>
-            <span class="album-artist">{{ review.album.artist.name }}</span>
-          </div>
-
-          <div class="rating">
-            @for (i of [1, 2, 3, 4, 5]; track i) {
-              <lucide-icon [img]="Star" size="14" [class.filled]="i <= review.rating"></lucide-icon>
-            }
-          </div>
-
-          @if (review.content) {
-            <p class="content">{{ review.content }}</p>
-          }
-
-          <div class="actions">
-            <app-like-button
-              [reviewId]="review.id"
-              [initialLiked]="review.liked_by_me ?? false"
-              [initialCount]="review.likes_count ?? 0"
-            />
-          </div>
-        </div>
+      <div class="rating">
+        @for (i of [1, 2, 3, 4, 5]; track i) {
+          <lucide-icon [img]="Star" size="12" [class.filled]="i <= review.rating"></lucide-icon>
+        }
       </div>
     }
   </div>
 
-  <div class="type-icon">
-    @switch (item().type) {
-      @case ('like') {
-        <lucide-icon [img]="Heart" size="16"></lucide-icon>
+  @if (item().review; as review) {
+    <button class="cover" (click)="onAlbum()" aria-label="View album">
+      @if (review.album.cover) {
+        <img [src]="review.album.cover" [alt]="review.album.title" />
       }
-      @case ('follow') {
-        <lucide-icon [img]="UserPlus" size="16"></lucide-icon>
-      }
-      @default {
-        <lucide-icon [img]="Star" size="16"></lucide-icon>
-      }
-    }
-  </div>
+    </button>
+  }
 </article>

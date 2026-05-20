@@ -1,0 +1,40 @@
+@use '../../../styles/variables' as *;
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: transparent;
+  border: none;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: $text-muted;
+  transition: color 0.15s ease;
+
+  ::ng-deep svg {
+    fill: transparent;
+    transition:
+      fill 0.15s ease,
+      stroke 0.15s ease;
+  }
+
+  &:hover {
+    color: $secondary;
+  }
+
+  &.liked {
+    color: $secondary;
+
+    ::ng-deep svg {
+      fill: $secondary;
+      stroke: $secondary;
+    }
+  }
+}
+
+.count {
+  font-family: $font-heading;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+}

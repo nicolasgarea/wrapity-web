@@ -1,10 +1,11 @@
 import { Component, input, output } from '@angular/core';
 import { LucideAngularModule, Star } from 'lucide-angular';
 import { ReviewFeedItemResponse } from '../../../../core/models/model/reviewFeedItemResponse';
+import { LikeButton } from '../../../../shared/like-button/like-button';
 
 @Component({
   selector: 'app-review-card',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, LikeButton],
   templateUrl: './review-card.html',
   styleUrl: './review-card.scss',
 })

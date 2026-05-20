@@ -19,5 +19,7 @@ export interface ReviewFeedItemResponse {
     updated_at: string;
     album: Album;
     author: UserPublicResponse;
+    likes_count?: number;
+    liked_by_me?: boolean;
 }
 

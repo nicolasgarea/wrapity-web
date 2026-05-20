@@ -172,6 +172,13 @@
   transition: color 0.15s ease;
 }
 
+.meta-end {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
 .date {
   font-family: $font-body;
   font-size: 0.62rem;

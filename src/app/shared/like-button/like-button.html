@@ -1,0 +1,13 @@
+<button
+  type="button"
+  class="like-btn"
+  [class.liked]="liked()"
+  (click)="toggle($event)"
+  [attr.aria-pressed]="liked()"
+  aria-label="Like review"
+>
+  <lucide-icon [img]="Heart" size="16"></lucide-icon>
+  @if (count() > 0) {
+    <span class="count">{{ count() }}</span>
+  }
+</button>

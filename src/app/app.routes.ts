@@ -83,6 +83,11 @@ export const routes: Routes = [
         path: 'search',
         loadComponent: () => import('./features/search/search').then((m) => m.Search),
       },
+      {
+        path: 'activity',
+        canActivate: [authGuard],
+        loadComponent: () => import('./features/activity/activity').then((m) => m.Activity),
+      },
     ],
   },
   {

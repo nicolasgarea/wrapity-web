@@ -9,7 +9,7 @@
  */
 
 
-export interface Artist { 
+export interface Genre { 
     id: number;
     name: string;
     picture?: string | null;

@@ -8,6 +8,8 @@
  * Do not edit the class manually.
  */
 import { Artist } from './artist';
+import { Genre } from './genre';
+import { Track } from './track';
 
 
 export interface AlbumDetail { 
@@ -16,5 +18,13 @@ export interface AlbumDetail {
     cover?: string | null;
     artist: Artist;
     favorite_count?: number;
+    release_date?: string | null;
+    nb_tracks?: number | null;
+    duration?: number | null;
+    label?: string | null;
+    record_type?: string | null;
+    explicit_lyrics?: boolean | null;
+    genres?: Array<Genre>;
+    tracks?: Array<Track>;
 }
 

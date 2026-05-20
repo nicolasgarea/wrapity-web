@@ -34,7 +34,14 @@
         </div>
         <span class="username">{{ item().author.username }}</span>
       </button>
-      <span class="date">{{ formatDate(item().created_at) }}</span>
+      <div class="meta-end">
+        <app-like-button
+          [reviewId]="item().id"
+          [initialLiked]="item().liked_by_me ?? false"
+          [initialCount]="item().likes_count ?? 0"
+        />
+        <span class="date">{{ formatDate(item().created_at) }}</span>
+      </div>
     </footer>
   </div>
 </article>

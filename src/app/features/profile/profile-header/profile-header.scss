@@ -90,6 +90,9 @@
 .dot { color: $border; user-select: none; }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 0.15rem;
   height: 34px;
   padding: 0 1.35rem;
@@ -102,6 +105,8 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition: background 0.15s ease, transform 0.1s ease;
 

@@ -62,6 +62,12 @@ export const routes: Routes = [
           import('./features/user-connections/user-connections').then((m) => m.UserConnections),
       },
       {
+        path: 'profile/edit',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/profile/edit-profile/edit-profile').then((m) => m.EditProfile),
+      },
+      {
         path: 'profile/edit-favorites',
         canActivate: [authGuard],
         loadComponent: () =>

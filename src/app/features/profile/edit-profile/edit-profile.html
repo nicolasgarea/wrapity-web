@@ -1,0 +1,82 @@
+<div class="page">
+  <header class="head">
+    <a class="back" [routerLink]="['/profile']">
+      <lucide-icon [img]="ArrowLeft" size="20"></lucide-icon>
+    </a>
+    <h1 class="title">Edit profile</h1>
+  </header>
+
+  <section class="avatar-section">
+    <div class="avatar-wrap">
+      <button type="button" class="avatar" (click)="triggerFilePicker()" aria-label="Change photo">
+        @if (displayAvatar(); as src) {
+          <img [src]="src" alt="Avatar preview" />
+        } @else {
+          <span class="avatar-initial">{{ initial() }}</span>
+        }
+        <span class="avatar-overlay">
+          <lucide-icon [img]="Camera" size="22"></lucide-icon>
+        </span>
+      </button>
+
+      @if (displayAvatar()) {
+        <button
+          type="button"
+          class="avatar-remove"
+          (click)="removeAvatar()"
+          aria-label="Remove photo"
+        >
+          <lucide-icon [img]="X" size="14"></lucide-icon>
+        </button>
+      }
+    </div>
+
+    <button type="button" class="avatar-change" (click)="triggerFilePicker()">
+      Change photo
+    </button>
+
+    <input #fileInput type="file" accept="image/*" hidden (change)="onFileSelected($event)" />
+  </section>
+
+  <section class="form-section">
+    <div class="form-group">
+      <label class="form-label" for="username">Username</label>
+      <input
+        id="username"
+        type="text"
+        class="form-input"
+        maxlength="50"
+        [ngModel]="username()"
+        (ngModelChange)="username.set($event)"
+      />
+      @if (usernameError()) {
+        <p class="form-error">{{ usernameError() }}</p>
+      }
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="bio">Bio</label>
+      <textarea
+        id="bio"
+        class="form-input form-textarea"
+        rows="4"
+        maxlength="300"
+        placeholder="Tell people about your taste…"
+        [ngModel]="bio()"
+        (ngModelChange)="bio.set($event)"
+      ></textarea>
+      <span class="char-count">{{ bio().length }}/300</span>
+    </div>
+
+    @if (errorMessage()) {
+      <p class="form-error">{{ errorMessage() }}</p>
+    }
+  </section>
+
+  <footer class="actions">
+    <a class="btn-secondary" [routerLink]="['/profile']">Cancel</a>
+    <button class="btn-primary" type="button" [disabled]="!canSave()" (click)="save()">
+      {{ saving() ? 'Saving…' : 'Save' }}
+    </button>
+  </footer>
+</div>

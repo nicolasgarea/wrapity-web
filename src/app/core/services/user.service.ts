@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { UserResponse } from '../models/model/userResponse';
 import { UserPublicResponse } from '../models/model/userPublicResponse';
 import { UserProfileResponse } from '../models/model/userProfileResponse';
+import { UserUpdate } from '../models/model/userUpdate';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,16 @@ export class UserService {
 
   getMe(): Observable<UserResponse> {
     return this.http.get<UserResponse>(`${this.API_URL}/users/me`);
+  }
+
+  updateMe(data: UserUpdate): Observable<UserResponse> {
+    return this.http.patch<UserResponse>(`${this.API_URL}/users/me`, data);
+  }
+
+  uploadAvatar(file: File): Observable<UserResponse> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<UserResponse>(`${this.API_URL}/users/me/avatar`, formData);
   }
 
   getByUsername(username: string): Observable<UserProfileResponse> {

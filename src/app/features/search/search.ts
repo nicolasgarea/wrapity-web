@@ -5,11 +5,13 @@ import { LucideAngularModule, Search as SearchIcon } from 'lucide-angular';
 import { debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { AlbumService } from '../../core/services/album.service';
+import { ArtistService } from '../../core/services/artist.service';
 import { UserService } from '../../core/services/user.service';
 import { Album } from '../../core/models/model/album';
+import { Artist } from '../../core/models/model/artist';
 import { UserPublicResponse } from '../../core/models/model/userPublicResponse';
 
-type Tab = 'albums' | 'users';
+type Tab = 'albums' | 'artists' | 'users';
 
 @Component({
   selector: 'app-search',
@@ -20,6 +22,7 @@ type Tab = 'albums' | 'users';
 })
 export class Search {
   private albumService = inject(AlbumService);
+  private artistService = inject(ArtistService);
   private userService = inject(UserService);
 
   readonly SearchIcon = SearchIcon;
@@ -40,6 +43,15 @@ export class Search {
     { initialValue: [] as Album[] },
   );
 
+  artists = toSignal(
+    this.query$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((q) => (q.trim().length < 2 ? of([]) : this.artistService.search(q))),
+    ),
+    { initialValue: [] as Artist[] },
+  );
+
   users = toSignal(
     this.query$.pipe(
       debounceTime(300),
@@ -51,7 +63,14 @@ export class Search {
 
   empty = computed(() => {
     if (this.query().trim().length < 2) return false;
-    return this.tab() === 'albums' ? this.albums().length === 0 : this.users().length === 0;
+    switch (this.tab()) {
+      case 'albums':
+        return this.albums().length === 0;
+      case 'artists':
+        return this.artists().length === 0;
+      default:
+        return this.users().length === 0;
+    }
   });
 
   setTab(t: Tab): void {

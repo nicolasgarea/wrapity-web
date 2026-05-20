@@ -9,9 +9,10 @@
  */
 
 
-export interface Artist { 
+export interface Artist {
     id: number;
     name: string;
     picture?: string | null;
+    nb_album?: number | null;
 }
 

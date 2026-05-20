@@ -7,21 +7,27 @@
 }
 
 .page-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid $border;
 
   h1 {
     font-family: $font-heading;
-    font-size: 1.6rem;
+    font-size: 2.1rem;
     font-weight: 700;
+    letter-spacing: -0.02em;
     color: $text;
     margin: 0;
   }
 
   p {
-    font-family: $font-body;
-    font-size: 0.85rem;
+    font-family: $font-heading;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
     color: $text-muted;
-    margin: 0.35rem 0 0;
+    margin: 0.5rem 0 0;
   }
 }
 
@@ -37,9 +43,10 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+
+  li + li {
+    border-top: 1px solid $border;
+  }
 }
 
 .load-more {

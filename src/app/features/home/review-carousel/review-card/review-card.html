@@ -5,18 +5,17 @@
     } @else {
       <div class="cover-placeholder"></div>
     }
+    <div class="cover-rating">
+      @for (i of stars; track i) {
+        <lucide-icon [img]="Star" size="13" [class.filled]="i <= item().rating"></lucide-icon>
+      }
+    </div>
   </div>
 
   <div class="body">
     <div class="album">
       <span class="album-title">{{ item().album.title }}</span>
       <span class="album-artist">{{ item().album.artist.name }}</span>
-    </div>
-
-    <div class="rating">
-      @for (i of stars; track i) {
-        <lucide-icon [img]="Star" size="13" [class.filled]="i <= item().rating"></lucide-icon>
-      }
     </div>
 
     @if (item().content) {
@@ -32,16 +31,16 @@
             {{ item().author.username.charAt(0).toUpperCase() }}
           }
         </div>
-        <span class="username">{{ item().author.username }}</span>
+        <div class="author-text">
+          <span class="username">{{ item().author.username }}</span>
+          <span class="date">{{ formatDate(item().created_at) }}</span>
+        </div>
       </button>
-      <div class="meta-end">
-        <app-like-button
-          [reviewId]="item().id"
-          [initialLiked]="item().liked_by_me ?? false"
-          [initialCount]="item().likes_count ?? 0"
-        />
-        <span class="date">{{ formatDate(item().created_at) }}</span>
-      </div>
+      <app-like-button
+        [reviewId]="item().id"
+        [initialLiked]="item().liked_by_me ?? false"
+        [initialCount]="item().likes_count ?? 0"
+      />
     </footer>
   </div>
 </article>

@@ -1,29 +1,38 @@
 <div class="page">
+  @if (reviewMode()) {
+    <header class="page-header">
+      <h1>Write a review</h1>
+      <p>Choose an album to review.</p>
+    </header>
+  }
+
   <div class="search-box">
     <lucide-icon class="icon" [img]="SearchIcon" size="20"></lucide-icon>
     <input
       type="text"
       class="input"
-      placeholder="Search albums or users…"
+      [placeholder]="reviewMode() ? 'Search for an album…' : 'Search albums or users…'"
       [ngModel]="query()"
       (ngModelChange)="query.set($event)"
       autofocus
     />
   </div>
 
-  <div class="tabs">
-    <button
-      type="button"
-      class="tab"
-      [class.active]="tab() === 'albums'"
-      (click)="setTab('albums')"
-    >
-      Albums
-    </button>
-    <button type="button" class="tab" [class.active]="tab() === 'users'" (click)="setTab('users')">
-      Users
-    </button>
-  </div>
+  @if (!reviewMode()) {
+    <div class="tabs">
+      <button
+        type="button"
+        class="tab"
+        [class.active]="tab() === 'albums'"
+        (click)="setTab('albums')"
+      >
+        Albums
+      </button>
+      <button type="button" class="tab" [class.active]="tab() === 'users'" (click)="setTab('users')">
+        Users
+      </button>
+    </div>
+  }
 
   @if (query().trim().length < 2) {
     <div class="state">Type at least 2 characters to search</div>
@@ -33,7 +42,7 @@
     <ul class="results">
       @for (album of albums(); track album.id) {
         <li>
-          <a class="album-row" [routerLink]="['/albums', album.id]">
+          <a class="album-row" [routerLink]="albumLink(album.id)">
             <div class="cover">
               @if (album.cover) {
                 <img [src]="album.cover" [alt]="album.title" />

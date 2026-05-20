@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -8,11 +8,13 @@ import { switchMap } from 'rxjs';
 import { AlbumService } from '../../../core/services/album.service';
 import { ReviewService } from '../../../core/services/review.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
+import { LikeButton } from '../../../shared/like-button/like-button';
 
 @Component({
   selector: 'app-review-editor',
   standalone: true,
-  imports: [LucideAngularModule, FormsModule],
+  imports: [LucideAngularModule, FormsModule, LikeButton],
   templateUrl: './review-editor.html',
   styleUrl: './review-editor.scss',
 })
@@ -39,6 +41,13 @@ export class ReviewEditor {
   saving = signal(false);
   existingId = signal<number | null>(null);
 
+  private albumReviews = signal<ReviewFeedItemResponse[]>([]);
+  otherReviews = computed(() =>
+    this.albumReviews().filter((r) => r.id !== this.existingId()),
+  );
+
+  selectedRating = computed(() => this.hoverRating() ?? this.draftRating());
+
   constructor() {
     if (!this.auth.currentUser()) {
       this.router.navigate(['/auth/login']);
@@ -54,14 +63,18 @@ export class ReviewEditor {
           this.draftContent.set(found.content ?? '');
         }
       });
+      this.reviewService.getByAlbum(albumId, 12, 0).subscribe((list) => {
+        this.albumReviews.set(list);
+      });
     });
   }
 
-  getStarFillPercent(i: number): number {
-    const value = this.hoverRating() ?? this.draftRating();
-    if (value >= i) return 100;
-    if (value >= i - 0.5) return 50;
-    return 0;
+  formatDate(iso: string): string {
+    return new Date(iso).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
   }
 
   onStarClick(value: number) {

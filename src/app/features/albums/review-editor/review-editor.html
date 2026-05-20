@@ -1,68 +1,114 @@
-<div class="page">
-  <header class="head">
-    <button class="back" (click)="cancel()" aria-label="Back">
-      <lucide-icon [img]="ArrowLeft" size="20"></lucide-icon>
-    </button>
-    <h1 class="title">{{ existingId() ? 'Edit review' : 'Write review' }}</h1>
-  </header>
-
+<div class="editor-page">
   @if (album(); as a) {
-    <div class="album-row">
-      <div class="cover">
-        @if (a.cover) {
-          <img [src]="a.cover" [alt]="a.title" />
-        }
-      </div>
-      <div class="album-info">
-        <span class="album-title">{{ a.title }}</span>
-        <span class="album-artist">{{ a.artist.name }}</span>
-      </div>
-    </div>
+    <div class="body">
+      <header class="topbar">
+        <button class="back" (click)="cancel()" aria-label="Go back">
+          <lucide-icon [img]="ArrowLeft" size="20"></lucide-icon>
+        </button>
+        <span class="eyebrow">{{ existingId() ? 'Edit review' : 'New review' }}</span>
+      </header>
 
-    <div class="rating">
-      <span class="rating-label">Your rating</span>
-      <div class="rate-stars" (mouseleave)="onStarsLeave()">
-        @for (i of stars; track i) {
-          <button
-            type="button"
-            class="rate-star"
-            (click)="onStarClick(i)"
-            (mouseenter)="onStarHover(i)"
-            [attr.aria-label]="i + ' stars'"
-          >
-            <lucide-icon [img]="Star" class="rate-star-bg"></lucide-icon>
-            <div class="rate-star-fill" [style.width.%]="getStarFillPercent(i)">
-              <lucide-icon [img]="Star" class="rate-star-fg"></lucide-icon>
-            </div>
+      <div class="album-chip">
+        <div class="chip-cover">
+          @if (a.cover) {
+            <img [src]="a.cover" [alt]="a.title" />
+          }
+        </div>
+        <div class="chip-info">
+          <span class="chip-artist">{{ a.artist.name }}</span>
+          <span class="chip-title">{{ a.title }}</span>
+        </div>
+      </div>
+
+      <div class="rate-block">
+        <span class="label">{{ draftRating() > 0 ? 'Your rating' : 'Tap to rate' }}</span>
+        <div class="stars" (mouseleave)="onStarsLeave()">
+          @for (i of stars; track i) {
+            <button
+              type="button"
+              class="star"
+              [class.on]="i <= selectedRating()"
+              (click)="onStarClick(i)"
+              (mouseenter)="onStarHover(i)"
+              [attr.aria-label]="i + ' stars'"
+            >
+              <lucide-icon [img]="Star" size="34"></lucide-icon>
+            </button>
+          }
+        </div>
+      </div>
+
+      <section class="composer-wrap">
+        <textarea
+          class="composer"
+          [ngModel]="draftContent()"
+          (ngModelChange)="draftContent.set($event)"
+          placeholder="Write your thoughts…"
+          maxlength="1000"
+        ></textarea>
+        @if (draftContent().length > 0) {
+          <span class="counter" [class.warn]="draftContent().length > 900">
+            {{ draftContent().length }} / 1000
+          </span>
+        }
+      </section>
+
+      <footer class="actions">
+        @if (existingId()) {
+          <button class="btn-delete" type="button" [disabled]="saving()" (click)="remove()">
+            Delete
           </button>
         }
-      </div>
-    </div>
-
-    <textarea
-      class="composer"
-      [ngModel]="draftContent()"
-      (ngModelChange)="draftContent.set($event)"
-      placeholder="Write your review…"
-      rows="8"
-      maxlength="1000"
-    ></textarea>
-
-    <footer class="actions">
-      @if (existingId()) {
-        <button class="btn-delete" type="button" [disabled]="saving()" (click)="remove()">
-          Delete
+        <button class="btn-secondary" type="button" (click)="cancel()">Cancel</button>
+        <button
+          class="btn-primary"
+          type="button"
+          [disabled]="draftRating() === 0 || saving()"
+          (click)="save()"
+        >
+          {{ saving() ? 'Saving…' : existingId() ? 'Update' : 'Publish' }}
         </button>
-      }
-      <button class="btn-secondary" type="button" (click)="cancel()">Cancel</button>
-      <button
-        class="btn-primary"
-        type="button"
-        [disabled]="draftRating() === 0 || saving()"
-        (click)="save()"
-      >
-        {{ saving() ? 'Saving…' : 'Save' }}
-      </button>
-    </footer>
+      </footer>
+
+      <section class="others">
+        <span class="others-label">What others said</span>
+        @if (otherReviews().length > 0) {
+          <ul class="review-list">
+            @for (review of otherReviews(); track review.id) {
+              <li class="review">
+                <div class="review-avatar">
+                  @if (review.author.avatar_url) {
+                    <img [src]="review.author.avatar_url" [alt]="review.author.username" />
+                  } @else {
+                    {{ review.author.username.charAt(0).toUpperCase() }}
+                  }
+                </div>
+                <div class="review-body">
+                  <div class="review-header">
+                    <span class="review-user">{{ review.author.username }}</span>
+                    <div class="rating-stars-row">
+                      @for (i of [1, 2, 3, 4, 5]; track i) {
+                        <lucide-icon [img]="Star" size="13" [class.filled]="i <= review.rating"></lucide-icon>
+                      }
+                    </div>
+                    <span class="review-date">{{ formatDate(review.created_at) }}</span>
+                  </div>
+                  @if (review.content) {
+                    <p class="review-content">{{ review.content }}</p>
+                  }
+                  <app-like-button
+                    [reviewId]="review.id"
+                    [initialLiked]="review.liked_by_me ?? false"
+                    [initialCount]="review.likes_count ?? 0"
+                  />
+                </div>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="empty">No reviews yet</p>
+        }
+      </section>
+    </div>
   }
 </div>

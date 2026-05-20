@@ -150,7 +150,28 @@ nav {
     .nav-actions {
       display: flex;
       align-items: center;
+      gap: 1rem;
       flex-shrink: 0;
+    }
+
+    .nav-create {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: $primary;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+
+      lucide-icon {
+        display: flex;
+      }
+
+      &:hover,
+      &.active {
+        transform: scale(1.1);
+        opacity: 0.85;
+      }
     }
 
     .nav-login {

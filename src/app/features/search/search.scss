@@ -16,6 +16,23 @@
   gap: 1rem;
 }
 
+.page-header {
+  h1 {
+    font-family: $font-heading;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $text;
+    margin: 0;
+  }
+
+  p {
+    font-family: $font-body;
+    font-size: 0.85rem;
+    color: $text-muted;
+    margin: 0.35rem 0 0;
+  }
+}
+
 .search-box {
   position: relative;
   display: flex;

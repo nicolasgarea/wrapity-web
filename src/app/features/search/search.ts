@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, Search as SearchIcon } from 'lucide-angular';
@@ -23,6 +23,8 @@ export class Search {
   private userService = inject(UserService);
 
   readonly SearchIcon = SearchIcon;
+
+  reviewMode = input(false);
 
   query = signal('');
   tab = signal<Tab>('albums');
@@ -54,5 +56,9 @@ export class Search {
 
   setTab(t: Tab): void {
     this.tab.set(t);
+  }
+
+  albumLink(id: number): unknown[] {
+    return this.reviewMode() ? ['/albums', id, 'review'] : ['/albums', id];
   }
 }

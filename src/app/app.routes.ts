@@ -39,6 +39,11 @@ export const routes: Routes = [
           import('./features/albums/review-editor/review-editor').then((m) => m.ReviewEditor),
       },
       {
+        path: 'artists/:id',
+        loadComponent: () =>
+          import('./features/artists/artist-detail/artist-detail').then((m) => m.ArtistDetail),
+      },
+      {
         path: 'profile',
         canActivate: [
           () => {

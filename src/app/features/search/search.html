@@ -11,7 +11,7 @@
     <input
       type="text"
       class="input"
-      [placeholder]="reviewMode() ? 'Search for an album…' : 'Search albums or users…'"
+      [placeholder]="reviewMode() ? 'Search for an album…' : 'Search albums, artists or users…'"
       [ngModel]="query()"
       (ngModelChange)="query.set($event)"
       autofocus
@@ -27,6 +27,14 @@
         (click)="setTab('albums')"
       >
         Albums
+      </button>
+      <button
+        type="button"
+        class="tab"
+        [class.active]="tab() === 'artists'"
+        (click)="setTab('artists')"
+      >
+        Artists
       </button>
       <button type="button" class="tab" [class.active]="tab() === 'users'" (click)="setTab('users')">
         Users
@@ -52,6 +60,23 @@
               <span class="album-title">{{ album.title }}</span>
               <span class="album-artist">{{ album.artist.name }}</span>
             </div>
+          </a>
+        </li>
+      }
+    </ul>
+  } @else if (tab() === 'artists') {
+    <ul class="results">
+      @for (artist of artists(); track artist.id) {
+        <li>
+          <a class="user-row" [routerLink]="['/artists', artist.id]">
+            <div class="avatar">
+              @if (artist.picture) {
+                <img [src]="artist.picture" [alt]="artist.name" />
+              } @else {
+                {{ artist.name.charAt(0).toUpperCase() }}
+              }
+            </div>
+            <span class="username">{{ artist.name }}</span>
           </a>
         </li>
       }

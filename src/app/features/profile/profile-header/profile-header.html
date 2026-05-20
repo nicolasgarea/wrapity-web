@@ -30,7 +30,7 @@
     </p>
 
     @if (isMe()) {
-      <button class="btn btn--ghost" type="button" disabled>Edit profile</button>
+      <a class="btn btn--ghost" [routerLink]="['/profile/edit']">Edit profile</a>
     } @else if (user().is_following !== null) {
       <button
         class="btn"

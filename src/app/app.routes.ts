@@ -33,6 +33,12 @@ export const routes: Routes = [
           import('./features/albums/album-detail/album-detail').then((m) => m.AlbumDetail),
       },
       {
+        path: 'albums/:id/review',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./features/albums/review-editor/review-editor').then((m) => m.ReviewEditor),
+      },
+      {
         path: 'profile',
         canActivate: [
           () => {

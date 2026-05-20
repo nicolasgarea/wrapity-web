@@ -49,7 +49,7 @@ lucide-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 1.25rem 2rem;
+  padding: 4rem 1.25rem 2.5rem;
 }
 
 .hero-bg {
@@ -58,7 +58,7 @@ lucide-icon {
   background-size: cover;
   background-position: center;
   filter: blur(30px);
-  opacity: 0.55;
+  opacity: 0.5;
   z-index: 0;
 }
 
@@ -68,7 +68,7 @@ lucide-icon {
   background: linear-gradient(
     to bottom,
     rgba(12, 12, 14, 0.4) 0%,
-    rgba(12, 12, 14, 0.7) 50%,
+    rgba(12, 12, 14, 0.75) 55%,
     $bg-base 100%
   );
   z-index: 1;
@@ -81,9 +81,9 @@ lucide-icon {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 1.25rem;
+  gap: 1.5rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: 720px;
 }
 
 .cover-wrap {
@@ -114,55 +114,78 @@ lucide-icon {
   gap: 0.75rem;
 }
 
-.artist {
-  font-family: $font-heading;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: $text-muted;
-  margin: 0;
-}
-
 .title {
   font-family: $font-heading;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   color: $text;
   margin: 0;
 }
 
-.stats {
+.subtitle {
   display: flex;
-  gap: 1rem;
-  width: 100%;
-  margin-top: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-}
-
-.rating-summary {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   justify-content: center;
-  gap: 0.3rem;
-  flex: 0 0 auto;
-  min-width: 80px;
-  padding-right: 1rem;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 0.4rem;
+  margin: 0.45rem 0 0;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  color: $text-muted;
 }
 
-.rating-big {
+.subtitle .year {
+  font-variant-numeric: tabular-nums;
+}
+
+.subtitle .by {
+  opacity: 0.7;
+}
+
+.artist-link {
+  color: $text;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.dot {
+  opacity: 0.5;
+}
+
+.rating-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.rating-avg {
   font-family: $font-heading;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: 700;
-  color: $star;
-  line-height: 1;
+  color: $text;
+}
+
+.rating-n {
+  font-family: $font-body;
+  font-size: 0.85rem;
+  color: $text-muted;
+}
+
+.rating-line--empty {
+  font-family: $font-heading;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
 }
 
 .rating-stars-row {
@@ -186,84 +209,394 @@ lucide-icon {
 }
 
 .rating-count {
-  font-family: $font-body;
-  font-size: 0.7rem;
-  color: $text-muted;
-  text-align: center;
-}
-
-.rating-distribution {
-  flex: 1 1 auto;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.35rem;
-}
-
-.dist-row {
-  display: grid;
-  grid-template-columns: 24px 1fr 22px;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: $text-muted;
-}
-
-.dist-label {
   font-family: $font-heading;
+  font-size: 0.6rem;
   font-weight: 700;
-  color: $text;
-  text-align: right;
-}
-
-.dist-bar {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  overflow: hidden;
-  min-width: 0;
-}
-
-.dist-bar-fill {
-  height: 100%;
-  background: $star;
-  border-radius: 999px;
-}
-
-.dist-count {
-  font-variant-numeric: tabular-nums;
-  text-align: left;
-}
-
-.rate-section,
-.reviews {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.5rem 1.25rem;
-}
-
-.section-title {
-  font-family: $font-heading;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: $text-muted;
-  margin: 0 0 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid $border;
 }
 
-.rate-box {
+.rating-summary {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 1.5rem;
   background: $surface;
   border: 1px solid $border;
   border-radius: $radius;
-  padding: 1.25rem;
+}
+
+.rating-summary-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  padding-right: 1.5rem;
+  border-right: 1px solid $border;
+}
+
+.rating-summary-avg {
+  font-family: $font-heading;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: $text;
+  font-variant-numeric: tabular-nums;
+}
+
+.rating-summary-count {
+  font-family: $font-heading;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $text-muted;
+  white-space: nowrap;
+}
+
+.rating-bars {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.rating-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-bar-label {
+  width: 0.7rem;
+  text-align: right;
+  font-family: $font-heading;
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: $text-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.rating-bar-star {
+  color: $star;
+  flex-shrink: 0;
+
+  ::ng-deep svg {
+    fill: $star;
+  }
+}
+
+.rating-bar-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.rating-bar-fill {
+  height: 100%;
+  background: $star;
+  border-radius: 100px;
+  transition: width 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.rating-bar-count {
+  min-width: 1.4rem;
+  text-align: right;
+  font-family: $font-heading;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: $text-muted;
+  font-variant-numeric: tabular-nums;
+}
+
+.your-rating .rate-star {
+  width: 34px;
+  height: 34px;
+}
+
+.album-body {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.your-rating {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  padding: 1.5rem;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+}
+
+.your-rating-label {
+  font-family: $font-heading;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.artist-card {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius;
+  text-decoration: none;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+
+  &:hover {
+    border-color: $text-muted;
+
+    .artist-card-chevron {
+      transform: translateX(2px);
+      color: $text;
+    }
+  }
+}
+
+.artist-card-avatar {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: $surface-2;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 700;
+  color: $text-muted;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.artist-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.artist-card-label {
+  font-family: $font-heading;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.artist-card-name {
+  font-family: $font-heading;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist-card-chevron {
+  margin-left: auto;
+  flex-shrink: 0;
+  color: $text-muted;
+  transition:
+    transform 0.15s ease,
+    color 0.15s ease;
+}
+
+.write-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: $primary;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 1px solid $border;
+  margin-top: 0.75rem;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 0.75rem 1.1rem;
+  font-family: $font-heading;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+  cursor: pointer;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    color: $text;
+  }
+
+  &.active {
+    color: $primary;
+    border-bottom-color: $primary;
+  }
+}
+
+.tab-body {
+  display: flex;
+  flex-direction: column;
+  animation: tab-fade 0.2s ease;
+}
+
+@keyframes tab-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-grid {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  dt {
+    font-family: $font-heading;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: $text-muted;
+    padding-top: 0.15rem;
+  }
+
+  dd {
+    margin: 0;
+    font-family: $font-body;
+    font-size: 0.9rem;
+    color: $text;
+  }
+
+  .cap {
+    text-transform: capitalize;
+  }
+}
+
+.tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.5rem 0;
+}
+
+.track-num {
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: right;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: $text-muted;
+  opacity: 0.55;
+  font-variant-numeric: tabular-nums;
+}
+
+.track-name {
+  flex: 1;
+  min-width: 0;
+  font-family: $font-body;
+  font-size: 0.92rem;
+  color: $text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.track-dur {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 0.5rem;
+  font-family: $font-heading;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: $text-muted;
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
+}
+
+.explicit {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  font-family: $font-heading;
+  font-size: 0.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: $bg-base;
+  background: $text-muted;
+  border-radius: 3px;
 }
 
 .rate-stars {
@@ -274,8 +607,8 @@ lucide-icon {
 
 .rate-star {
   position: relative;
-  width: 38px;
-  height: 38px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,196 +657,23 @@ lucide-icon {
   }
 }
 
-.rate-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  width: 100%;
-  align-items: center;
-}
-
-.btn-comment {
-  background: transparent;
-  border: 1px dashed $border;
-  color: $text-muted;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  font-family: $font-heading;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  &:hover {
-    border-color: $primary;
-    border-style: solid;
-    color: $primary;
-  }
-
-  &.active {
-    border-color: $primary;
-    border-style: solid;
-    color: $primary;
-  }
-}
-
-.rate-actions {
-  display: flex;
-  gap: 0.5rem;
-  width: 100%;
-}
-
-.rate-textarea {
-  width: 100%;
-  background: $bg-input;
-  border: 1.5px solid $border;
-  border-radius: $radius-sm;
-  padding: 0.75rem;
-  color: $text;
-  font-family: $font-body;
-  font-size: 0.9rem;
-  resize: none;
-  outline: none;
-
-  &:focus {
-    border-color: $primary;
-  }
-
-  &::placeholder {
-    color: $text-muted;
-  }
-}
-
-.my-review-card {
-  background: $surface;
-  border: 1px solid $border;
-  border-radius: $radius;
-  padding: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.my-review-head {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.my-review-score {
-  font-family: $font-heading;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: $star;
-  line-height: 1;
-}
-
-.my-review-content {
-  font-family: $font-body;
-  font-size: 0.95rem;
-  color: $text;
-  line-height: 1.55;
-  margin: 0;
-}
-
-.my-review-empty {
-  font-family: $font-body;
-  font-size: 0.85rem;
-  color: $text-muted;
-  font-style: italic;
-  margin: 0;
-}
-
-.btn-primary {
-  flex: 1;
-  height: 44px;
-  background: $primary;
-  color: #000;
-  border: none;
-  border-radius: 200px;
-  font-family: $font-heading;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  &:hover:not(:disabled) {
-    background: rgb(247, 247, 134);
-  }
-
-  &:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
-}
-
-.btn-secondary {
-  flex: 0 0 auto;
-  height: 44px;
-  padding: 0 1.25rem;
-  background: transparent;
-  color: $text;
-  border: 1px solid $border;
-  border-radius: 200px;
-  font-family: $font-heading;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  &:hover {
-    border-color: $text-muted;
-  }
-}
-
-.btn-ghost {
-  margin-left: auto;
-  background: transparent;
-  border: 1px solid $border;
-  color: $text;
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  font-family: $font-heading;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-
-  &:hover {
-    border-color: $primary;
-    color: $primary;
-  }
-}
-
-.btn-link-danger {
-  align-self: flex-end;
-  background: transparent;
-  border: none;
-  color: $secondary;
-  font-family: $font-heading;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 0.25rem 0;
-  opacity: 0.8;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
 .empty {
   padding: 3rem 1rem;
   text-align: center;
+  color: $text;
+  font-size: 0.95rem;
+
+  p {
+    margin: 0 0 0.4rem;
+    font-family: $font-heading;
+    font-weight: 600;
+  }
+}
+
+.empty-hint {
+  font-family: $font-body;
+  font-size: 0.82rem;
   color: $text-muted;
-  font-size: 0.875rem;
 }
 
 .review-list {
@@ -587,6 +747,10 @@ lucide-icon {
   white-space: pre-wrap;
 }
 
+.review-actions {
+  margin-top: 0.5rem;
+}
+
 .caught-up {
   display: flex;
   align-items: center;
@@ -618,42 +782,29 @@ lucide-icon {
   height: 1px;
 }
 
-@media (min-width: 786px) {
+@media (min-width: 768px) {
   .back-btn {
     top: 6.5rem;
     left: 2rem;
   }
 
   .hero {
-    padding: 5rem 2rem 3rem;
+    padding: 5rem 2rem 3.5rem;
   }
 
   .hero-bg {
     inset: -10px;
-    opacity: 0.9;
+    opacity: 0.85;
   }
 
   .hero-content {
-    flex-direction: row;
-    align-items: center;
-    text-align: left;
-    gap: 2.5rem;
+    gap: 1.75rem;
+    max-width: 720px;
   }
 
   .cover-wrap {
-    width: 280px;
+    width: 248px;
     border-radius: $radius;
-  }
-
-  .meta {
-    align-items: flex-start;
-    gap: 1rem;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .artist {
-    font-size: 0.85rem;
   }
 
   .title {
@@ -661,68 +812,26 @@ lucide-icon {
     line-height: 1.05;
   }
 
-  .stats {
-    padding: 1.25rem 1.5rem;
-    gap: 1.5rem;
+  .subtitle {
+    font-size: 1.05rem;
+  }
+
+  .album-body {
+    padding: 2.5rem 2rem 6rem;
+    gap: 1.1rem;
+  }
+
+  .rating-summary,
+  .your-rating {
+    padding: 1.75rem 2rem;
   }
 
   .rating-summary {
-    min-width: 110px;
-    padding-right: 1.5rem;
-  }
-
-  .rating-big {
-    font-size: 2.5rem;
-  }
-
-  .rate-section,
-  .reviews {
-    padding: 2rem;
-  }
-
-  .section-title {
-    font-size: 0.75rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .rate-box {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    gap: 1.25rem;
-  }
-
-  .rate-stars {
-    gap: 0.3rem;
+    gap: 2.25rem;
   }
 
   .rate-star {
-    width: 34px;
-    height: 34px;
-  }
-
-  .rate-controls {
-    flex: 1;
-    flex-direction: row;
-    justify-content: space-between;
-    width: auto;
-  }
-
-  .rate-actions {
-    width: auto;
-  }
-
-  .btn-primary {
-    flex: 0 0 auto;
-    padding: 0 2rem;
-  }
-
-  .rate-textarea {
-    flex: 1 0 100%;
-  }
-
-  .my-review-card {
-    padding: 1.5rem;
+    width: 32px;
+    height: 32px;
   }
 }

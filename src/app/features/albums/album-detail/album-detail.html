@@ -23,180 +23,247 @@
         </div>
 
         <div class="meta">
-          <p class="artist">{{ a.artist.name }}</p>
           <h1 class="title">{{ a.title }}</h1>
+          <p class="subtitle">
+            <span class="by">by</span>
+            <a class="artist-link" [routerLink]="['/artists', a.artist.id]">{{ a.artist.name }}</a>
+            @if (year()) {
+              <span class="dot">·</span>
+              <span class="year">{{ year() }}</span>
+            }
+          </p>
 
-          <div class="stats">
-            <div class="rating-summary">
-              <div class="rating-big">
-                @if (averageRating()) {
-                  {{ averageRating() | number: '1.1-1' }}
-                } @else {
-                  -
-                }
-              </div>
+          @if (averageRating(); as avg) {
+            <div class="rating-line">
               <div class="rating-stars-row">
                 @for (i of [1, 2, 3, 4, 5]; track i) {
-                  <lucide-icon
-                    [img]="Star"
-                    size="14"
-                    [class.filled]="i <= (averageRating() ?? 0)"
-                  ></lucide-icon>
+                  <lucide-icon [img]="Star" size="15" [class.filled]="i <= avg"></lucide-icon>
                 }
               </div>
-              <div class="rating-count">{{ reviewCount() }} reviews</div>
+              <span class="rating-avg">{{ avg | number: '1.1-1' }}</span>
+              <span class="rating-n">({{ reviewCount() }})</span>
             </div>
-
-            <div class="rating-distribution">
-              @for (row of ratingDistribution(); track row.rating) {
-                <div class="dist-row">
-                  <span class="dist-label">{{ row.rating }}★</span>
-                  <div class="dist-bar">
-                    <div class="dist-bar-fill" [style.width.%]="row.percentage"></div>
-                  </div>
-                  <span class="dist-count">{{ row.count }}</span>
-                </div>
-              }
-            </div>
-          </div>
+          } @else {
+            <div class="rating-line rating-line--empty">Not yet rated</div>
+          }
         </div>
       </div>
     </section>
 
-    <section class="rate-section">
-      <h2 class="section-title">
-        @if (mine && !isEditing()) {
-          Your review
-        } @else {
-          Rate this album
-        }
-      </h2>
-
-      @if (mine && !isEditing()) {
-        <div class="my-review-card">
-          <div class="my-review-head">
-            <span class="my-review-score">{{ mine.rating | number: '1.1-1' }}</span>
-            <div class="rating-stars-row lg">
-              @for (i of [1, 2, 3, 4, 5]; track i) {
-                <lucide-icon [img]="Star" size="18" [class.filled]="i <= mine.rating"></lucide-icon>
-              }
-            </div>
-            <button class="btn-ghost" (click)="startEdit()">Edit</button>
-          </div>
-
-          @if (mine.content) {
-            <p class="my-review-content">{{ mine.content }}</p>
-          } @else {
-            <p class="my-review-empty">No comment</p>
-          }
-
-          <button class="btn-link-danger" (click)="deleteReview()">Delete review</button>
-        </div>
-      } @else {
-        <div class="rate-box">
-          <div class="rate-stars" (mouseleave)="onStarsLeave()">
-            @for (i of stars; track i) {
-              <button
-                type="button"
-                class="rate-star"
-                (click)="onStarClick(i)"
-                (mouseenter)="onStarHover(i)"
-                [attr.aria-label]="i + ' stars'"
-              >
-                <lucide-icon [img]="Star" class="rate-star-bg"></lucide-icon>
-                <div class="rate-star-fill" [style.width.%]="getStarFillPercent(i)">
-                  <lucide-icon [img]="Star" class="rate-star-fg"></lucide-icon>
-                </div>
-              </button>
-            }
-          </div>
-
-          <div class="rate-controls">
+    <div class="album-body">
+      <section class="your-rating">
+        <span class="your-rating-label">{{ mine ? 'Your rating' : 'Rate this album' }}</span>
+        <div class="rate-stars" (mouseleave)="onStarsLeave()">
+          @for (i of stars; track i) {
             <button
               type="button"
-              class="btn-comment"
-              [class.active]="showComment()"
-              (click)="toggleComment()"
+              class="rate-star"
+              (click)="quickRate(i)"
+              (mouseenter)="onStarHover(i)"
+              [attr.aria-label]="i + ' stars'"
             >
-              {{ showComment() ? '− Hide comment' : '+ Add comment' }}
+              <lucide-icon [img]="Star" class="rate-star-bg"></lucide-icon>
+              <div class="rate-star-fill" [style.width.%]="getStarFillPercent(i)">
+                <lucide-icon [img]="Star" class="rate-star-fg"></lucide-icon>
+              </div>
             </button>
+          }
+        </div>
 
-            <div class="rate-actions">
-              @if (mine && isEditing()) {
-                <button class="btn-secondary" (click)="cancelEdit()">Cancel</button>
+        <a class="write-link" [routerLink]="['/albums', a.id, 'review']">
+          <lucide-icon [img]="PenLine" size="15"></lucide-icon>
+          {{ mine?.content ? 'Edit your review' : 'Write a review' }}
+        </a>
+      </section>
+
+      @if (reviewCount() > 0) {
+        <section class="rating-summary">
+          <div class="rating-summary-score">
+            <div class="rating-summary-avg">{{ averageRating() | number: '1.1-1' }}</div>
+            <div class="rating-stars-row">
+              @for (i of [1, 2, 3, 4, 5]; track i) {
+                <lucide-icon
+                  [img]="Star"
+                  size="13"
+                  [class.filled]="i <= (averageRating() ?? 0)"
+                ></lucide-icon>
               }
-              <button
-                class="btn-primary"
-                [disabled]="draftRating() === 0 || isSubmitting()"
-                (click)="submitReview()"
-              >
-                {{ mine ? 'Save' : 'Rate' }}
-              </button>
+            </div>
+            <div class="rating-summary-count">
+              {{ reviewCount() }} {{ reviewCount() === 1 ? 'rating' : 'ratings' }}
             </div>
           </div>
 
-          @if (showComment()) {
-            <textarea
-              class="rate-textarea"
-              [(ngModel)]="draftContent"
-              placeholder="Share your thoughts about this album…"
-              rows="3"
-              maxlength="1000"
-            ></textarea>
-          }
-        </div>
-      }
-    </section>
-
-    <section class="reviews">
-      <h2 class="section-title">Reviews</h2>
-
-      @if (r.length === 0 && !loadingMore()) {
-        <div class="empty">
-          <p>No reviews yet</p>
-        </div>
-      } @else {
-        <ul class="review-list">
-          @for (review of r; track review.id) {
-            <li class="review">
-              <div class="review-avatar">
-                @if (review.author.avatar_url) {
-                  <img [src]="review.author.avatar_url" [alt]="review.author.username" />
-                } @else {
-                  {{ review.author.username.charAt(0).toUpperCase() }}
-                }
-              </div>
-              <div class="review-body">
-                <div class="review-header">
-                  <span class="review-user">{{ review.author.username }}</span>
-                  <div class="rating-stars-row">
-                    @for (i of [1, 2, 3, 4, 5]; track i) {
-                      <lucide-icon
-                        [img]="Star"
-                        size="14"
-                        [class.filled]="i <= review.rating"
-                      ></lucide-icon>
-                    }
-                  </div>
+          <div class="rating-bars">
+            @for (row of ratingHistogram(); track row.rating) {
+              <div class="rating-bar-row" [attr.title]="row.count + ' ratings'">
+                <span class="rating-bar-label">{{ row.rating }}</span>
+                <lucide-icon [img]="Star" size="11" class="rating-bar-star"></lucide-icon>
+                <div class="rating-bar-track">
+                  <div class="rating-bar-fill" [style.width.%]="row.percentage"></div>
                 </div>
-                @if (review.content) {
-                  <p class="review-content">{{ review.content }}</p>
-                }
+                <span class="rating-bar-count">{{ row.count }}</span>
               </div>
-            </li>
-          }
-        </ul>
-
-        @if (!hasMore() && r.length > 0) {
-          <div class="caught-up">
-            <span class="caught-up-line"></span>
-            <span class="caught-up-text">You're all caught up</span>
-            <span class="caught-up-line"></span>
+            }
           </div>
-        }
-
-        <div #sentinel class="sentinel"></div>
+        </section>
       }
-    </section>
+
+      <a class="artist-card" [routerLink]="['/artists', a.artist.id]">
+        <div class="artist-card-avatar">
+          @if (a.artist.picture) {
+            <img [src]="a.artist.picture" [alt]="a.artist.name" />
+          } @else {
+            {{ a.artist.name.charAt(0).toUpperCase() }}
+          }
+        </div>
+        <div class="artist-card-info">
+          <span class="artist-card-label">Artist</span>
+          <span class="artist-card-name">{{ a.artist.name }}</span>
+        </div>
+        <lucide-icon [img]="ChevronRight" size="18" class="artist-card-chevron"></lucide-icon>
+      </a>
+
+      <nav class="tabs">
+        <button
+          class="tab"
+          [class.active]="section() === 'reviews'"
+          (click)="section.set('reviews')"
+        >
+          Reviews
+        </button>
+        @if (tracks().length) {
+          <button
+            class="tab"
+            [class.active]="section() === 'tracklist'"
+            (click)="section.set('tracklist')"
+          >
+            Tracklist
+          </button>
+        }
+        <button
+          class="tab"
+          [class.active]="section() === 'details'"
+          (click)="section.set('details')"
+        >
+          Details
+        </button>
+      </nav>
+
+      <div class="tab-body">
+        @switch (section()) {
+          @case ('details') {
+            <dl class="detail-grid">
+              @if (year()) {
+                <div class="detail-row">
+                  <dt>Released</dt>
+                  <dd>{{ year() }}</dd>
+                </div>
+              }
+              @if (recordType()) {
+                <div class="detail-row">
+                  <dt>Type</dt>
+                  <dd class="cap">{{ recordType() }}</dd>
+                </div>
+              }
+              @if (genres().length) {
+                <div class="detail-row">
+                  <dt>Genre</dt>
+                  <dd>{{ genreNames() }}</dd>
+                </div>
+              }
+              @if (runtime()) {
+                <div class="detail-row">
+                  <dt>Length</dt>
+                  <dd>{{ runtime() }}</dd>
+                </div>
+              }
+              @if (nbTracks()) {
+                <div class="detail-row">
+                  <dt>Tracks</dt>
+                  <dd>{{ nbTracks() }}</dd>
+                </div>
+              }
+              @if (a.label) {
+                <div class="detail-row">
+                  <dt>Label</dt>
+                  <dd>{{ a.label }}</dd>
+                </div>
+              }
+            </dl>
+          }
+          @case ('tracklist') {
+            <ol class="tracks">
+              @for (t of tracks(); track t.id; let i = $index) {
+                <li class="track">
+                  <span class="track-num">{{ t.track_position ?? i + 1 }}</span>
+                  <span class="track-name">{{ t.title }}</span>
+                  @if (t.explicit_lyrics) {
+                    <span class="explicit" title="Explicit">E</span>
+                  }
+                  <span class="track-dur">{{ formatDuration(t.duration) }}</span>
+                </li>
+              }
+            </ol>
+          }
+          @default {
+            @if (r.length === 0 && !loadingMore()) {
+              <div class="empty">
+                <p>No reviews yet</p>
+                <span class="empty-hint">Be the first to rate this album</span>
+              </div>
+            } @else {
+              <ul class="review-list">
+                @for (review of r; track review.id) {
+                  <li class="review">
+                    <div class="review-avatar">
+                      @if (review.author.avatar_url) {
+                        <img [src]="review.author.avatar_url" [alt]="review.author.username" />
+                      } @else {
+                        {{ review.author.username.charAt(0).toUpperCase() }}
+                      }
+                    </div>
+                    <div class="review-body">
+                      <div class="review-header">
+                        <span class="review-user">{{ review.author.username }}</span>
+                        <div class="rating-stars-row">
+                          @for (i of [1, 2, 3, 4, 5]; track i) {
+                            <lucide-icon
+                              [img]="Star"
+                              size="14"
+                              [class.filled]="i <= review.rating"
+                            ></lucide-icon>
+                          }
+                        </div>
+                      </div>
+                      @if (review.content) {
+                        <p class="review-content">{{ review.content }}</p>
+                      }
+                      <div class="review-actions">
+                        <app-like-button
+                          [reviewId]="review.id"
+                          [initialLiked]="review.liked_by_me ?? false"
+                          [initialCount]="review.likes_count ?? 0"
+                        />
+                      </div>
+                    </div>
+                  </li>
+                }
+              </ul>
+
+              @if (!hasMore() && r.length > 0) {
+                <div class="caught-up">
+                  <span class="caught-up-line"></span>
+                  <span class="caught-up-text">You're all caught up</span>
+                  <span class="caught-up-line"></span>
+                </div>
+              }
+
+              <div #sentinel class="sentinel"></div>
+            }
+          }
+        }
+      </div>
+    </div>
   }
 </div>

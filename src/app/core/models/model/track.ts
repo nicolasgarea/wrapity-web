@@ -9,9 +9,13 @@
  */
 
 
-export interface Artist { 
+export interface Track { 
     id: number;
-    name: string;
-    picture?: string | null;
+    title: string;
+    duration: number;
+    track_position?: number | null;
+    disk_number?: number | null;
+    preview?: string | null;
+    explicit_lyrics?: boolean | null;
 }
 

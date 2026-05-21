@@ -198,9 +198,6 @@
                 <li class="track">
                   <span class="track-num">{{ t.track_position ?? i + 1 }}</span>
                   <span class="track-name">{{ t.title }}</span>
-                  @if (t.explicit_lyrics) {
-                    <span class="explicit" title="Explicit">E</span>
-                  }
                   <span class="track-dur">{{ formatDuration(t.duration) }}</span>
                 </li>
               }
@@ -225,7 +222,10 @@
                     </div>
                     <div class="review-body">
                       <div class="review-header">
-                        <span class="review-user">{{ review.author.username }}</span>
+                        <div class="review-meta">
+                          <span class="review-user">{{ review.author.username }}</span>
+                          <span class="review-date">{{ formatDate(review.created_at) }}</span>
+                        </div>
                         <div class="rating-stars-row">
                           @for (i of [1, 2, 3, 4, 5]; track i) {
                             <lucide-icon

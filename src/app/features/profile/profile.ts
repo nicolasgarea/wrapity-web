@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, linkedSignal, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, map, of, catchError } from 'rxjs';
@@ -48,11 +48,7 @@ export class Profile {
     { initialValue: null },
   );
 
-  private userOverride = signal<UserProfileResponse | null>(null);
-
-  user = computed<UserProfileResponse | null>(
-    () => this.userOverride() ?? this.data()?.user ?? null,
-  );
+  user = linkedSignal<UserProfileResponse | null>(() => this.data()?.user ?? null);
   favorites = computed<FavoriteWithAlbumResponse[]>(() => this.data()?.favorites ?? []);
   loading = computed(() => this.username() !== '' && this.data() === null);
 
@@ -73,13 +69,13 @@ export class Profile {
     if (!u || u.is_following === null) return;
 
     const wasFollowing = u.is_following;
-    this.userOverride.set({
+    this.user.set({
       ...u,
       is_following: !wasFollowing,
       followers_count: u.followers_count + (wasFollowing ? -1 : 1),
     });
 
     const req$ = wasFollowing ? this.userService.unfollow(u.id) : this.userService.follow(u.id);
-    req$.subscribe({ error: () => this.userOverride.set(u) });
+    req$.subscribe({ error: () => this.user.set(u) });
   }
 }

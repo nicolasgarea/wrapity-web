@@ -44,7 +44,7 @@
     <ul class="results">
       @for (album of results(); track album.id) {
         <li>
-          <button class="result" type="button" (click)="pick(album)">
+          <button class="result" type="button" (mousedown)="$event.preventDefault()" (click)="pick(album)">
             <img class="result-cover" [src]="album.cover" [alt]="album.title" />
             <div class="result-info">
               <span class="result-title">{{ album.title }}</span>
@@ -55,11 +55,4 @@
       }
     </ul>
   </section>
-
-  <footer class="actions">
-    <a class="btn-secondary" [routerLink]="['/profile']">Cancel</a>
-    <button class="btn-primary" type="button" [disabled]="saving()" (click)="save()">
-      {{ saving() ? 'Saving…' : 'Save' }}
-    </button>
-  </footer>
 </div>

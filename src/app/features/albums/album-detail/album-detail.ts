@@ -19,6 +19,7 @@ import { ReviewService } from '../../../core/services/review.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
 import { LikeButton } from '../../../shared/like-button/like-button';
+import { formatRelativeDate } from '../../../core/utils/date';
 
 @Component({
   selector: 'app-album-detail',
@@ -41,6 +42,7 @@ export class AlbumDetail implements OnDestroy {
   readonly ChevronRight = ChevronRight;
   readonly stars = [1, 2, 3, 4, 5];
   readonly PAGE_SIZE = 10;
+  readonly formatDate = formatRelativeDate;
 
   section = signal<'reviews' | 'tracklist' | 'details'>('reviews');
 
@@ -69,7 +71,6 @@ export class AlbumDetail implements OnDestroy {
   });
 
   reviewCount = computed(() => this.reviews().length);
-  favoriteCount = computed(() => this.album()?.favorite_count ?? 0);
 
   year = computed(() => this.album()?.release_date?.slice(0, 4) ?? null);
   genres = computed(() => this.album()?.genres ?? []);

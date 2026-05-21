@@ -583,22 +583,6 @@ lucide-icon {
   font-variant-numeric: tabular-nums;
 }
 
-.explicit {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 15px;
-  height: 15px;
-  font-family: $font-heading;
-  font-size: 0.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: $bg-base;
-  background: $text-muted;
-  border-radius: 3px;
-}
-
 .rate-stars {
   display: flex;
   gap: 0.4rem;
@@ -731,11 +715,25 @@ lucide-icon {
   gap: 0.75rem;
 }
 
+.review-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
 .review-user {
   font-family: $font-heading;
   font-size: 1rem;
   font-weight: 600;
   color: $text;
+}
+
+.review-date {
+  font-family: $font-body;
+  font-size: 0.78rem;
+  color: $text-muted;
+  flex-shrink: 0;
 }
 
 .review-content {

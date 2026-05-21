@@ -1,6 +1,7 @@
 import { Component, computed, input, output } from '@angular/core';
 import { LucideAngularModule, Star } from 'lucide-angular';
 import { ActivityFeedItemResponse } from '../../../core/models/model/activityFeedItemResponse';
+import { formatRelativeDate } from '../../../core/utils/date';
 
 @Component({
   selector: 'app-activity-card',
@@ -30,19 +31,7 @@ export class ActivityCard {
     }
   });
 
-  formatDate(iso: string): string {
-    const date = new Date(iso);
-    const diffMs = Date.now() - date.getTime();
-    const mins = Math.floor(diffMs / 60000);
-    const hours = Math.floor(mins / 60);
-    const days = Math.floor(hours / 24);
-
-    if (mins < 1) return 'just now';
-    if (mins < 60) return `${mins}m ago`;
-    if (hours < 24) return `${hours}h ago`;
-    if (days < 7) return `${days}d ago`;
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
+  readonly formatDate = formatRelativeDate;
 
   onActor() {
     this.userClick.emit(this.item().actor.username);

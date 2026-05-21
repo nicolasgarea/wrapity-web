@@ -29,7 +29,6 @@ export class EditFavorites {
 
   selected = signal<(Album | null)[]>([null, null, null, null]);
   query = signal('');
-  saving = signal(false);
 
   results = toSignal(
     toObservable(this.query).pipe(
@@ -63,32 +62,29 @@ export class EditFavorites {
     const slots = [...this.selected()];
     const emptyIdx = slots.findIndex((s) => s === null);
     if (emptyIdx === -1) return;
+
+    const previous = this.selected();
     slots[emptyIdx] = album;
     this.selected.set(slots);
+    this.query.set('');
+    this.persist(previous);
   }
 
   remove(index: number): void {
-    const slots = [...this.selected()];
+    const previous = this.selected();
+    const slots = [...previous];
     slots[index] = null;
     this.selected.set(slots);
+    this.persist(previous);
   }
 
-  save(): void {
-    if (this.saving()) return;
-    this.saving.set(true);
-
+  private persist(previous: (Album | null)[]): void {
     const payload: FavoriteItemInput[] = this.selected()
       .map((album, i) => (album ? { album_id: String(album.id), position: i + 1 } : null))
       .filter((x): x is FavoriteItemInput => x !== null);
 
     this.favoriteService.replaceMine(payload).subscribe({
-      next: () => {
-        const me = this.auth.currentUser();
-        if (me) {
-          this.router.navigate(['/users', me.username]);
-        }
-      },
-      error: () => this.saving.set(false),
+      error: () => this.selected.set(previous),
     });
   }
 }

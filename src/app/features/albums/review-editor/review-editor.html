@@ -91,7 +91,7 @@
                         <lucide-icon [img]="Star" size="13" [class.filled]="i <= review.rating"></lucide-icon>
                       }
                     </div>
-                    <span class="review-date">{{ formatDate(review.created_at) }}</span>
+                    <span class="review-date">{{ review.created_at | date: 'MMM d, y' }}</span>
                   </div>
                   @if (review.content) {
                     <p class="review-content">{{ review.content }}</p>

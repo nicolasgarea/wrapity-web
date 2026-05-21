@@ -1,7 +1,7 @@
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { LucideAngularModule, ArrowLeft, Star } from 'lucide-angular';
 import { switchMap } from 'rxjs';
@@ -14,7 +14,7 @@ import { LikeButton } from '../../../shared/like-button/like-button';
 @Component({
   selector: 'app-review-editor',
   standalone: true,
-  imports: [LucideAngularModule, FormsModule, LikeButton],
+  imports: [LucideAngularModule, FormsModule, LikeButton, DatePipe],
   templateUrl: './review-editor.html',
   styleUrl: './review-editor.scss',
 })
@@ -66,14 +66,6 @@ export class ReviewEditor {
       this.reviewService.getByAlbum(albumId, 12, 0).subscribe((list) => {
         this.albumReviews.set(list);
       });
-    });
-  }
-
-  formatDate(iso: string): string {
-    return new Date(iso).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
     });
   }
 

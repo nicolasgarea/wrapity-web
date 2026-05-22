@@ -18,8 +18,8 @@ export class AuthService {
 
   currentUser = signal<UserResponse | null>(null);
 
-  register(data: UserRegister): Observable<UserResponse> {
-    return this.http.post<UserResponse>(`${this.API_URL}/auth/register`, data);
+  register(data: UserRegister): Observable<Token> {
+    return this.http.post<Token>(`${this.API_URL}/auth/register`, data);
   }
 
   login(data: UserLogin): Observable<Token> {

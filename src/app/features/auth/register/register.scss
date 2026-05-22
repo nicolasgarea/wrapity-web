@@ -1,0 +1,138 @@
+@use '../../../../styles/variables' as *;
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $bg-base;
+  padding: 2rem 1.5rem;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+
+  @media (min-width: 768px) {
+    background: $surface;
+    border: 1px solid $border;
+    border-radius: $radius;
+    padding: 2.75rem 2.5rem;
+  }
+}
+
+.login-header {
+  margin-bottom: 2.5rem;
+}
+
+.login-logo {
+  display: block;
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: $primary;
+  margin-bottom: 1.25rem;
+}
+
+.login-title {
+  font-family: $font-heading;
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: $text;
+  margin: 0;
+  line-height: 1;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-label {
+  font-family: $font-heading;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+}
+
+.form-input {
+  background: $surface;
+  border: 1px solid $border;
+  border-radius: $radius-sm;
+  padding: 0.85rem 1rem;
+  color: $text;
+  font-family: $font-body;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease;
+
+  &:focus {
+    border-color: rgba(252, 243, 0, 0.5);
+    background: $surface-2;
+  }
+}
+
+.form-error {
+  color: $secondary;
+  font-size: 0.72rem;
+  letter-spacing: 0.01em;
+}
+
+.btn-primary {
+  margin-top: 0.5rem;
+  background: $primary;
+  color: #000;
+  border: none;
+  border-radius: 200px;
+  padding: 1rem;
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background: rgb(247, 247, 134);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.login-footer {
+  font-size: 0.8rem;
+  color: $text-muted;
+  margin-top: 1.75rem;
+  text-align: center;
+
+  a {
+    color: $text;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: $border;
+    transition: text-decoration-color 0.15s ease;
+
+    &:hover {
+      text-decoration-color: $text;
+    }
+  }
+}

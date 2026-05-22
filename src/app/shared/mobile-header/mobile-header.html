@@ -1,6 +1,13 @@
-<header class="header-container">
+<header class="header-container" [class.header-container--auth]="!user()">
   <a routerLink="/" class="logo" aria-label="Wrapity">
     <app-logo></app-logo>
     <span class="logo__text">wrapity</span>
   </a>
+
+  @if (!user()) {
+    <div class="header-actions">
+      <a routerLink="/auth/login" class="header-login">Log in</a>
+      <a routerLink="/auth/register" class="header-signup">Sign up</a>
+    </div>
+  }
 </header>

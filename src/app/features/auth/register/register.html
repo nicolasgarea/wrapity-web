@@ -1,1 +1,51 @@
-<p>register works!</p>
+<div class="login-page">
+  <div class="login-box">
+
+    <header class="login-header">
+      <span class="login-logo">wrapity</span>
+      <h1 class="login-title">Sign up</h1>
+    </header>
+
+    <form class="login-form" (submit)="onSubmit(); $event.preventDefault()">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-input" [formField]="registerForm.username" />
+        @if (registerForm.username().touched()) {
+          @for (err of registerForm.username().errors(); track err.kind) {
+            <p class="form-error">{{ err.message }}</p>
+          }
+        }
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-input" [formField]="registerForm.email" />
+        @if (registerForm.email().touched()) {
+          @for (err of registerForm.email().errors(); track err.kind) {
+            <p class="form-error">{{ err.message }}</p>
+          }
+        }
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-input" [formField]="registerForm.password" />
+        @if (registerForm.password().touched()) {
+          @for (err of registerForm.password().errors(); track err.kind) {
+            <p class="form-error">{{ err.message }}</p>
+          }
+        }
+      </div>
+
+      @if (errorMessage()) {
+        <p class="form-error">{{ errorMessage() }}</p>
+      }
+
+      <button class="btn-primary" type="submit">Sign up</button>
+    </form>
+
+    <p class="login-footer">
+      Already have an account? <a routerLink="/auth/login">Sign in</a>
+    </p>
+  </div>
+</div>

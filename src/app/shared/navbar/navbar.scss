@@ -195,6 +195,28 @@ nav {
       }
     }
 
+    .nav-signup {
+      font-family: $font-heading;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #000;
+      background: $primary;
+      text-decoration: none;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid $primary;
+      transition: background 0.15s ease, transform 0.1s ease;
+
+      &:hover {
+        background: rgb(247, 247, 134);
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
     .nav-profile {
       position: relative;
     }

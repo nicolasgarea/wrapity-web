@@ -12,6 +12,10 @@
   @media (min-width: 768px) {
     display: none;
   }
+
+  &--auth {
+    justify-content: space-between;
+  }
 }
 
 .logo {
@@ -34,5 +38,48 @@
     letter-spacing: -0.04em;
     color: $text;
     line-height: 1;
+  }
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-login {
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $text;
+  background: transparent;
+  text-decoration: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.header-signup {
+  font-family: $font-heading;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #000;
+  background: $primary;
+  text-decoration: none;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  transition: background 0.15s ease, transform 0.1s ease;
+
+  &:hover {
+    background: rgb(247, 247, 134);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }

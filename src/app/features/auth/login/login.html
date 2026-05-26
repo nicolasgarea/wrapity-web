@@ -1,9 +1,12 @@
 <div class="login-page">
-  <div class="login-box">
-    <button class="back" type="button" (click)="goBack()" aria-label="Go back">
-      <lucide-icon [img]="ArrowLeft" size="20"></lucide-icon>
+  <header class="auth-topbar">
+    <button class="auth-back" type="button" (click)="goBack()" aria-label="Go back">
+      <lucide-icon [img]="ArrowLeft" size="22"></lucide-icon>
     </button>
+  </header>
 
+  <main class="auth-main">
+    <div class="login-box">
     <header class="login-header">
       <span class="login-logo">wrapity</span>
       <h1 class="login-title">Sign in</h1>
@@ -40,5 +43,6 @@
     <p class="login-footer">
       No account? <a routerLink="/auth/register">Sign up</a>
     </p>
-  </div>
+    </div>
+  </main>
 </div>

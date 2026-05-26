@@ -50,6 +50,35 @@ nav {
         transform: translateY(-1px);
       }
     }
+
+    a.nav-fab {
+      flex: 0 0 auto;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: $primary;
+      margin: 0 0.5rem;
+      transform: translateY(-14px);
+      box-shadow: 0 8px 20px rgba(252, 243, 0, 0.28);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+      lucide-icon {
+        color: #000;
+        width: 28px;
+        height: 28px;
+      }
+
+      &:hover lucide-icon,
+      &.active lucide-icon {
+        color: #000;
+        transform: none;
+      }
+
+      &:active {
+        transform: translateY(-12px) scale(0.96);
+        box-shadow: 0 4px 12px rgba(252, 243, 0, 0.22);
+      }
+    }
   }
 
   .nav-avatar {

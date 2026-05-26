@@ -1,7 +1,11 @@
 <div class="home">
-  <app-trending-albums />
+  @if (!user()) {
+    <app-home-hero />
+  }
   @if (user()) {
     <app-following-feed />
   }
+  <app-trending-albums />
   <app-popular-reviews />
+  <app-recent-reviews />
 </div>

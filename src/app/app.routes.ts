@@ -28,6 +28,16 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: Home },
       {
+        path: 'albums/trending',
+        loadComponent: () =>
+          import('./features/albums/trending/trending').then((m) => m.Trending),
+      },
+      {
+        path: 'reviews',
+        loadComponent: () =>
+          import('./features/reviews/reviews-list/reviews-list').then((m) => m.ReviewsList),
+      },
+      {
         path: 'albums/:id',
         loadComponent: () =>
           import('./features/albums/album-detail/album-detail').then((m) => m.AlbumDetail),

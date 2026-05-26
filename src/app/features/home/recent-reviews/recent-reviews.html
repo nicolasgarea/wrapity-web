@@ -1,10 +1,10 @@
 <app-review-carousel
-  title="Popular reviews this week"
-  seeAllLink="/reviews?filter=popular"
+  title="Just reviewed"
+  seeAllLink="/reviews?filter=recent"
   [items]="items()"
   [loading]="loading()"
   [loadingMore]="loadingMore()"
-  emptyTitle="No popular reviews yet"
+  emptyTitle="No reviews yet"
   emptyHint="Be the first to review an album"
   (nextPage)="onNextPage()"
 />

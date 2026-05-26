@@ -2,10 +2,39 @@
 
 :host {
   display: block;
-  flex: 0 0 68%;
-  max-width: 68%;
+  flex: 0 0 64%;
+  max-width: 64%;
   scroll-snap-align: start;
   box-sizing: border-box;
+}
+
+:host(.in-grid) {
+  flex: none;
+  max-width: none;
+  width: 100%;
+  scroll-snap-align: unset;
+
+  @media (max-width: 599px) {
+    .card {
+      flex-direction: row;
+      height: auto;
+      min-height: 140px;
+    }
+
+    .cover {
+      flex: 0 0 130px;
+      height: auto;
+    }
+
+    .body {
+      padding: 0.7rem 0.85rem;
+      gap: 0.4rem;
+    }
+
+    .content {
+      -webkit-line-clamp: 3;
+    }
+  }
 }
 
 .card {

@@ -23,6 +23,7 @@ export class ReviewCarousel implements OnDestroy {
   private router = inject(Router);
 
   title = input.required<string>();
+  seeAllLink = input<string | undefined>(undefined);
   items = input.required<ReviewFeedItemResponse[]>();
   loading = input.required<boolean>();
   loadingMore = input.required<boolean>();

@@ -5,16 +5,48 @@
   overflow: visible;
 }
 
-.carousel-section h2 {
-  display: block;
-  font-family: $font-heading;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: $text-muted;
+.carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
   padding: 0 1.5rem 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.carousel-header h2 {
+  font-family: $font-heading;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $text;
   margin: 0;
+  transition: color 0.15s ease;
+}
+
+.header-arrow {
+  font-family: $font-heading;
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1;
+  color: $text-muted;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.carousel-header-link {
+  cursor: pointer;
+
+  &:hover h2 {
+    color: $primary;
+  }
+
+  &:hover .header-arrow {
+    color: $primary;
+    transform: translateX(4px);
+  }
 }
 
 .carousel-container {
@@ -47,10 +79,17 @@
     padding: 1.5rem 0;
   }
 
-  .carousel-section h2 {
-    font-size: 0.85rem;
+  .carousel-header {
     padding: 0 2rem 1rem;
+  }
+
+  .carousel-header h2 {
+    font-size: 0.95rem;
     letter-spacing: 0.2em;
+  }
+
+  .header-arrow {
+    font-size: 1.6rem;
   }
 
   .carousel-viewport {

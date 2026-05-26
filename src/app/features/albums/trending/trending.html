@@ -1,0 +1,12 @@
+<section class="page">
+  <header class="page-header">
+    <button class="back" type="button" (click)="goBack()" aria-label="Go back">
+      <lucide-icon [img]="ArrowLeft" size="22"></lucide-icon>
+    </button>
+    <div class="titles">
+      <h1>Trending Albums</h1>
+      <p class="hint">What everyone's spinning right now</p>
+    </div>
+  </header>
+  <app-album-grid [items]="items()" />
+</section>

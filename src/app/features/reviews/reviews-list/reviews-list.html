@@ -1,0 +1,38 @@
+<section class="page">
+  <header class="page-header">
+    <button class="back" type="button" (click)="goBack()" aria-label="Go back">
+      <lucide-icon [img]="ArrowLeft" size="22"></lucide-icon>
+    </button>
+    <div class="titles">
+      <h1>{{ title() }}</h1>
+      <p class="hint">{{ hint() }}</p>
+    </div>
+  </header>
+
+  @if (loading() && items().length === 0) {
+    <div class="state">Loading…</div>
+  } @else if (items().length === 0) {
+    <div class="state">No reviews yet.</div>
+  } @else {
+    <div class="reviews-grid">
+      @for (item of items(); track item.id) {
+        <app-review-card
+          class="in-grid"
+          [item]="item"
+          (albumClick)="goToAlbum($event)"
+          (userClick)="goToUser($event)"
+        />
+      }
+    </div>
+  }
+
+  @if (loadingMore()) {
+    <div class="more-loading">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  }
+
+  <div #sentinel class="sentinel"></div>
+</section>

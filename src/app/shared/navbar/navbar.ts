@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { House, LucideAngularModule, Search, CirclePlus, Activity, User } from 'lucide-angular';
+import { House, LucideAngularModule, Search, CirclePlus, Plus, Activity, User } from 'lucide-angular';
 import { AuthService } from '../../core/services/auth.service';
 import { Logo } from '../logo/logo';
 
@@ -17,6 +17,7 @@ export class Navbar {
   readonly HouseIcon = House;
   readonly SearchIcon = Search;
   readonly PlusIcon = CirclePlus;
+  readonly PlusIconMobile = Plus;
   readonly ActivityIcon = Activity;
   readonly UserIcon = User;
 

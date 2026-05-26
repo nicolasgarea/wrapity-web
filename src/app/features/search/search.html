@@ -1,13 +1,20 @@
+<app-logo class="bg-logo" aria-hidden="true" />
+
 <div class="page">
   @if (reviewMode()) {
     <header class="page-header">
       <h1>Write a review</h1>
       <p>Choose an album to review.</p>
     </header>
+  } @else {
+    <header class="page-header">
+      <h1>Discover</h1>
+      <p>Find albums, artists and people on wrapity.</p>
+    </header>
   }
 
   <div class="search-box">
-    <lucide-icon class="icon" [img]="SearchIcon" size="20"></lucide-icon>
+    <lucide-icon class="icon" [img]="SearchIcon" size="22"></lucide-icon>
     <input
       type="text"
       class="input"
@@ -19,10 +26,12 @@
   </div>
 
   @if (!reviewMode()) {
-    <div class="tabs">
+    <div class="tabs" role="tablist">
       <button
         type="button"
         class="tab"
+        role="tab"
+        [attr.aria-selected]="tab() === 'albums'"
         [class.active]="tab() === 'albums'"
         (click)="setTab('albums')"
       >
@@ -31,21 +40,33 @@
       <button
         type="button"
         class="tab"
+        role="tab"
+        [attr.aria-selected]="tab() === 'artists'"
         [class.active]="tab() === 'artists'"
         (click)="setTab('artists')"
       >
         Artists
       </button>
-      <button type="button" class="tab" [class.active]="tab() === 'users'" (click)="setTab('users')">
+      <button
+        type="button"
+        class="tab"
+        role="tab"
+        [attr.aria-selected]="tab() === 'users'"
+        [class.active]="tab() === 'users'"
+        (click)="setTab('users')"
+      >
         Users
       </button>
     </div>
   }
 
   @if (query().trim().length < 2) {
-    <div class="state">Type at least 2 characters to search</div>
+    <div class="state idle">
+      <lucide-icon [img]="SearchIcon" size="28"></lucide-icon>
+      <p>Type at least 2 characters to start searching</p>
+    </div>
   } @else if (empty()) {
-    <div class="state">No results</div>
+    <div class="state">No results for "{{ query() }}"</div>
   } @else if (tab() === 'albums') {
     <ul class="results">
       @for (album of albums(); track album.id) {

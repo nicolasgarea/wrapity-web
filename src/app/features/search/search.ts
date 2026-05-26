@@ -10,13 +10,14 @@ import { UserService } from '../../core/services/user.service';
 import { Album } from '../../core/models/model/album';
 import { Artist } from '../../core/models/model/artist';
 import { UserPublicResponse } from '../../core/models/model/userPublicResponse';
+import { Logo } from '../../shared/logo/logo';
 
 type Tab = 'albums' | 'artists' | 'users';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule, RouterLink, LucideAngularModule],
+  imports: [FormsModule, RouterLink, LucideAngularModule, Logo],
   templateUrl: './search.html',
   styleUrl: './search.scss',
 })

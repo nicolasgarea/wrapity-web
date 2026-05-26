@@ -1,0 +1,66 @@
+<section class="page">
+  <header class="page-header">
+    <button class="back" type="button" (click)="goBack()" aria-label="Go back">
+      <lucide-icon [img]="ArrowLeft" size="22"></lucide-icon>
+    </button>
+  </header>
+
+  @if (loading()) {
+    <div class="state">Loading…</div>
+  } @else if (notFound()) {
+    <div class="state">Review not found</div>
+  } @else if (review(); as r) {
+    <article class="review">
+      <a class="cover" [routerLink]="['/albums', r.album.id]">
+        @if (r.album.cover) {
+          <img [src]="r.album.cover" [alt]="r.album.title" />
+        }
+      </a>
+
+      <div class="meta">
+        <a class="album-link" [routerLink]="['/albums', r.album.id]">
+          <h1 class="album-title">{{ r.album.title }}</h1>
+          <p class="album-artist">{{ r.album.artist.name }}</p>
+        </a>
+
+        <div class="rating" aria-label="Rating">
+          @for (i of stars; track i) {
+            <lucide-icon [img]="Star" size="18" [class.filled]="i <= r.rating"></lucide-icon>
+          }
+        </div>
+
+        <a class="author" [routerLink]="['/users', r.author.username]">
+          <div class="avatar">
+            @if (r.author.avatar_url) {
+              <img [src]="r.author.avatar_url" [alt]="r.author.username" />
+            } @else {
+              {{ r.author.username.charAt(0).toUpperCase() }}
+            }
+          </div>
+          <div class="author-text">
+            <span class="username">{{ r.author.username }}</span>
+            <span class="date">{{ formatDate(r.created_at) }}</span>
+          </div>
+        </a>
+
+        @if (r.content) {
+          <p class="content">{{ r.content }}</p>
+        }
+
+        <div class="actions">
+          <app-like-button
+            [reviewId]="r.id"
+            [initialLiked]="r.liked_by_me ?? false"
+            [initialCount]="r.likes_count ?? 0"
+          />
+          @if (isMine()) {
+            <a class="edit-btn" [routerLink]="['/albums', r.album.id, 'review']">
+              <lucide-icon [img]="PenLine" size="16"></lucide-icon>
+              <span>Edit</span>
+            </a>
+          }
+        </div>
+      </div>
+    </article>
+  }
+</section>

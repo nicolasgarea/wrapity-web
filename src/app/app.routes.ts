@@ -38,6 +38,11 @@ export const routes: Routes = [
           import('./features/reviews/reviews-list/reviews-list').then((m) => m.ReviewsList),
       },
       {
+        path: 'reviews/:id',
+        loadComponent: () =>
+          import('./features/reviews/review-detail/review-detail').then((m) => m.ReviewDetail),
+      },
+      {
         path: 'albums/:id',
         loadComponent: () =>
           import('./features/albums/album-detail/album-detail').then((m) => m.AlbumDetail),

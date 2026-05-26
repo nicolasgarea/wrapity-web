@@ -1,0 +1,244 @@
+@use '../../../../styles/variables' as *;
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0.5rem 1.5rem 4rem;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.back {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: $text;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: $surface-2;
+  }
+}
+
+.state {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.cover {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: $radius;
+  overflow: hidden;
+  background: $surface-2;
+  border: 1px solid $border;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.album-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+  &:hover .album-title {
+    color: $primary;
+  }
+}
+
+.album-title {
+  font-family: $font-heading;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: $text;
+  margin: 0 0 0.35rem;
+  line-height: 1.15;
+  transition: color 0.15s ease;
+}
+
+.album-artist {
+  font-family: $font-heading;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+  margin: 0;
+}
+
+.rating {
+  display: flex;
+  gap: 0.15rem;
+  color: rgba(255, 255, 255, 0.15);
+
+  ::ng-deep svg {
+    fill: transparent;
+  }
+
+  .filled {
+    color: $star;
+
+    ::ng-deep svg {
+      fill: $star;
+    }
+  }
+}
+
+.author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  color: inherit;
+  width: fit-content;
+
+  &:hover .username {
+    color: $primary;
+  }
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: $surface-2;
+  border: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: $font-heading;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: $text-muted;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.author-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.username {
+  font-family: $font-heading;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: $text;
+  transition: color 0.15s ease;
+}
+
+.date {
+  font-family: $font-body;
+  font-size: 0.7rem;
+  color: $text-muted;
+}
+
+.content {
+  font-family: $font-body;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: $text;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 0.25rem;
+}
+
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.95rem;
+  background: transparent;
+  color: $text;
+  border: 1px solid $border;
+  border-radius: 999px;
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
+
+  lucide-icon {
+    display: flex;
+  }
+
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: 1.5rem 2rem 6rem;
+  }
+
+  .review {
+    flex-direction: row;
+    gap: 2.5rem;
+    align-items: flex-start;
+  }
+
+  .cover {
+    flex: 0 0 280px;
+    margin: 0;
+  }
+
+  .meta {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .album-title {
+    font-size: 2rem;
+  }
+}

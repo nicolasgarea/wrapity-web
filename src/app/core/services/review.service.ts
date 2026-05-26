@@ -19,6 +19,10 @@ export class ReviewService {
     return this.http.get<ReviewFeedItemResponse[]>(`${this.API_URL}/me`);
   }
 
+  getById(reviewId: number): Observable<ReviewFeedItemResponse> {
+    return this.http.get<ReviewFeedItemResponse>(`${this.API_URL}/${reviewId}`);
+  }
+
   getByAlbum(albumId: number, limit: number, offset: number): Observable<ReviewFeedItemResponse[]> {
     const params = new HttpParams().set('limit', limit).set('offset', offset);
     return this.http.get<ReviewFeedItemResponse[]>(`${this.API_URL}/album/${albumId}`, { params });

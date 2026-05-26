@@ -37,6 +37,33 @@
   }
 }
 
+:host(.in-list) {
+  flex: none;
+  max-width: none;
+  width: 100%;
+  scroll-snap-align: unset;
+
+  .card {
+    flex-direction: row;
+    height: auto;
+    min-height: 140px;
+  }
+
+  .cover {
+    flex: 0 0 130px;
+    height: auto;
+  }
+
+  .body {
+    padding: 0.85rem 1rem;
+    gap: 0.45rem;
+  }
+
+  .content {
+    -webkit-line-clamp: 3;
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;

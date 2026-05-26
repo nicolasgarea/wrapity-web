@@ -62,5 +62,24 @@
         </div>
       </div>
     </article>
+
+    @if (others().length > 0) {
+      <section class="more">
+        <header class="more-header">
+          <h2>More on {{ r.album.title }}</h2>
+          <a class="more-link" [routerLink]="['/albums', r.album.id]">See all<span aria-hidden="true">&#x203A;</span></a>
+        </header>
+        <div class="more-list">
+          @for (other of others(); track other.id) {
+            <app-review-card
+              class="in-list"
+              [item]="other"
+              (reviewClick)="goToReview($event)"
+              (userClick)="goToUser($event)"
+            />
+          }
+        </div>
+      </section>
+    }
   }
 </section>

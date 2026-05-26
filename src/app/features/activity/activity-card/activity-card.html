@@ -14,8 +14,14 @@
 
       @if (item().type === 'follow' && item().target_user) {
         <button class="user" (click)="onTargetUser()">{{ item().target_user!.username }}</button>
+      } @else if (item().type === 'like' && item().review) {
+        <button class="user" (click)="onReviewAuthor()">
+          {{ item().review!.author.username }}'s
+        </button>
+        <span class="verb">review of</span>
+        <button class="album-name" (click)="onReview()">{{ item().review!.album.title }}</button>
       } @else if (item().review) {
-        <button class="album-name" (click)="onAlbum()">{{ item().review!.album.title }}</button>
+        <button class="album-name" (click)="onReview()">{{ item().review!.album.title }}</button>
       }
       <span class="date">{{ formatDate(item().created_at) }}</span>
     </p>
@@ -30,7 +36,7 @@
   </div>
 
   @if (item().review; as review) {
-    <button class="cover" (click)="onAlbum()" aria-label="View album">
+    <button class="cover" (click)="onReview()" aria-label="View review">
       @if (review.album.cover) {
         <img [src]="review.album.cover" [alt]="review.album.title" />
       }

@@ -13,7 +13,7 @@ import { formatRelativeDate } from '../../../core/utils/date';
 export class ActivityCard {
   item = input.required<ActivityFeedItemResponse>();
 
-  albumClick = output<number>();
+  reviewClick = output<number>();
   userClick = output<string>();
 
   readonly Star = Star;
@@ -23,7 +23,7 @@ export class ActivityCard {
       case 'review':
         return 'reviewed';
       case 'like':
-        return 'liked a review of';
+        return 'liked';
       case 'follow':
         return 'started following';
       default:
@@ -42,8 +42,13 @@ export class ActivityCard {
     if (target) this.userClick.emit(target.username);
   }
 
-  onAlbum() {
+  onReviewAuthor() {
     const review = this.item().review;
-    if (review) this.albumClick.emit(review.album.id);
+    if (review) this.userClick.emit(review.author.username);
+  }
+
+  onReview() {
+    const review = this.item().review;
+    if (review) this.reviewClick.emit(review.id);
   }
 }

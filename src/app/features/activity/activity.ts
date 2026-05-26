@@ -58,8 +58,8 @@ export class Activity {
     this.loadPage();
   }
 
-  onAlbumClick(albumId: number) {
-    this.router.navigate(['/albums', albumId]);
+  onReviewClick(reviewId: number) {
+    this.router.navigate(['/reviews', reviewId]);
   }
 
   onUserClick(username: string) {

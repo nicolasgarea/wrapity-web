@@ -4,12 +4,12 @@ import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedIte
 import { ReviewCarousel } from '../review-carousel/review-carousel';
 
 @Component({
-  selector: 'app-recent-reviews',
+  selector: 'app-popular-reviews',
   imports: [ReviewCarousel],
-  templateUrl: './recent-reviews.html',
-  styleUrl: './recent-reviews.scss',
+  templateUrl: './popular-reviews.html',
+  styleUrl: './popular-reviews.scss',
 })
-export class RecentReviews {
+export class PopularReviews {
   private reviewService = inject(ReviewService);
 
   readonly PAGE_SIZE = 10;
@@ -33,7 +33,7 @@ export class RecentReviews {
     if (initial) this.loading.set(true);
     else this.loadingMore.set(true);
 
-    this.reviewService.getRecent(this.PAGE_SIZE, this.offset).subscribe({
+    this.reviewService.getPopular(this.PAGE_SIZE, this.offset).subscribe({
       next: (items) => {
         this.items.update((curr) => [...curr, ...items]);
         this.offset += items.length;

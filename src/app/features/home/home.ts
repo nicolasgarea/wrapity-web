@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { TrendingAlbums } from './trending-albums/trending-albums';
 import { FollowingFeed } from './following-feed/following-feed';
-import { RecentReviews } from './recent-reviews/recent-reviews';
+import { PopularReviews } from './popular-reviews/popular-reviews';
 import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-home',
-  imports: [TrendingAlbums, FollowingFeed, RecentReviews],
+  imports: [TrendingAlbums, FollowingFeed, PopularReviews],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

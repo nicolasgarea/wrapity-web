@@ -27,6 +27,7 @@ export class ProfileReviews {
   items = computed<AlbumGridItem[]>(() =>
     this.reviews().map((r) => ({
       albumId: r.album.id,
+      reviewId: r.id,
       cover: r.album.cover,
       title: r.album.title,
       rating: r.rating,

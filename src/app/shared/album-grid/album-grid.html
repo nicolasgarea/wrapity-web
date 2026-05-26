@@ -3,7 +3,7 @@
     @if (item.empty) {
       <div class="cell empty"></div>
     } @else {
-      <a class="cell" [routerLink]="['/albums', item.albumId]">
+      <a class="cell" [routerLink]="item.reviewId ? ['/reviews', item.reviewId] : ['/albums', item.albumId]">
         @if (item.cover) {
           <img [src]="item.cover" [alt]="item.title" />
         }

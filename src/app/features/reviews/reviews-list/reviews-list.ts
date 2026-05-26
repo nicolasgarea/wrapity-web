@@ -159,8 +159,8 @@ export class ReviewsList implements OnDestroy {
     }
   }
 
-  goToAlbum(albumId: number) {
-    this.router.navigate(['/albums', albumId]);
+  goToReview(reviewId: number) {
+    this.router.navigate(['/reviews', reviewId]);
   }
 
   goToUser(username: string) {

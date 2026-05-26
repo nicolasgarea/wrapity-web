@@ -97,7 +97,7 @@ export class ReviewEditor {
       : this.reviewService.create({ ...payload, album_id: Number(this.id()) });
 
     op$.subscribe({
-      next: () => this.router.navigate(['/albums', this.id()]),
+      next: (response) => this.router.navigate(['/reviews', response.id]),
       error: () => this.saving.set(false),
     });
   }

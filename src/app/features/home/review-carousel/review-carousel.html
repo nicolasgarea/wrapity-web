@@ -10,7 +10,7 @@
     @for (item of items(); track item.id) {
       <app-review-card
         [item]="item"
-        (albumClick)="goToAlbum($event)"
+        (reviewClick)="goToReview($event)"
         (userClick)="goToUser($event)"
       />
     }

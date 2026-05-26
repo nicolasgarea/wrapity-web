@@ -7,7 +7,7 @@
       <ul class="entries">
         @for (entry of month.entries; track entry.review.id) {
           <li>
-            <a class="entry" [routerLink]="['/albums', entry.review.album.id]">
+            <a class="entry" [routerLink]="['/reviews', entry.review.id]">
               <span class="day">{{ entry.day }}</span>
 
               <div class="cover">

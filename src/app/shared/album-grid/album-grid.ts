@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 export interface AlbumGridItem {
   albumId: number;
+  reviewId?: number;
   cover?: string | null;
   title: string;
   rating?: number;

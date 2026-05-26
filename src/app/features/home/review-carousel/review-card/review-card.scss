@@ -18,49 +18,40 @@
     .card {
       flex-direction: row;
       height: auto;
-      min-height: 140px;
+      min-height: 0;
     }
 
     .cover {
-      flex: 0 0 130px;
+      flex: 0 0 100px;
       height: auto;
+
+      &::after {
+        height: 65%;
+      }
+    }
+
+    .cover-rating {
+      left: 0.45rem;
+      bottom: 0.4rem;
     }
 
     .body {
-      padding: 0.7rem 0.85rem;
-      gap: 0.4rem;
+      padding: 0.6rem 0.75rem;
+      gap: 0.3rem;
+    }
+
+    .album-title {
+      font-size: 0.8rem;
     }
 
     .content {
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
+      font-size: 0.72rem;
     }
-  }
-}
 
-:host(.in-list) {
-  flex: none;
-  max-width: none;
-  width: 100%;
-  scroll-snap-align: unset;
-
-  .card {
-    flex-direction: row;
-    height: auto;
-    min-height: 140px;
-  }
-
-  .cover {
-    flex: 0 0 130px;
-    height: auto;
-  }
-
-  .body {
-    padding: 0.85rem 1rem;
-    gap: 0.45rem;
-  }
-
-  .content {
-    -webkit-line-clamp: 3;
+    .meta {
+      gap: 0.4rem;
+    }
   }
 }
 

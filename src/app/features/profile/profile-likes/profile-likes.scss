@@ -1,0 +1,43 @@
+@use '../../../../styles/variables' as *;
+
+:host {
+  display: block;
+}
+
+.empty {
+  padding: 3rem 1rem;
+  text-align: center;
+  color: $text-muted;
+  font-size: 0.875rem;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.load-more {
+  font-family: $font-heading;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $text-muted;
+  background: transparent;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid $border;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    color: $primary;
+    border-color: $primary;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

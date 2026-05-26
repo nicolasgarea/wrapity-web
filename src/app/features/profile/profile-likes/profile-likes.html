@@ -1,0 +1,13 @@
+@if (!loading() && items().length === 0) {
+  <div class="empty">No liked reviews yet</div>
+} @else if (items().length > 0) {
+  <app-album-grid [items]="items()" />
+
+  @if (hasMore()) {
+    <div class="more">
+      <button class="load-more" type="button" [disabled]="loadingMore()" (click)="loadMore()">
+        {{ loadingMore() ? 'Loading…' : 'Load more' }}
+      </button>
+    </div>
+  }
+}

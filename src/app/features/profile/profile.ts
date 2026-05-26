@@ -11,12 +11,13 @@ import { ProfileHeader } from './profile-header/profile-header';
 import { ProfileFavorites } from './profile-favorites/profile-favorites';
 import { ProfileReviews } from './profile-reviews/profile-reviews';
 import { ProfileDiary } from './profile-diary/profile-diary';
+import { ProfileLikes } from './profile-likes/profile-likes';
 
-type Section = 'reviews' | 'diary';
+type Section = 'reviews' | 'diary' | 'likes';
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeader, ProfileFavorites, ProfileReviews, ProfileDiary],
+  imports: [ProfileHeader, ProfileFavorites, ProfileReviews, ProfileDiary, ProfileLikes],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })

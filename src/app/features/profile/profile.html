@@ -18,13 +18,18 @@
       <button class="tab" [class.active]="section() === 'diary'" (click)="section.set('diary')">
         Diary
       </button>
+      <button class="tab" [class.active]="section() === 'likes'" (click)="section.set('likes')">
+        Likes
+      </button>
     </nav>
 
     <div class="tab-body">
       @if (section() === 'reviews') {
         <app-profile-reviews [userId]="u.id" />
-      } @else {
+      } @else if (section() === 'diary') {
         <app-profile-diary [userId]="u.id" />
+      } @else {
+        <app-profile-likes [userId]="u.id" />
       }
     </div>
 

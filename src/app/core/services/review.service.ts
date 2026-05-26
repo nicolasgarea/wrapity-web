@@ -29,6 +29,13 @@ export class ReviewService {
     return this.http.get<ReviewFeedItemResponse[]>(`${this.API_URL}/user/${userId}`, { params });
   }
 
+  getLikedBy(userId: number, limit: number, offset: number): Observable<ReviewFeedItemResponse[]> {
+    const params = new HttpParams().set('limit', limit).set('offset', offset);
+    return this.http.get<ReviewFeedItemResponse[]>(`${this.API_URL}/liked-by/${userId}`, {
+      params,
+    });
+  }
+
   create(payload: ReviewCreate): Observable<ReviewResponse> {
     return this.http.post<ReviewResponse>(this.API_URL, payload);
   }

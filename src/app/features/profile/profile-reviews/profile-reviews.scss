@@ -4,32 +4,6 @@
   display: block;
 }
 
-.skeleton-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
-
-  @media (min-width: 480px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 768px) {
-    gap: 1rem;
-  }
-}
-
-.skeleton {
-  aspect-ratio: 1;
-  border-radius: $radius-sm;
-  background: $surface-2;
-  animation: pulse 1.5s ease-in-out infinite;
-
-  @media (min-width: 768px) {
-    border-radius: $radius;
-  }
-}
-
 .empty {
   padding: 3rem 1rem;
   text-align: center;
@@ -68,7 +42,3 @@
   }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}

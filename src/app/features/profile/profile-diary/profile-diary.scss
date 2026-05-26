@@ -127,18 +127,6 @@
   margin-top: 0.1rem;
 }
 
-.skeleton-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.skeleton-entry {
-  height: 68px;
-  border-bottom: 1px solid $border;
-  background: $surface-2;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-
 .empty {
   padding: 3rem 1rem;
   text-align: center;
@@ -170,7 +158,3 @@
   &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}

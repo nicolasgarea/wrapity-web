@@ -1,12 +1,6 @@
-@if (loading()) {
-  <div class="skeleton-grid">
-    @for (i of [1,2,3,4,5,6,7,8]; track i) {
-      <div class="skeleton"></div>
-    }
-  </div>
-} @else if (items().length === 0) {
+@if (!loading() && items().length === 0) {
   <div class="empty">No reviews yet</div>
-} @else {
+} @else if (items().length > 0) {
   <app-album-grid [items]="items()" />
 
   @if (hasMore()) {

@@ -1,10 +1,4 @@
-@if (loading()) {
-  <div class="skeleton-row">
-    @for (i of [1, 2, 3]; track i) {
-      <div class="skeleton"></div>
-    }
-  </div>
-} @else if (items().length === 0 && emptyTitle()) {
+@if (!loading() && items().length === 0 && emptyTitle()) {
   <div class="empty">
     <p class="empty-title">{{ emptyTitle() }}</p>
     @if (emptyHint()) {

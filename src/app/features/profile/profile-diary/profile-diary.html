@@ -1,12 +1,6 @@
-@if (loading()) {
-  <div class="skeleton-list">
-    @for (i of [1,2,3,4,5]; track i) {
-      <div class="skeleton-entry"></div>
-    }
-  </div>
-} @else if (months().length === 0) {
+@if (!loading() && months().length === 0) {
   <div class="empty">No reviews yet</div>
-} @else {
+} @else if (months().length > 0) {
   @for (month of months(); track month.label) {
     <div class="month-block">
       <h3 class="month-label">{{ month.label }}</h3>

@@ -18,3 +18,8 @@ body {
     padding-bottom: 0;
   }
 }
+
+a {
+  -webkit-user-drag: none;
+  user-drag: none;
+}

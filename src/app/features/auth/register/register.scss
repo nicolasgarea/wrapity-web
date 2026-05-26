@@ -12,12 +12,40 @@
 .login-box {
   width: 100%;
   max-width: 380px;
+  position: relative;
 
   @media (min-width: 768px) {
     background: $surface;
     border: 1px solid $border;
     border-radius: $radius;
     padding: 2.75rem 2.5rem;
+  }
+}
+
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: $text-muted;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+
+  &:hover {
+    color: $text;
+    background: $surface-2;
+  }
+
+  @media (min-width: 768px) {
+    top: 0.85rem;
+    left: 0.85rem;
   }
 }
 

@@ -3,11 +3,12 @@ import { email, form, FormField, required, submit } from '@angular/forms/signals
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
+import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
 import { UserLogin } from '../../../core/models/model/userLogin';
 
 @Component({
   selector: 'app-login',
-  imports: [FormField, RouterLink],
+  imports: [FormField, RouterLink, LucideAngularModule],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -15,6 +16,16 @@ export class Login {
   private authService = inject(AuthService);
   private router = inject(Router);
   private location = inject(Location);
+
+  readonly ArrowLeft = ArrowLeft;
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }
 
   loginModel = signal<UserLogin>({
     email: '',

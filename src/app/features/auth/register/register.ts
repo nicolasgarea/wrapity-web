@@ -2,17 +2,30 @@ import { Component, inject, signal } from '@angular/core';
 import { email, form, FormField, maxLength, minLength, required, submit } from '@angular/forms/signals';
 import { AuthService } from '../../../core/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
+import { Location } from '@angular/common';
+import { LucideAngularModule, ArrowLeft } from 'lucide-angular';
 import { UserRegister } from '../../../core/models/model/userRegister';
 
 @Component({
   selector: 'app-register',
-  imports: [FormField, RouterLink],
+  imports: [FormField, RouterLink, LucideAngularModule],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
 export class Register {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private location = inject(Location);
+
+  readonly ArrowLeft = ArrowLeft;
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      this.router.navigate(['/home']);
+    }
+  }
 
   registerModel = signal<UserRegister>({
     username: '',

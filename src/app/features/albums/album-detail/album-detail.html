@@ -212,7 +212,7 @@
             } @else {
               <ul class="review-list">
                 @for (review of r; track review.id) {
-                  <li class="review">
+                  <li class="review" (click)="goToReview(review.id)">
                     <div class="review-avatar">
                       @if (review.author.avatar_url) {
                         <img [src]="review.author.avatar_url" [alt]="review.author.username" />

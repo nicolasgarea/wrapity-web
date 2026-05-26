@@ -182,6 +182,10 @@ export class AlbumDetail implements OnDestroy {
     return 0;
   }
 
+  goToReview(reviewId: number) {
+    this.router.navigate(['/reviews', reviewId]);
+  }
+
   quickRate(value: number) {
     if (!this.auth.currentUser()) {
       this.router.navigate(['/auth/login']);

@@ -671,6 +671,12 @@ lucide-icon {
   gap: 0.875rem;
   padding: 1rem 0;
   border-bottom: 1px solid $border;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
 
   &:last-child {
     border-bottom: none;

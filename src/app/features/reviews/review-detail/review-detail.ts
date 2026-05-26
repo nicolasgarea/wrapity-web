@@ -8,13 +8,12 @@ import { ReviewService } from '../../../core/services/review.service';
 import { AuthService } from '../../../core/services/auth.service';
 import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
 import { LikeButton } from '../../../shared/like-button/like-button';
-import { ReviewCard } from '../../home/review-carousel/review-card/review-card';
 import { formatRelativeDate } from '../../../core/utils/date';
 
 @Component({
   selector: 'app-review-detail',
   standalone: true,
-  imports: [RouterLink, LucideAngularModule, LikeButton, ReviewCard],
+  imports: [RouterLink, LucideAngularModule, LikeButton],
   templateUrl: './review-detail.html',
   styleUrl: './review-detail.scss',
 })
@@ -93,9 +92,5 @@ export class ReviewDetail {
 
   goToReview(reviewId: number) {
     this.router.navigate(['/reviews', reviewId]);
-  }
-
-  goToUser(username: string) {
-    this.router.navigate(['/users', username]);
   }
 }

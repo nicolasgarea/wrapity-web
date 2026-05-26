@@ -69,16 +69,46 @@
           <h2>More on {{ r.album.title }}</h2>
           <a class="more-link" [routerLink]="['/albums', r.album.id]">See all<span aria-hidden="true">&#x203A;</span></a>
         </header>
-        <div class="more-list">
+        <ul class="more-list">
           @for (other of others(); track other.id) {
-            <app-review-card
-              class="in-list"
-              [item]="other"
-              (reviewClick)="goToReview($event)"
-              (userClick)="goToUser($event)"
-            />
+            <li class="row" (click)="goToReview(other.id)">
+              <div class="row-avatar">
+                @if (other.author.avatar_url) {
+                  <img [src]="other.author.avatar_url" [alt]="other.author.username" />
+                } @else {
+                  {{ other.author.username.charAt(0).toUpperCase() }}
+                }
+              </div>
+              <div class="row-body">
+                <div class="row-head">
+                  <div class="row-meta">
+                    <span class="row-user">{{ other.author.username }}</span>
+                    <span class="row-date">{{ formatDate(other.created_at) }}</span>
+                  </div>
+                  <div class="row-stars">
+                    @for (i of stars; track i) {
+                      <lucide-icon
+                        [img]="Star"
+                        size="13"
+                        [class.filled]="i <= other.rating"
+                      ></lucide-icon>
+                    }
+                  </div>
+                </div>
+                @if (other.content) {
+                  <p class="row-content">{{ other.content }}</p>
+                }
+                <div class="row-actions">
+                  <app-like-button
+                    [reviewId]="other.id"
+                    [initialLiked]="other.liked_by_me ?? false"
+                    [initialCount]="other.likes_count ?? 0"
+                  />
+                </div>
+              </div>
+            </li>
           }
-        </div>
+        </ul>
       </section>
     }
   }

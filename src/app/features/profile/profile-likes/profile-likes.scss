@@ -11,6 +11,12 @@
   font-size: 0.875rem;
 }
 
+.likes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
 .more {
   display: flex;
   justify-content: center;
@@ -39,5 +45,19 @@
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+}
+
+@media (min-width: 600px) {
+  .likes-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .likes-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.25rem;
   }
 }

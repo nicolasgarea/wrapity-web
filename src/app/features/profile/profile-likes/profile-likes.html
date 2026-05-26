@@ -1,7 +1,16 @@
 @if (!loading() && items().length === 0) {
   <div class="empty">No liked reviews yet</div>
 } @else if (items().length > 0) {
-  <app-album-grid [items]="items()" />
+  <div class="likes-grid">
+    @for (item of items(); track item.id) {
+      <app-review-card
+        class="in-grid"
+        [item]="item"
+        (reviewClick)="goToReview($event)"
+        (userClick)="goToUser($event)"
+      />
+    }
+  </div>
 
   @if (hasMore()) {
     <div class="more">

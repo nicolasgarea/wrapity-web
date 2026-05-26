@@ -124,7 +124,19 @@
     background: transparent;
     color: $text;
     border: 1px solid $border;
-    &:hover:not(:disabled) { background: transparent; border-color: $secondary; color: $secondary; transform: none; }
+
+    .btn-label.hover { display: none; }
+    .btn-label.idle { display: inline; }
+
+    &:hover:not(:disabled) {
+      background: transparent;
+      border-color: $secondary;
+      color: $secondary;
+      transform: none;
+
+      .btn-label.idle { display: none; }
+      .btn-label.hover { display: inline; }
+    }
   }
 }
 

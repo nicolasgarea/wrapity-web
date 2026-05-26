@@ -38,7 +38,12 @@
         type="button"
         (click)="toggleFollow.emit()"
       >
-        {{ user().is_following ? 'Following' : 'Follow' }}
+        @if (user().is_following) {
+          <span class="btn-label idle">Following</span>
+          <span class="btn-label hover">Unfollow</span>
+        } @else {
+          Follow
+        }
       </button>
     }
   </div>

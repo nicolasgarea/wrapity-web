@@ -1,13 +1,12 @@
 import { Component, effect, inject, input, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ReviewService } from '../../../core/services/review.service';
 import { ReviewFeedItemResponse } from '../../../core/models/model/reviewFeedItemResponse';
-import { ReviewCard } from '../../home/review-carousel/review-card/review-card';
 
 @Component({
   selector: 'app-profile-likes',
   standalone: true,
-  imports: [ReviewCard],
+  imports: [RouterLink],
   templateUrl: './profile-likes.html',
   styleUrl: './profile-likes.scss',
 })
@@ -17,7 +16,7 @@ export class ProfileLikes {
   private reviewService = inject(ReviewService);
   private router = inject(Router);
 
-  readonly PAGE_SIZE = 12;
+  readonly PAGE_SIZE = 18;
 
   items = signal<ReviewFeedItemResponse[]>([]);
   loading = signal(false);
@@ -60,11 +59,13 @@ export class ProfileLikes {
     this.loadPage(false);
   }
 
-  goToReview(reviewId: number) {
-    this.router.navigate(['/reviews', reviewId]);
+  authorInitial(username: string): string {
+    return username.charAt(0).toUpperCase();
   }
 
-  goToUser(username: string) {
+  goToAuthor(event: Event, username: string) {
+    event.preventDefault();
+    event.stopPropagation();
     this.router.navigate(['/users', username]);
   }
 }

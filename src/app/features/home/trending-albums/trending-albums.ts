@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TrendingCard } from './trending-card/trending-card';
 import { Carousel } from '../../../shared/carousel/carousel';
@@ -14,4 +14,5 @@ export class TrendingAlbums {
   private albumService = inject(AlbumService);
 
   trendingAlbums = toSignal(this.albumService.getTrending());
+  loading = computed(() => this.trendingAlbums() === undefined);
 }

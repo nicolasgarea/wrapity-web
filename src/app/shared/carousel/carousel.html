@@ -22,6 +22,11 @@
     </button>
 
     <div class="carousel-viewport" #viewport>
+      @if (loading) {
+        @for (s of skeletons; track $index) {
+          <div class="skeleton-card"></div>
+        }
+      }
       <ng-content></ng-content>
     </div>
 

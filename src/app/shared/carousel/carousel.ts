@@ -10,8 +10,14 @@ import { RouterLink } from '@angular/router';
 export class Carousel {
   @Input() title?: string;
   @Input() seeAllLink?: string;
+  @Input() loading = false;
+  @Input() skeletonCount = 6;
 
   @ViewChild('viewport') viewport!: ElementRef<HTMLElement>;
+
+  get skeletons(): number[] {
+    return Array.from({ length: this.skeletonCount });
+  }
 
   get parsedSeeAll(): { path: string; queryParams: Record<string, string> } | null {
     if (!this.seeAllLink) return null;

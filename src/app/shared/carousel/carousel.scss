@@ -70,6 +70,33 @@
   }
 }
 
+.skeleton-card {
+  flex: 0 0 64%;
+  max-width: 64%;
+  height: 320px;
+  border-radius: $radius;
+  background: $surface;
+  border: 1px solid $border;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: wrapity-skeleton 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes wrapity-skeleton {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 .btn-nav {
   display: none;
 }
@@ -95,6 +122,12 @@
   .carousel-viewport {
     padding: 0 2rem;
     gap: 1.25rem;
+  }
+
+  .skeleton-card {
+    flex: 0 0 240px;
+    max-width: 240px;
+    height: 380px;
   }
 
   .btn-nav {

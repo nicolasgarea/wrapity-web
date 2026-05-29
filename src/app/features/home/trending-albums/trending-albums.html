@@ -1,4 +1,4 @@
-<app-carousel title="Trending Albums" seeAllLink="/albums/trending">
+<app-carousel title="Trending Albums" seeAllLink="/albums/trending" [loading]="loading()">
   @for (album of trendingAlbums(); track album.id; let i = $index) {
     <app-trending-card [album]="album" />
   }

@@ -1,4 +1,4 @@
-<app-carousel [title]="title()" [seeAllLink]="seeAllLink()">
+<app-carousel [title]="title()" [seeAllLink]="seeAllLink()" [loading]="loading()">
   @if (!loading() && items().length === 0 && emptyTitle()) {
     <div class="empty">
       <p class="empty-title">{{ emptyTitle() }}</p>

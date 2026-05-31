@@ -12,6 +12,7 @@
   flex: none;
   max-width: none;
   width: 100%;
+  min-width: 0;
   scroll-snap-align: unset;
 
   @media (max-width: 599px) {

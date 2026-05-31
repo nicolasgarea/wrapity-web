@@ -11,7 +11,9 @@ export class Carousel {
   @Input() title?: string;
   @Input() seeAllLink?: string;
   @Input() loading = false;
-  @Input() skeletonCount = 6;
+  @Input() skeletonCount = 8;
+  @Input() skeletonHeight = 325;
+  @Input() skeletonAspectRatio = '2 / 3';
 
   @ViewChild('viewport') viewport!: ElementRef<HTMLElement>;
 

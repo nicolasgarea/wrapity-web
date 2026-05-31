@@ -20,7 +20,7 @@
     <div class="carousel-viewport" #viewport>
       @if (loading) {
         @for (s of skeletons; track $index) {
-          <div class="skeleton-card"></div>
+          <div class="skeleton-card" [style.--sk-h.px]="skeletonHeight" [style.--sk-ratio]="skeletonAspectRatio"></div>
         }
       }
       <ng-content></ng-content>

@@ -115,7 +115,7 @@ export class AlbumDetail implements OnDestroy {
       this.content = '';
 
       this.loadPage(Number(id));
-      if (this.auth.currentUser()) this.loadMyReview(Number(id));
+      this.loadMyReview(Number(id));
     });
 
     effect(() => {
@@ -140,6 +140,7 @@ export class AlbumDetail implements OnDestroy {
           this.content = found.content ?? '';
         }
       },
+      error: () => {},
     });
   }
 

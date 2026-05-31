@@ -74,18 +74,33 @@
   }
 }
 
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+
+  .date::before {
+    content: none;
+  }
+}
+
 .rating {
   display: inline-flex;
-  gap: 0.1rem;
-  margin-top: 0.25rem;
-  color: $star;
+  align-items: center;
+  gap: 0.08rem;
+  color: rgba(255, 255, 255, 0.2);
 
   ::ng-deep svg {
     fill: transparent;
   }
 
-  .filled ::ng-deep svg {
-    fill: $star;
+  .filled {
+    color: $star;
+
+    ::ng-deep svg {
+      fill: $star;
+    }
   }
 }
 

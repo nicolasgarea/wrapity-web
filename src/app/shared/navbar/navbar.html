@@ -13,7 +13,7 @@
   <div class="nav-actions">
     @if (user()) {
       <a routerLink="/create" routerLinkActive="active" class="nav-create" aria-label="Write a review">
-        <lucide-icon [img]="PlusIcon" size="22"></lucide-icon>
+        <lucide-icon [img]="PlusIcon" size="18"></lucide-icon>
       </a>
       <div class="nav-profile">
         <button class="nav-avatar-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
@@ -42,15 +42,19 @@
   <div class="nav-mobile">
     <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <lucide-icon [img]="HouseIcon"></lucide-icon>
+      <span class="dot"></span>
     </a>
     <a routerLink="/search" routerLinkActive="active">
       <lucide-icon [img]="SearchIcon"></lucide-icon>
+      <span class="dot"></span>
     </a>
-    <a routerLink="/create" routerLinkActive="active" class="nav-fab" aria-label="Write a review">
-      <lucide-icon [img]="PlusIconMobile" size="28"></lucide-icon>
+    <a routerLink="/create" routerLinkActive="active" class="nav-create-mobile" aria-label="Write a review">
+      <lucide-icon [img]="PlusIconMobile"></lucide-icon>
+      <span class="dot"></span>
     </a>
     <a routerLink="/activity" routerLinkActive="active">
       <lucide-icon [img]="ActivityIcon"></lucide-icon>
+      <span class="dot"></span>
     </a>
     @if (user()) {
       <a routerLink="/profile" routerLinkActive="active">
@@ -59,10 +63,12 @@
         } @else {
           <div class="nav-avatar nav-avatar-initials">{{ getInitials() }}</div>
         }
+        <span class="dot"></span>
       </a>
     } @else {
       <a routerLink="/auth/login" routerLinkActive="active">
         <lucide-icon [img]="UserIcon"></lucide-icon>
+        <span class="dot"></span>
       </a>
     }
   </div>

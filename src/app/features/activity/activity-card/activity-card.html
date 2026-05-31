@@ -14,23 +14,27 @@
 
       @if (item().type === 'follow' && item().target_user) {
         <button class="user" (click)="onTargetUser()">{{ item().target_user!.username }}</button>
+        <span class="date">{{ formatDate(item().created_at) }}</span>
       } @else if (item().type === 'like' && item().review) {
-        <button class="user" (click)="onReviewAuthor()">
-          {{ item().review!.author.username }}'s
-        </button>
+        <button class="user" (click)="onReviewAuthor()">{{ item().review!.author.username }}'s</button>
         <span class="verb">review of</span>
         <button class="album-name" (click)="onReview()">{{ item().review!.album.title }}</button>
+        <span class="date">{{ formatDate(item().created_at) }}</span>
       } @else if (item().review) {
         <button class="album-name" (click)="onReview()">{{ item().review!.album.title }}</button>
       }
-      <span class="date">{{ formatDate(item().created_at) }}</span>
     </p>
 
-    @if (item().review; as review) {
-      <div class="rating">
-        @for (i of [1, 2, 3, 4, 5]; track i) {
-          <lucide-icon [img]="Star" size="12" [class.filled]="i <= review.rating"></lucide-icon>
+    @if (item().type !== 'follow' && item().type !== 'like' && item().review) {
+      <div class="meta">
+        @if (item().review!.rating) {
+          <span class="rating">
+            @for (i of [1, 2, 3, 4, 5]; track i) {
+              <lucide-icon [img]="Star" size="10" [class.filled]="i <= item().review!.rating"></lucide-icon>
+            }
+          </span>
         }
+        <span class="date">{{ formatDate(item().created_at) }}</span>
       </div>
     }
   </div>

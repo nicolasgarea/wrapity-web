@@ -109,49 +109,33 @@
         </section>
       }
 
-      <a class="artist-card" [routerLink]="['/artists', a.artist.id]">
-        <div class="artist-card-avatar">
-          @if (a.artist.picture) {
-            <img [src]="a.artist.picture" [alt]="a.artist.name" />
-          } @else {
-            {{ a.artist.name.charAt(0).toUpperCase() }}
-          }
-        </div>
-        <div class="artist-card-info">
-          <span class="artist-card-label">Artist</span>
-          <span class="artist-card-name">{{ a.artist.name }}</span>
-        </div>
-        <lucide-icon [img]="ChevronRight" size="18" class="artist-card-chevron"></lucide-icon>
-      </a>
-
       <nav class="tabs">
-        <button
-          class="tab"
-          [class.active]="section() === 'reviews'"
-          (click)="section.set('reviews')"
-        >
+        <button class="tab" [class.active]="section() === 'reviews'" (click)="section.set('reviews')">
           Reviews
         </button>
         @if (tracks().length) {
-          <button
-            class="tab"
-            [class.active]="section() === 'tracklist'"
-            (click)="section.set('tracklist')"
-          >
+          <button class="tab" [class.active]="section() === 'tracklist'" (click)="section.set('tracklist')">
             Tracklist
           </button>
         }
-        <button
-          class="tab"
-          [class.active]="section() === 'details'"
-          (click)="section.set('details')"
-        >
+        <button class="tab" [class.active]="section() === 'details'" (click)="section.set('details')">
           Details
         </button>
       </nav>
 
       <div class="tab-body">
         @switch (section()) {
+          @case ('tracklist') {
+            <ol class="tracks">
+              @for (t of tracks(); track t.id; let i = $index) {
+                <li class="track">
+                  <span class="track-num">{{ t.track_position ?? i + 1 }}</span>
+                  <span class="track-name">{{ t.title }}</span>
+                  <span class="track-dur">{{ formatDuration(t.duration) }}</span>
+                </li>
+              }
+            </ol>
+          }
           @case ('details') {
             <dl class="detail-grid">
               @if (year()) {
@@ -191,17 +175,6 @@
                 </div>
               }
             </dl>
-          }
-          @case ('tracklist') {
-            <ol class="tracks">
-              @for (t of tracks(); track t.id; let i = $index) {
-                <li class="track">
-                  <span class="track-num">{{ t.track_position ?? i + 1 }}</span>
-                  <span class="track-name">{{ t.title }}</span>
-                  <span class="track-dur">{{ formatDuration(t.duration) }}</span>
-                </li>
-              }
-            </ol>
           }
           @default {
             @if (r.length === 0 && !loadingMore()) {

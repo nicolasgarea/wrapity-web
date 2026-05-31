@@ -12,7 +12,7 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { DecimalPipe, Location } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { LucideAngularModule, ArrowLeft, Star, PenLine, ChevronRight } from 'lucide-angular';
+import { LucideAngularModule, ArrowLeft, Star, PenLine } from 'lucide-angular';
 import { switchMap } from 'rxjs';
 import { AlbumService } from '../../../core/services/album.service';
 import { ReviewService } from '../../../core/services/review.service';
@@ -39,7 +39,6 @@ export class AlbumDetail implements OnDestroy {
   readonly ArrowLeft = ArrowLeft;
   readonly Star = Star;
   readonly PenLine = PenLine;
-  readonly ChevronRight = ChevronRight;
   readonly stars = [1, 2, 3, 4, 5];
   readonly PAGE_SIZE = 10;
   readonly formatDate = formatRelativeDate;

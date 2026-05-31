@@ -3,32 +3,7 @@
 .activity {
   max-width: 640px;
   margin: 0 auto;
-  padding: 1.5rem 1rem 5rem;
-}
-
-.page-header {
-  margin-bottom: 0.5rem;
-  padding-bottom: 1.1rem;
-  border-bottom: 1px solid $border;
-
-  h1 {
-    font-family: $font-heading;
-    font-size: 2.1rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: $text;
-    margin: 0;
-  }
-
-  p {
-    font-family: $font-heading;
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: $text-muted;
-    margin: 0.5rem 0 0;
-  }
+  padding: 1rem 1rem 5rem;
 }
 
 .state {

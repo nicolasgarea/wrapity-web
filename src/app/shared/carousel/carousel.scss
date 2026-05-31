@@ -1,7 +1,7 @@
 @use '../../../styles/variables' as *;
 
 .carousel-section {
-  padding: 1.25rem 0.5rem;
+  padding: 0.75rem 0;
   overflow: visible;
 }
 
@@ -19,33 +19,24 @@
   font-family: $font-heading;
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: $text;
   margin: 0;
   transition: color 0.15s ease;
 }
 
-.header-arrow {
+.see-all {
   font-family: $font-heading;
-  font-size: 1.4rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  line-height: 1;
   color: $text-muted;
+  text-decoration: none;
   flex-shrink: 0;
-  transition: transform 0.15s ease, color 0.15s ease;
-}
+  transition: color 0.15s ease;
 
-.carousel-header-link {
-  cursor: pointer;
-
-  &:hover h2 {
-    color: $primary;
-  }
-
-  &:hover .header-arrow {
-    color: $primary;
-    transform: translateX(4px);
+  &:hover {
+    color: $text;
   }
 }
 
@@ -64,6 +55,7 @@
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: 0 1.5rem;
+  scroll-padding-left: 1.5rem;
 
   &::-webkit-scrollbar {
     display: none;
@@ -71,9 +63,9 @@
 }
 
 .skeleton-card {
-  flex: 0 0 64%;
-  max-width: 64%;
-  height: 320px;
+  flex: 0 0 46%;
+  max-width: 46%;
+  height: 260px;
   border-radius: $radius;
   background: $surface;
   border: 1px solid $border;
@@ -112,11 +104,11 @@
 
   .carousel-header h2 {
     font-size: 0.95rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.1em;
   }
 
-  .header-arrow {
-    font-size: 1.6rem;
+  .see-all {
+    font-size: 0.78rem;
   }
 
   .carousel-viewport {
@@ -125,9 +117,9 @@
   }
 
   .skeleton-card {
-    flex: 0 0 240px;
-    max-width: 240px;
-    height: 380px;
+    flex: 0 0 180px;
+    max-width: 180px;
+    height: 300px;
   }
 
   .btn-nav {

@@ -1,18 +1,4 @@
-<app-logo class="bg-logo" aria-hidden="true" />
-
 <div class="page">
-  @if (reviewMode()) {
-    <header class="page-header">
-      <h1>Write a review</h1>
-      <p>Choose an album to review.</p>
-    </header>
-  } @else {
-    <header class="page-header">
-      <h1>Discover</h1>
-      <p>Find albums, artists and people on wrapity.</p>
-    </header>
-  }
-
   <div class="search-box">
     <lucide-icon class="icon" [img]="SearchIcon" size="22"></lucide-icon>
     <input

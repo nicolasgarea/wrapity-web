@@ -2,8 +2,8 @@
 
 :host {
   display: block;
-  flex: 0 0 64%;
-  max-width: 64%;
+  flex: 0 0 46%;
+  max-width: 46%;
   scroll-snap-align: start;
   box-sizing: border-box;
 }
@@ -17,40 +17,27 @@
   @media (max-width: 599px) {
     .card {
       flex-direction: row;
-      height: auto;
-      min-height: 0;
+      align-items: stretch;
     }
 
     .cover {
-      flex: 0 0 100px;
-      height: auto;
-
-      &::after {
-        height: 65%;
-      }
-    }
-
-    .cover-rating {
-      left: 0.45rem;
-      bottom: 0.4rem;
+      flex: 0 0 90px;
+      width: 90px;
+      aspect-ratio: unset;
+      height: unset;
+      align-self: stretch;
     }
 
     .body {
-      padding: 0.6rem 0.75rem;
-      gap: 0.3rem;
-    }
-
-    .album-title {
-      font-size: 0.8rem;
-    }
-
-    .content {
-      -webkit-line-clamp: 2;
-      font-size: 0.72rem;
+      flex: 1;
+      min-width: 0;
+      padding: 0.65rem 0.75rem;
+      gap: 0.35rem;
+      justify-content: space-between;
     }
 
     .meta {
-      gap: 0.4rem;
+      margin-top: 0;
     }
   }
 }
@@ -58,7 +45,6 @@
 .card {
   display: flex;
   flex-direction: column;
-  height: 320px;
   background: $surface;
   border: 1px solid $border;
   border-radius: $radius;
@@ -73,9 +59,11 @@
 
 .cover {
   position: relative;
-  flex: 0 0 175px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   background: $surface-2;
   overflow: hidden;
+  flex-shrink: 0;
 
   img {
     width: 100%;
@@ -88,8 +76,8 @@
     content: '';
     position: absolute;
     inset: auto 0 0 0;
-    height: 55%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    height: 40%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
     pointer-events: none;
   }
 }
@@ -102,12 +90,12 @@
 
 .cover-rating {
   position: absolute;
-  left: 0.7rem;
-  bottom: 0.6rem;
+  left: 0.4rem;
+  bottom: 0.4rem;
   z-index: 1;
   display: flex;
-  gap: 0.12rem;
-  color: rgba(255, 255, 255, 0.55);
+  gap: 0.08rem;
+  color: rgba(255, 255, 255, 0.45);
 
   lucide-icon {
     filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
@@ -127,24 +115,23 @@
 }
 
 .body {
-  flex: 1;
+  padding: 0.85rem 0.9rem 0.95rem;
   display: flex;
   flex-direction: column;
-  padding: 0.7rem 0.8rem;
-  gap: 0.4rem;
-  min-height: 0;
+  gap: 0.6rem;
 }
 
 .album {
   display: flex;
   flex-direction: column;
-  gap: 0.12rem;
+  gap: 0.2rem;
   min-width: 0;
 }
 
 .album-title {
+  display: block;
   font-family: $font-heading;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: $text;
   white-space: nowrap;
@@ -154,39 +141,21 @@
 }
 
 .album-artist {
+  display: block;
   font-family: $font-heading;
-  font-size: 0.6rem;
+  font-size: 0.67rem;
   font-weight: 500;
   color: $text-muted;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.content {
-  font-family: $font-body;
-  font-size: 0.76rem;
-  line-height: 1.5;
-  color: $text-muted;
-  margin: 0;
-  flex: 1;
-  min-height: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  overflow-wrap: anywhere;
-  word-break: break-word;
 }
 
 .meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto;
-  gap: 0.5rem;
+  gap: 0.3rem;
 
   app-like-button {
     flex-shrink: 0;
@@ -196,7 +165,7 @@
 .author {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.35rem;
   background: transparent;
   border: none;
   padding: 0;
@@ -210,18 +179,10 @@
   }
 }
 
-.author-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.05rem;
-  min-width: 0;
-  text-align: left;
-}
-
 .avatar {
   flex-shrink: 0;
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: $surface-2;
   border: 1px solid $border;
@@ -229,7 +190,7 @@
   align-items: center;
   justify-content: center;
   font-family: $font-heading;
-  font-size: 0.52rem;
+  font-size: 0.45rem;
   font-weight: 700;
   color: $text-muted;
   overflow: hidden;
@@ -243,19 +204,12 @@
 
 .username {
   font-family: $font-heading;
-  font-size: 0.68rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  color: $text;
+  color: $text-muted;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.date {
-  font-family: $font-body;
-  font-size: 0.6rem;
-  color: $text-muted;
-  white-space: nowrap;
 }
 
 @media (min-width: 768px) {
@@ -264,25 +218,16 @@
     max-width: 240px;
   }
 
-  .card {
-    height: 380px;
-  }
-
-  .cover {
-    flex: 0 0 230px;
-  }
-
-  .body {
-    padding: 0.8rem 0.9rem;
-    gap: 0.45rem;
-  }
-
   .album-title {
     font-size: 0.9rem;
   }
 
-  .content {
-    font-size: 0.78rem;
-    -webkit-line-clamp: 3;
+  .album-artist {
+    font-size: 0.65rem;
+  }
+
+  .body {
+    padding: 0.85rem 0.9rem 0.95rem;
+    gap: 0.55rem;
   }
 }

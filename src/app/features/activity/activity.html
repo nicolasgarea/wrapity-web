@@ -1,6 +1,6 @@
 <section class="activity">
   @if (loading()) {
-    <p class="state">Loading activity…</p>
+    <p class="state delayed-loading">Loading activity…</p>
   } @else if (items().length === 0) {
     <p class="state">
       No activity yet. Follow some people to see what they're up to.

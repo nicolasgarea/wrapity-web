@@ -23,3 +23,33 @@ a {
   -webkit-user-drag: none;
   user-drag: none;
 }
+
+.delayed-loading {
+  opacity: 0;
+  animation: delayed-loading-appear 0.15s ease-out 0.15s forwards;
+}
+
+@keyframes delayed-loading-appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (pointer: coarse) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    overscroll-behavior-y: none;
+  }
+
+  button,
+  nav {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}

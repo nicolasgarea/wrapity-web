@@ -19,6 +19,12 @@ body {
   }
 }
 
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
 a {
   -webkit-user-drag: none;
   user-drag: none;

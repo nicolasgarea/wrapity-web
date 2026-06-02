@@ -481,6 +481,10 @@ lucide-icon {
   display: flex;
   flex-direction: column;
   padding-top: 0.25rem;
+
+  @media (pointer: coarse) {
+    min-height: 60vh;
+  }
 }
 
 .detail-grid {

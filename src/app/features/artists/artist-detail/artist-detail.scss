@@ -23,7 +23,7 @@ lucide-icon {
 
 .back-btn {
   position: absolute;
-  top: 5rem;
+  top: calc(5rem + env(safe-area-inset-top));
   left: 1rem;
   z-index: 10;
   width: 40px;

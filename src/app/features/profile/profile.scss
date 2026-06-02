@@ -59,10 +59,7 @@
 .tab-body {
   display: flex;
   flex-direction: column;
-
-  @media (pointer: coarse) {
-    min-height: 60vh;
-  }
+  min-height: 60vh;
 }
 
 @media (min-width: 768px) {
